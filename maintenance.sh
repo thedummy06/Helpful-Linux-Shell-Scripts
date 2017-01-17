@@ -31,7 +31,7 @@ cd
 
 #This checks for and repairs internet connection
 #This mainly checks for wired connections, if you want wireless
-#I will include a wireless rendition of this later on as a separate script
+#I may include a wireless rendition of this later on as a separate script
 for c in computer; 
 do ping -c4 google.com > /dev/null
 if [ $? -eq 0 ]
