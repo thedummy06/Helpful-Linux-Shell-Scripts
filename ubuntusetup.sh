@@ -125,7 +125,7 @@ echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
 echo "# Improve cache management" | sudo tee -a /etc/sysctl.conf
 echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
 echo "#tcp flaw workaround" | sudo tee -a /etc/sysctl.conf
-echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.conf
+echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.conf #This is for older kernels but it's safest
 sudo sysctl -p
 
 #This activates the firewall
