@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Will attempt to install nvidia, will detect amd cards too.
+#Will attempt to install nvidia, will detect amd cards too, but might have to change anything saying nvidia in this.
 
 #This checks your device
 sudo mhwd -li
