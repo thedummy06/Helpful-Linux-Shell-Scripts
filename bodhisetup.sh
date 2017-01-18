@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This will ensure you do not have any common network issues
+#This will ensure you have a network connection.
 for c in computer; 
 do ping -c4 google.com > /dev/null
 if [ $? -eq 0 ]
