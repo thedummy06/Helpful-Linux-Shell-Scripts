@@ -13,7 +13,7 @@ Below is a simple set of instructions should you need them.
 #This is pretty much the same as the others, to use these scripts
 #Make sure that all of them are moved to your home folder. 
 #Do  NOT leave them
-#In the parent folder that they came in. 
+#In the parent folder that they came in. (If any)
 #You must open a terminal... terminology or xterm 
 #And you must type the script name as follows :
 # ./SCRIPTNAME or ./SCRIPTNAME.sh
