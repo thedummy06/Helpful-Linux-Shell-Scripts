@@ -1,6 +1,6 @@
 #!/bin/bash
 #This updates the hosts file
-mv /etc/hosts.bak /etc/hosts
+mv /etc/hosts.bak /etc/hosts #This only matters after the first run, it'll move past this the first time.
 cp /etc/hosts /etc/hosts.bak
 #cd /home/$USER #If you run as cron job.
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
