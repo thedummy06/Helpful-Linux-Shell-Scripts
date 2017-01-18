@@ -2,7 +2,7 @@
 #This updates the hosts file
 mv /etc/hosts.bak /etc/hosts #This only matters after the first run, it'll move past this the first time.
 cp /etc/hosts /etc/hosts.bak
-#cd /home/$USER #If you run as cron job.
+#cd /home/$USER #If you run as cron job, uncomment this line.
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 cat list >> hosts
 cat hosts >> /etc/hosts 
