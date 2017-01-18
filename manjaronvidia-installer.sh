@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Will attempt to install nvidia, will detect amd cards too.
+
 #This checks your device
 sudo mhwd -li
 sleep 1
