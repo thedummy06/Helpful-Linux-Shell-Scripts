@@ -46,9 +46,6 @@ sudo pacman -Syyu
 fi
 done
 
-#This runs mkinit on your kernel
-sudo mkinitcpio -g $(mhwd-kernel -li)
-
 #This will install a few useful apps
 sudo pacman -S screenfetch
 sudo pacman -S bleachbit
