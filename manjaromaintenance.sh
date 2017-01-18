@@ -79,7 +79,7 @@ sudo update-grub
 sudo etc-update
 
 #This adds screen fetch to the new bash.bashrc file
-echo "screenfetch" | sudo tee -a /etc/bash.bashrc
+echo "screenfetch" | sudo tee -a /etc/bash.bashrc #Sometimes updating and running etc-update could change this so...
 
 #This runs a disk checkup and attempts to fix filesystem
 sudo touch /forcefsck #Only really useful if you're sure of filesystem corruption, but doesn't hurt once a month or so.
