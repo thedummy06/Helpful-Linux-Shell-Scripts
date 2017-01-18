@@ -17,7 +17,7 @@ done
 
 #This will update your system
 sudo apt-get update 
-sudo apt-get upgrade
+sudo apt-get upgrade #Helps ensure  you get all the updates in linux mint.
 sudo apt-get -y dist-upgrade 
 
 #This will install your main apps for you 
@@ -53,7 +53,7 @@ echo "1 - ubuntu-restricted-extras"
 echo "2 - xubuntu-restricted-extras"
 echo "3 - lubuntu-restricted-extras"
 echo "4 - kubuntu-restricted-extras"
-echo "5 - exit"
+echo "5 - if unsure hit this for now"
 
 read operation;
 
@@ -79,8 +79,7 @@ fi
 echo "Would you like a dark theme?"
 read answer 
 if [[ $answer == Y ]]; 
-then 
-sudo add-apt-repository ppa:mutse-young/remastersys
+then
 sudo apt-add-repository ppa:numix/ppa
 sudo add-apt-repository ppa:noobslab/icons
 sudo add-apt-repository ppa:moka/stable
@@ -109,9 +108,6 @@ fi
 
 #This sets your default editor in bashrc
 export EDITOR=nano
-
-#Install remastersys 
-sudo apt-get install remastersys
 
 #System tweaks
 sudo cp /etc/default/grub /etc/default/grub.bak
