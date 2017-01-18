@@ -82,7 +82,7 @@ sudo etc-update
 echo "screenfetch" | sudo tee -a /etc/bash.bashrc
 
 #This runs a disk checkup and attempts to fix filesystem
-sudo touch /forcefsck 
+sudo touch /forcefsck #Only really useful if you're sure of filesystem corruption, but doesn't hurt once a month or so.
 
 #You can run bleachbit
 echo "You may wish to run bleachbit for other trash and unneeded locales"
@@ -93,12 +93,12 @@ then bleachbit
 fi
 
 #This refreshes systemd in case of new or failed units
-sudo systemctl daemon-reload
+sudo systemctl daemon-reload #If you're loading new units or having trouble with systemd, this might help.
 
 #This aids in diagnosing systemd specific issues
-systemctl status >> systemddiagnostics.txt
+systemctl status >> systemdstat.txt
 systemctl >> systemddiagnostics.txt
-systemctl --failed >> systemddiagnostics.txt
+systemctl --failed >> systemdfailed.txt
 
 #Sometimes it's good to check for broken symlinks
 echo "Checking for broken symlinks."
