@@ -75,6 +75,9 @@ echo "screenfetch" | sudo tee -a /etc/bash.bashrc
 #Probably totally unnecessary, but I found if you remove a kernel the image still shows in bootloader.
 sudo update-grub
 
+#This tries to create a preset of your kernel(s) for faster access of the needed modules.
+sudo mkinitcpio -p linux* #better to do it here after all the updates.
+
 #This will help with configuration file mismatches
 sudo etc-update
 
