@@ -61,6 +61,7 @@ sudo apt-get install chromium-bsu gnome-mahjongg aisleriot
 fi 
 
 #This will install themes
+echo "Themes by ravefinity.com"
 echo "Would you like some cool themes? (Y/n)"
 read answer 
 if [[ $answer == Y ]];
