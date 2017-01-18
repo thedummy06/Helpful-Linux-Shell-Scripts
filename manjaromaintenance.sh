@@ -72,6 +72,9 @@ echo "screenfetch" | sudo tee -a /etc/bash.bashrc
 #This updates the hosts file:Optional
 #sudo ./hostsman4linux.sh
 
+#Probably totally unnecessary, but I found if you remove a kernel the image still shows in bootloader.
+sudo update-grub
+
 #This will help with configuration file mismatches
 sudo etc-update
 
