@@ -76,6 +76,7 @@ sudo apt-get -y install gnome-sudoku gnome-mines chromium-bsu supertux
 fi 
 
 #This will install themes
+echo "Themes by ravefinity.com"
 echo "Would you like a dark theme?"
 read answer 
 if [[ $answer == Y ]]; 
