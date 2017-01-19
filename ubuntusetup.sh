@@ -31,8 +31,8 @@ sudo apt-get -y install traceroute gdebi chromium-browser
 sudo apt-get -y install synaptic software-properties-common inxi
 sudo apt-get -y install ncdu gufw libreoffice
 sudo apt-get -y install iotop htop handbrake
+sudo apt-get install qupzilla
 #Optional
-#sudo apt-get install qupzilla
 #sudo apt-get install midori
 #sudo apt-get install rhythmbox
 #sudo apt-get install gnome-tweak-tool
@@ -95,16 +95,6 @@ sudo apt-get install emerald-icon-theme
 sudo apt-get install dalisha-icons
 sudo apt-get install moka-icon-theme
 sudo apt-get install faenza-icon-theme
-fi
-
-#This will optionally install pale moon browser
-echo "Would you like to install a light weight browser? (Y/n)"
-read answer
-if [[ $answer == Y ]]:
-then 
-wget http://linux.palemoon.org/files/pminstaller/0.2.2/pminstaller-0.2.2.tar.bz2
-sudo tar -xvjf pminstaller-0.2.2.tar.bz2
-./pminstaller.sh
 fi
 
 #This sets your default editor in bashrc
