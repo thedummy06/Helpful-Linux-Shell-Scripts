@@ -35,9 +35,9 @@ sudo apt-get -y install moksha-clipboard
 sudo apt-get -y install qalculate iotop handbrake
 sudo apt-get -y install exterminator inxi nmap
 sudo apt-get -y install bodhi-backgrounds-pack
+sudo apt-get install qupzilla
 #Optional extra software
 #sudo apt-get install bodhi-apppack
-#sudo apt-get install qupzilla
 #sudo apt-get install firefox
 #sudo apt-get install pidgin
 #sudo apt-get install rhythmbox
@@ -88,16 +88,6 @@ sudo apt-get install numix-icon-theme-circle
 sudo apt-get install dorian-theme
 sudo apt-get install delorean-dark
 sudo apt-get install faenza-icon-theme
-fi
-
-#This will install pale moon
-echo "Would you like to install a light weight browser? (Y/n)"
-read answer
-if [[ $answer == Y ]];
-then 
-wget http://linux.palemoon.org/files/pminstaller/0.2.2/pminstaller-0.2.2.tar.bz2
-sudo tar -xvjf pminstaller-0.2.2.tar.bz2
-./pminstaller.sh
 fi
 
 #exports the chosen editor to bashrc
