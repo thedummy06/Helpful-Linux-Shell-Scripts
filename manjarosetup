@@ -67,7 +67,7 @@ sudo mv etc-update.tar.gz ~/builds
 cd ~/builds
 tar -xvf etc-update.tar.gz
 cd etc-update
-nano PKGBUILD
+nano PKGBUILD #If everything else worked, just press ctrl and x and the same time on your keyboard to discard.
 makepkg -sri
 cd
 
