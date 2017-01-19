@@ -4,7 +4,7 @@ mv /etc/hosts.bak /etc/hosts #This only matters after the first run, it'll move 
 cp /etc/hosts /etc/hosts.bak
 #cd /home/$USER #If you run as cron job, uncomment this line.
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
-cat list >> hosts
+cat hostslist >> hosts
 cat hosts >> /etc/hosts 
 service network-manager restart
 rm hosts 
