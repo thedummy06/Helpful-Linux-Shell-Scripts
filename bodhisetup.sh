@@ -123,10 +123,9 @@ fi
 #Optional, but it is highly recommended that you make a quick backup
 #The backup directory can be found in your root folder, unless you specify #otherwise
 #cd /
-#sudo mkdir backups
-#sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/#*","/mnt/*","/media/*","/lost+found"","/backups/*} / /backups
+#sudo tar -cvpzf  / --exclude=/dev --exclude=/proc --exclude=/sys --exclude=/tmp --exclude=/run --exclude=/mnt --exclude=/media --exclude=/lost+found --exclude=/backups
 #Or for home folder only
-#sudo rsync -aAXv /home/$USER/ /backups
+#sudo tar -cvpzf /home/$USER/ /
 
 #This installs and activates archey
 sudo apt-get install scrot lsb-release
