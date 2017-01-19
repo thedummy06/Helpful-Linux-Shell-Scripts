@@ -70,7 +70,7 @@ echo "Would you like to install games? (Y/n)"
 read Answer
 if [[ $Answer == Y ]];
 then 
-#sudo apt-get -y install supertuxkart
+sudo apt-get -y install supertuxkart
 sudo apt-get -y install gnome-mahjongg aisleriot ace-of-penguins 
 sudo apt-get -y install gnome-sudoku gnome-mines chromium-bsu supertux
 fi 
