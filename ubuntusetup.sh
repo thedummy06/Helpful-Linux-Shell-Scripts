@@ -137,10 +137,9 @@ echo "archey" | sudo tee -a /etc/bash.bashrc
 #Optional, but it is highly recommended that you make a quick backup
 #The backup directory can be found in your root folder, unless you specify #otherwise 
 #cd /
-#sudo mkdir backups
-#sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"","/backups/*} / /backups
+#sudo tar -cvpzf backup.tgz --exclude=/dev --exclude=/proc --exclude=/sys --exclude=/tmp --exclude=/run --exclude=/mnt --exclude=/media --exclude=/lost+found --exclude=/backup.tgz / 
 #Or for home folder only
-#sudo rsync -aAXv /home/USER/ /backups
+#sudo tar -cvpzf /home/USER/ /
 
 #Let's reboot
 sudo shutdown -r now
