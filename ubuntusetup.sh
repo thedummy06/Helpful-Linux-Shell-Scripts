@@ -139,7 +139,7 @@ echo "archey" | sudo tee -a /etc/bash.bashrc
 #cd /
 #sudo tar -cvpzf backup.tgz --exclude=dev --exclude=proc --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found --exclude=backup.tgz
 #Or for home folder only
-#sudo tar -cvpzf backuphome.tgz /home/USER/ 
+#sudo tar -cvpzf backuphome.tgz /  
 
 #Let's reboot
 sudo shutdown -r now
