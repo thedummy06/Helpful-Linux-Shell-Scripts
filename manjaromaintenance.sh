@@ -32,6 +32,9 @@ Xorg -version >> analysis.txt
 ldd --version >> analysis.txt
 tail /var/log/dmesg >> dmesg.txt
 tail /var/log/syslog >> syslog.txt
+journalctl -a >> journald.txt #These are logs of important system events
+systemd-analyze >> boottimercheck.txt #Guages length of time during boot
+systemd-analyze blame >> boottimercheck.txt #Shows service loading times
 sudo lshw >> hardware.txt
 sudo lspci >> lspci.txt
 sudo lsusb >> lsusb.txt
@@ -46,6 +49,9 @@ sudo ufw enable
 sudo rm -r .cache/*
 sudo rm -r .thumbnails/*
 sudo rm -r ~/.local/share/Trash
+
+#This helps get rid of old archived log entries
+sudo journalctl --vacuum-size=100M
 
 #This will remove orphan packages from pacman 
 #sudo pacman -Rs $(pacman -Qqdt)
