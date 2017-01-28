@@ -109,10 +109,8 @@ systemctl status >> systemdstat.txt
 systemctl >> systemddiagnostics.txt
 systemctl --failed >> systemdfailed.txt
 
-#Sometimes it's good to check for broken symlinks
-echo "Checking for broken symlinks."
-echo "When convenient, refer back to sym.txt for the links."
-find -xtype l -print >> sym.txt
+#Sometimes it's good to check for and remove broken symlinks
+find -xtype l -delete
 
 #This will reboot the system
 sudo systemctl reboot
