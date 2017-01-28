@@ -85,5 +85,8 @@ sudo apt-get install hardinfo
 hardinfo
 fi
 
+#Check for and remove broken symlinks
+#find -xtype l -delete
+
 #You should really reboot now!
 sudo shutdown -r now 
