@@ -20,6 +20,9 @@ sudo lsusb >> lsusb.txt
 uname -a >> analysis.txt
 cat /var/log/dmesg >> dmesg.txt
 sudo dmidecode >> dmidecode.txt
+#journalctl -a >> journallog.txt #For newer systemd releases
+#systemd-analyze >> boottimer.txt #For newer systemd releases
+#systemd-analyze blame >> boottimer.txt #For newer systemd releases
 sudo blkid >> analysis.txt
 lsblk >> analysis.txt
 lsb_release -a >> analysis.txt
@@ -56,6 +59,9 @@ sudo rm -r .cache/*
 sudo rm -r .thumbnails/*
 sudo rm -r ~/.local/share/Trash
 
+#This trims journal logs
+#sudo journalctl --vacuum-size=100M #For newer systemd releases
+
 #This updates the system
 sudo apt-get update && sudo apt-get -y dist-upgrade
 
@@ -86,7 +92,7 @@ hardinfo
 fi
 
 #Check for and remove broken symlinks
-#find -xtype l -delete
+find -xtype l -delete
 
 #You should really reboot now!
 sudo shutdown -r now 
