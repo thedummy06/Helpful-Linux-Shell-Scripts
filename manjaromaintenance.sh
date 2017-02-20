@@ -8,12 +8,13 @@ if [ $? -eq 0 ]
 then 
 	echo "Connection successful"
 else
+ifconfig >> ifconfig.txt
 sudo systemctl stop NetworkManager.service
 sudo systemctl disable NetworkManager.service
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
-sudo ifconfig up eth0
-sudo dhclient eth0
+sudo ifconfig up $interfacename #Refer to ifconfig.txt
+sudo dhclient -r $interfacename && sudo dhclient $interfacename
 fi
 done
 
@@ -27,17 +28,16 @@ sudo blkid >> analysis.txt
 lsblk >> analysis.txt
 lsb_release -a >> analysis.txt
 sudo ps aux >> analysis.txt
-ifconfig >> analysis.txt
 Xorg -version >> analysis.txt
 ldd --version >> analysis.txt
-#tail /var/log/dmesg >> dmesg.txt
-#tail /var/log/syslog >> syslog.txt
+#dmesg >> dmesg.txt
 journalctl -a >> journald.txt #These are logs of important system events
 systemd-analyze >> boottimercheck.txt #Guages length of time during boot
 systemd-analyze blame >> boottimercheck.txt #Shows service loading times
-sudo lshw >> hardware.txt
+lshw >> lshw.txt
 sudo lspci >> lspci.txt
 sudo lsusb >> lsusb.txt
+cat /proc/cpuinfo >> cpuinfo.txt
 #sudo hdparm -tT /drive/name >> diskspeed.txt #Measures disk speed
 cd
 
@@ -52,7 +52,7 @@ sudo rm -r .thumbnails/*
 sudo rm -r ~/.local/share/Trash
 
 #This helps get rid of old archived log entries
-sudo journalctl --vacuum-size=100M
+sudo journalctl --vacuum-size=50M
 
 #This will remove orphan packages from pacman 
 #sudo pacman -Rs $(pacman -Qqdt)
@@ -71,10 +71,13 @@ sudo pacman-mirrors -g
 sudo pacman-optimize && sync
 sudo pacman -Syyu
 
-#This will set up screenfetch
-sudo pacman -S screenfetch
+#update the grub 
+sudo update-grub
+
+#This will set up archey3
+sudo pacman -S archey3
 sudo cp /etc/bash.bashrc /etc/bash.bashrc.bak
-echo "screenfetch" | sudo tee -a /etc/bash.bashrc
+echo "archey3" | sudo tee -a /etc/bash.bashrc
 
 #This updates the hosts file:Optional
 #sudo ./hostsman4linux.sh
@@ -97,6 +100,7 @@ fi
 sudo systemctl daemon-reload
 
 #This aids in diagnosing systemd specific issues
+cd troubleshooting
 systemctl status >> systemddiagnostics.txt
 systemctl >> systemddiagnostics.txt
 systemctl --failed >> systemddiagnostics.txt

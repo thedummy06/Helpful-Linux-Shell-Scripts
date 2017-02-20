@@ -1,12 +1,14 @@
 #!/bin/bash
 
 #Sets default editor in bashrc
-export EDITOR=nano
+echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 
 #This starts your firewall 
 sudo systemctl enable ufw 
 sudo ufw enable 
-#sudo ufw deny ssh
+sudo ufw deny telnet
+sudo ufw allow transmission
+#sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
 
 #This restricts coredumps to prevent attackers from getting info
 sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
@@ -20,14 +22,21 @@ if [ $? -eq 0 ]
 then 
 	echo "Connection successful"
 else
+ifconfig >> ifconfig.txt
 sudo systemctl stop NetworkManager.service
 sudo systemctl disable NetworkManager.service
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
-sudo ifconfig up $interfacename
+sudo ifconfig up $interfacename #Refer to ifconfig.txt
 sudo dhclient -r $interfacename && sudo dhclient $interfacename
 fi
 done 
+
+#If you use steam and certain other applications which are 32bit
+sudo cp /etc/pacman.conf /etc/pacman.conf.bak
+sudo sed -i -e '/#[multilib]/c\[multilib] ' /etc/pacman.conf
+sudo sed -i -e '/#Include = /etc/pacman.d/mirrorlist/c\Include = /etc/pacman.d/mirrorlist ' /etc/pacman.conf
+
 
 #This tries to update and rate mirrors if it fails it refreshes the keys
 for s in updates;
@@ -44,6 +53,7 @@ else
 sudo rm /var/lib/pacman/db.lck 
 sudo rm -r /etc/pacman.d/gnupg 
 sudo pacman -Sy gnupg archlinux-keyring antergos-keyring
+sudo pacman-key --init
 sudo pacman-key --populate archlinux antergos 
 sudo pacman -Sc 
 sudo pacman -Syyu 
@@ -54,7 +64,6 @@ done
 sudo mkinitcpio -P
 
 #This will install a few useful apps
-sudo pacman -S screenfetch
 sudo pacman -S bleachbit
 sudo pacman -S gnome-disk-utility
 sudo pacman -S ncdu 
@@ -64,7 +73,10 @@ sudo pacman -S epiphany
 sudo pacman -S hdparm 
 sudo pacman -S hddtemp 
 sudo pacman -S xsensors
+sudo pacman -S hardinfo
+sudo pacman -S lshw
 #Optional 
+#sudo pacman -S steam
 #sudo pacman -S rhythmbox
 #sudo pacman -S palemoon-bin
 #sudo pacman -S chromium

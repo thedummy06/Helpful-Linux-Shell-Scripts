@@ -1,16 +1,23 @@
 #!/bin/bash
 
 #Sets default editor in bashrc
-export EDITOR=nano
+echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 
 #This starts your firewall 
 sudo systemctl enable ufw 
 sudo ufw enable 
-#sudo ufw deny ssh
+sudo ufw deny telnet 
+sudo ufw allow transmission
+#sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
 
 #This restricts coredumps to prevent attackers from getting info
-#sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
-#sudo sed -i -e '/#Storage=external/c\Storage=none ' /etc/systemd/coredump.conf
+sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
+sudo sed -i -e '/#Storage=external/c\Storage=none ' /etc/systemd/coredump.conf
+sudo touch /etc/sysctl.d/50-dmesg-restrict.conf
+sudo touch /etc/sysctl.d/50-kptr-restrict.conf
+echo "kernel.dmesg_restrict = 1" | sudo tee -a /etc/sysctl.d/50-dmesg-restrict.conf
+echo "kernel.kptr_restrict = 1" | sudo tee -a /etc/sysctl.d/50-kptr-restrict.conf
+sudo systemctl daemon-reload
 
 #This will try to ensure you have a strong network connection
 for c in computer;
@@ -20,12 +27,13 @@ if [ $? -eq 0 ]
 then 
 	echo "Connection successful"
 else
+ifconfig >> ifconfig.txt
 sudo systemctl stop NetworkManager.service
 sudo systemctl disable NetworkManager.service
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
-sudo ifconfig up eth0
-sudo dhclient eth0
+sudo ifconfig up $interfacename #Refer to ifconfig.txt
+sudo dhclient -r $interfacename && sudo dhclient $interfacename
 fi
 done 
 
@@ -34,6 +42,8 @@ for s in updates;
 do 
 sudo pacman-mirrors -g
 sudo pacman-optimize && sync
+sudo pacman -Syy
+sudo pacman -S manjaro-keyring archlinux-keyring
 sudo pacman -Syyu 
 if [ $? -eq 0 ] 
 then 
@@ -50,23 +60,41 @@ sudo pacman -Syyu
 fi
 done
 
-#This runs mkinit on your kernel
-sudo mkinitcpio -g $(mhwd-kernel -li)
+#This runs mkinit on your kernel and ensures the updates worked
+sudo mkinitcpio -P
+sudo update-grub
 
 #This will install a few useful apps
-sudo pacman -S screenfetch
 sudo pacman -S bleachbit
 sudo pacman -S gnome-disk-utility
 sudo pacman -S ncdu 
 sudo pacman -S nmap
 sudo pacman -S transmission-gtk
-#Optional 
 sudo pacman -S epiphany
+sudo pacman -S hardinfo
+sudo pacman -S lshw
+sudo pacman -S hdparm 
+sudo pacman -S hddtemp 
+sudo pacman -S xsensors
+#Optional 
 #sudo pacman -S rhythmbox
 #sudo pacman -S palemoon-bin
 #sudo pacman -S chromium
 #sudo pacman -S qupzilla
 #sudo pacman -S kodi
+#sudo pacman -S seamonkey
+
+#As for themes #More are coming
+sudo pacman -S moka-icon-theme
+sudo pacman -S faba-icon-theme
+sudo pacman -S arc-icon-theme
+sudo pacman -S maia-xfce-icon-theme
+sudo pacman -S arc-maia-icon-theme
+sudo pacman -S delorean-dark-themes-3.8
+sudo pacman -S elementary-xfce-icons
+sudo pacman -S dorian-flat
+sudo pacman -S arc-themes-maia
+sudo pacman -S menda-themes-dark
 
 #This will attempt to install etc-update
 curl -L -O https://aur.archlinux.org/cgit/aur.git/snapshot/etc-update.tar.gz

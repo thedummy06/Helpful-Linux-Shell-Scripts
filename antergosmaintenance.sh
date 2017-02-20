@@ -8,11 +8,12 @@ if [ $? -eq 0 ]
 then 
 	echo "Connection successful"
 else
+ifconfig >> ifconfig.txt
 sudo systemctl stop NetworkManager.service
 sudo systemctl disable NetworkManager.service
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
-sudo ifconfig up $interfacename
+sudo ifconfig up $interfacename #Refer to ifconfig.txt
 sudo dhclient -r $interfacename && sudo dhclient $interfacename
 fi
 done
@@ -27,18 +28,17 @@ sudo blkid >> analysis.txt
 lsblk >> analysis.txt
 lsb_release -a >> analysis.txt
 sudo ps aux >> analysis.txt
-ifconfig >> analysis.txt
 Xorg -version >> analysis.txt
 ldd --version >> analysis.txt
-dmesg >> dmesg.txt
+#dmesg >> dmesg.txt
 journalctl -a >> journald.txt #These are logs of important system events
 systemd-analyze >> boottimercheck.txt #Guages length of time during boot
 systemd-analyze blame >> boottimercheck.txt #Shows service loading times
-sudo lshw >> hardware.txt
+lshw >> lshw.txt
 sudo lspci >> lspci.txt
 sudo lsusb >> lsusb.txt
 cat /proc/cpuinfo >> cpuinfo.txt
-#sudo hdparm -tT /drive/name >> diskspeed.txt #Measures disk speed
+sudo hdparm -tT /drive/name >> diskspeed.txt #Measures disk speed
 cd
 
 #This will reload the firewall to ensure it's enabled
@@ -75,9 +75,9 @@ sudo pacman -Syyu
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 #This will set up screenfetch
-sudo pacman -S screenfetch
+sudo pacman -S archey3
 sudo cp /etc/bash.bashrc /etc/bash.bashrc.bak
-echo "screenfetch" | sudo tee -a /etc/bash.bashrc
+echo "archey3" | sudo tee -a /etc/bash.bashrc
 
 #This updates the hosts file:Optional
 #sudo ./hostsman4linux.sh
@@ -100,6 +100,7 @@ fi
 sudo systemctl daemon-reload
 
 #This aids in diagnosing systemd specific issues
+cd troubleshooting
 systemctl status >> systemddiagnostics.txt
 systemctl >> systemddiagnostics.txt
 systemctl --failed >> systemddiagnostics.txt
