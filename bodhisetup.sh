@@ -143,7 +143,7 @@ fi
 #sudo mkdir backups
 #sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found --exclude=backups --exclude=var/cache/pacman/pkg / /backups
 #Or for home folder only
-#sudo rsync -aAXv /home/$USER/ /backups
+#sudo rsync -aAXv /home/$USER/ ~/backups
 
 #Now would be a great time to reboot
 sudo sync && sudo systemctl reboot
