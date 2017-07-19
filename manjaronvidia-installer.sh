@@ -10,14 +10,12 @@ echo "What would you like to do?"
 
 echo "1-Proprietary driver"
 echo "2-default driver"
-echo "3-exit"
 
 read operation;
 
 case $operation in
 	1) sudo mhwd -a pci nonfree 0300 && sudo nvidia-xconfig ;;
-	2) sudo mhwd -r pci video-nvidia ;;
-	3) echo "Goodbye!" ;;
+	2) echo "Goodbye!" ;;
 esac
 
 echo "Would you like to reboot now? (y/n)"
