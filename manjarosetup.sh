@@ -7,7 +7,6 @@ echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 sudo systemctl enable ufw 
 sudo ufw enable 
 sudo ufw deny telnet 
-sudo ufw allow transmission
 #sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
 
 #This restricts coredumps to prevent attackers from getting info
@@ -62,51 +61,29 @@ done
 
 #This runs mkinit on your kernel and ensures the updates worked
 sudo mkinitcpio -P
-sudo update-grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 #This will install a few useful apps
-sudo pacman -S bleachbit
-sudo pacman -S gnome-disk-utility
-sudo pacman -S ncdu 
-sudo pacman -S nmap
-sudo pacman -S transmission-gtk
-sudo pacman -S epiphany
-sudo pacman -S hardinfo
-sudo pacman -S lshw
-sudo pacman -S hdparm 
-sudo pacman -S hddtemp 
-sudo pacman -S xsensors
+sudo pacman -S bleachbit gnome-disk-utility ncdu nmap deluge 
+sudo pacman -S hardinfo lshw hdparm hddtemp xsensors wget geany
 #Optional 
-#sudo pacman -S rhythmbox
-#sudo pacman -S palemoon-bin
-#sudo pacman -S chromium
-#sudo pacman -S qupzilla
-#sudo pacman -S kodi
-#sudo pacman -S seamonkey
+#sudo pacman -S rhythmbox palemoon-bin chromium qupzilla transmission-gtk
+#sudo pacman -S kodi seamonkey opera epiphany kdenlive shotwell
+
+#This will set up archey3
+sudo pacman -S screenfetch
+sudo cp /etc/bash.bashrc /etc/bash.bashrc.bak
+echo "screenfetch" | sudo tee -a /etc/bash.bashrc
 
 #As for themes #More are coming
-sudo pacman -S moka-icon-theme
-sudo pacman -S faba-icon-theme
-sudo pacman -S arc-icon-theme
-sudo pacman -S maia-xfce-icon-theme
-sudo pacman -S arc-maia-icon-theme
-sudo pacman -S delorean-dark-themes-3.8
-sudo pacman -S elementary-xfce-icons
+sudo pacman -S moka-icon-theme faba-icon-theme 
+sudo pacman -S arc-icon-theme arc-maia-icon-theme 
+sudo pacman -S delorean-dark-themes-3.9
+sudo pacman -S elementary-xfce-icons 
+sudo pacman -S arc-themes-maia 
+sudo pacman -S menda-themes-dark 
+sudo pacman -S gtk-theme-breath
 sudo pacman -S dorian-flat
-sudo pacman -S arc-themes-maia
-sudo pacman -S menda-themes-dark
-
-#This will attempt to install etc-update
-curl -L -O https://aur.archlinux.org/cgit/aur.git/snapshot/etc-update.tar.gz
-sudo pacman -S --needed base-devel
-mkdir builds
-sudo mv etc-update.tar.gz ~/builds
-cd ~/builds
-tar -xvf etc-update.tar.gz
-cd etc-update
-nano PKGBUILD
-makepkg -sri
-cd
 
 #Will install and set preload to enabled if uncommented
 #sudo pacman -S preload
@@ -124,22 +101,23 @@ fi
 #sudo systemctl start fstrim.service
 
 #Furthermore, this could increase performance in mechanical drives
-echo "Should I enable write caching in mechanical drive?"
-read answer 
-if [[ $answer == Y ]];
-then 
-sudo hdparm -W1 /drive/name
-else 
-echo "Proceed!"
-fi
+sudo hdparm -W 1 /drive/name
 
 #This tweaks the journal file for efficiency
 sudo cp /etc/systemd/journald.conf /etc/systemd/journald.conf.bak
 sudo sed -i -e '/#SystemMaxUse=/c\SystemMaxUse=50M ' /etc/systemd/journald.conf
 
 #This removes that retarded gnome-keyring unlock error you get with chrome
+echo "Killing this might make your passwords less secure."
+echo "Do you wish to kill gnome-keyring? (Y/n)"
+read answer 
+if [[answer == Y ]];
+then
 sudo mv /usr/bin/gnome-keyring-daemon /usr/bin/gnome-keyring-daemon-old
 sudo killall gnome-keyring-daemon
+else
+echo "Proceeding"
+fi
 
 #Optional, but it is highly recommended that you make a quick backup
 #The backup directory can be found in your root folder, unless you specify #otherwise

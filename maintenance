@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#This reconfigures packages, should you wish to, fixes some things
+#sudo dpkg-reconfigure -a 
+#sudo apt-get install --reinstall initramfs-tools
+
+#This restarts systemd daemon. This can be useful for different reasons.
+sudo systemctl daemon-reload
+
+#This section displays system information including disk usage, RAM usage
+df -h >> analysis.txt
+free -h >> analysis.txt
+dmesg >> dmesg.txt
+journalctl -a >> journallog.txt 
+systemd-analyze >> boot-check.txt
+systemd-analyze blame >> boot-check.txt
+hostnamectl >> hostname.log
+sudo ps aux >> analysis.txt
+
+#This clears apt cache
+sudo apt-get autoremove
+sudo apt-get autoclean 
+sudo apt-get clean 
+
+#This clears the cache and thumbnails and other junk
+sudo rm -r .cache/*
+sudo rm -r .thumbnails/*
+sudo rm -r /tmp/*
+sudo rm -r ~/.local/share/Trash
+history -c
+
+#This trims the journal logs
+sudo journalctl --vacuum-size=25M #For newer systemd releases
+
+#This updates the system
+sudo dpkg --configure -a
+sudo apt-get install -f
+sudo apt-get update && sudo apt-get -y dist-upgrade
+
+#This runs update db for index cache and cleans the manual database
+sudo updatedb
+sudo mandb
+
+#Checks disk for errors
+sudo touch /forcefsck
+
+#It is recommended that your firewall is enabled
+sudo ufw disable
+sudo ufw enable
+
+#check for and remove broken symlinks
+find -xtype l -delete
+
+#You should really reboot now!
+sudo systemctl reboot 

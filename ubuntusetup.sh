@@ -7,30 +7,25 @@ if [ $? -eq 0 ]
 then 
 	echo "Connection successful!"
 else
+ifconfig >> ifconfig.txt
 sudo mmcli nm enable false 
 sudo nmcli nm enable true
-sudo service network-manager restart
-sudo ifconfig eth0 up
-sudo dhclient eth0
+sudo /etc/init.d/ network-manager restart
+sudo ifconfig up $interfacename #Refer to ifconfig.txt
+sudo dhclient -r $interfacename && sudo dhclient $interfacename
 fi
 done
 
 #This will update your system
 sudo apt-get update 
-sudo apt-get upgrade
+sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade 
 
-#This will install your main apps for you 
-sudo apt-get -y install thunderbird transmission vlc  
-sudo apt-get -y install preload gnome-disk-utility xfburn 
-sudo apt-get -y install file-roller gparted
-sudo apt-get -y install psensor hardinfo lm-sensors 
-sudo apt-get -y install hexchat bleachbit gedit bum
-sudo apt-get -y install apparmor-profiles apparmor-utils nmap
-sudo apt-get -y install traceroute gdebi epiphany-browser   
-sudo apt-get -y install synaptic software-properties-common inxi
-sudo apt-get -y install ncdu gufw libreoffice
-sudo apt-get -y install iotop htop handbrake
+#This will install your main apps for you   
+sudo apt-get -y install gparted bleachbit ncdu gufw
+sudo apt-get -y install psensor hardinfo lm-sensors epiphany-browser
+sudo apt-get -y install apparmor-profiles apparmor-utils traceroute  
+sudo apt-get -y install inxi iotop htop nmap
 #Optional
 #sudo apt-get install qupzilla
 #sudo apt-get install midori
@@ -45,6 +40,7 @@ sudo apt-get -y install iotop htop handbrake
 #sudo apt-get install kdenlive
 #sudo apt-get install pavucontrol
 #sudo apt-get install chromium-browser
+#sudo apt-get install zenmap
 
 #This tries to install codecs
 echo "This will install codecs." 
@@ -59,10 +55,10 @@ echo "5 - exit"
 read operation;
 
 case $operation in 
-		1) sudo apt-get install ubuntu-restricted-extras ;;
-		2) sudo apt-get install xubuntu-restricted-extras ;;
-		3) sudo apt-get install lubuntu-restricted-extras ;;
-		4) sudo apt-get install kubuntu-restricted-extras ;;
+		1) sudo apt-get -y install ubuntu-restricted-extras ;;
+		2) sudo apt-get -y install xubuntu-restricted-extras ;;
+		3) sudo apt-get -y install lubuntu-restricted-extras ;;
+		4) sudo apt-get -y install kubuntu-restricted-extras ;;
 		5) echo "Moving on!"
 esac
 
@@ -77,11 +73,11 @@ sudo apt-get -y install gnome-sudoku gnome-mines chromium-bsu supertux
 fi 
 
 #This will install themes
-echo "Would you like a dark theme?"
+echo "Would you like a dark theme? (Y/n)"
 read answer 
 if [[ $answer == Y ]]; 
-then 
-sudo add-apt-repository ppa:mutse-young/remastersys
+then
+sudo add-apt-repository ppa:noobslab/themes 
 sudo apt-add-repository ppa:numix/ppa
 sudo add-apt-repository ppa:noobslab/icons
 sudo add-apt-repository ppa:moka/stable
@@ -89,30 +85,23 @@ sudo add-apt-repository ppa:noobslab/themes
 sudo add-apt-repository ppa:noobslab/themes
 sudo apt-get update
 sudo apt-get install mate-themes gtk2-engines-xfce gtk3-engines-xfce
-sudo apt-get install dorian-theme
 sudo apt-get install numix-icon-theme-circle
-sudo apt-get install delorean-dark
 sudo apt-get install emerald-icon-theme
 sudo apt-get install dalisha-icons
 sudo apt-get install moka-icon-theme
 sudo apt-get install faenza-icon-theme
+sudo apt-get install windos-10-themes
+else
+echo "Guess not!"
 fi
 
 #This will optionally install pale moon browser
-echo "Would you like to install a light weight browser? (Y/n)"
-read answer
-if [[ $answer == Y ]]:
-then 
-wget http://linux.palemoon.org/files/pminstaller/0.2.2/pminstaller-0.2.2.tar.bz2
-sudo tar -xvjf pminstaller-0.2.2.tar.bz2
-./pminstaller.sh
-fi
+#wget http://linux.palemoon.org/files/pminstaller/0.2.2/pminstaller-0.2.2.tar.bz2
+#sudo tar -xvjf pminstaller-0.2.2.tar.bz2
+#./pminstaller.sh
 
 #This sets your default editor in bashrc
-export EDITOR=nano
-
-#Install remastersys 
-sudo apt-get install remastersys
+echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 
 #System tweaks
 sudo cp /etc/default/grub /etc/default/grub.bak
@@ -130,19 +119,14 @@ echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.co
 sudo sysctl -p
 
 #This should improve performance on some mechanical drives
-echo "Would you like me to enable write-back-caching?"
-read answer
-if [[ $answer == Y ]];
-then 
-sudo hdparm -W1 /drive/name
-else
-echo "Proceed!"
-fi
+sudo hdparm -W 1 /drive/name
 
 #This activates the firewall
 sudo ufw enable
+sudo ufw deny telnet
+sudo ufw allow transmission
 #Optional but could be more secure
-#sudo ufw deny ssh
+#sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
 
 #Hosts file to thwart adverts
 echo "Would  you like to use a hosts file? (Y/n)"
@@ -150,13 +134,9 @@ read answer
 if [[ $answer == Y ]];
 then 
 sudo ./hostsman4linux.sh
+else 
+echo "Maybe later!"
 fi
-
-#This installs and activates archey
-sudo apt-get install scrot lsb-release
-wget https://github.com/downloads/djmelik/archey/archey-0.2.8.deb
-sudo dpkg -i archey-0.2.8.deb
-echo "archey" | sudo tee -a /etc/bash.bashrc
 
 #Optional, but it is highly recommended that you make a quick backup
 #The backup directory can be found in your root folder, unless you specify #otherwise 
@@ -167,4 +147,4 @@ echo "archey" | sudo tee -a /etc/bash.bashrc
 #sudo rsync -aAXv /home/$USER/ /backups
 
 #Let's reboot
-sudo shutdown -r now
+sudo sync && sudo systemctl reboot
