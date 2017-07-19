@@ -119,7 +119,6 @@ sudo sysctl -p
 #This should improve performance on SOME mechanical drives 
 sudo hdparm -W 1 /drive/name
 
-
 #This part activates the uncomplicated firewall on your system
 sudo ufw enable
 sudo ufw deny telnet
