@@ -120,6 +120,7 @@ sudo sysctl -p
 sudo hdparm -W 1 /drive/name
 
 #This part activates the uncomplicated firewall on your system
+sudo systemctl enable ufw
 sudo ufw enable
 sudo ufw deny telnet
 #Optional
