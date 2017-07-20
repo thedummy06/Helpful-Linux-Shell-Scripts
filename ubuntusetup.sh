@@ -124,7 +124,6 @@ sudo hdparm -W 1 /drive/name
 #This activates the firewall
 sudo ufw enable
 sudo ufw deny telnet
-sudo ufw allow transmission
 #Optional but could be more secure
 #sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
 
