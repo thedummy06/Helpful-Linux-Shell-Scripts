@@ -122,7 +122,6 @@ sudo hdparm -W 1 /drive/name
 #This part activates the uncomplicated firewall on your system
 sudo ufw enable
 sudo ufw deny telnet
-sudo ufw allow 51413/tcp
 #Optional
 #sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
 
