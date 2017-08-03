@@ -132,10 +132,10 @@ fi
 #Optional, but it is highly recommended that you make a quick backup
 #The backup directory can be found in your root folder, unless you specify #otherwise
 #cd /
-#sudo mkdir backups
-#sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found --exclude=backups --exclude=var/cache/pacman/pkg / /backups
+#sudo mkdir Backup
+#sudo rsync -aAXv --exclude=dev --exclude=Backup --exclude=proc --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found --exclude=var/cache/pacman/pkg / /Backup
 #Or for home folder only
-#sudo rsync -aAXv /home/$USER/ ~/backups
+#sudo rsync -aAXv /home/$USER/ ~/Backup
 
 #This will reboot your system 
 sudo sync && sudo systemctl reboot
