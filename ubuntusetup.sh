@@ -14,14 +14,14 @@ do
 	ping -c4 google.com > /dev/null
 	if [ $? -eq 0 ]
 	then 
-	echo "Connection successful!"
+		echo "Connection successful!"
 	else
-	ifconfig >> ifconfig.txt
-	sudo mmcli nm enable false 
-	sudo nmcli nm enable true
-	sudo /etc/init.d/ network-manager restart
-	sudo ifconfig up $interfacename #Refer to ifconfig.txt
-	sudo dhclient -r $interfacename && sudo dhclient $interfacename
+		ifconfig >> ifconfig.txt
+		sudo mmcli nm enable false 
+		sudo nmcli nm enable true
+		sudo /etc/init.d/ network-manager restart
+		sudo ifconfig up $interfacename #Refer to ifconfig.txt
+		sudo dhclient -r $interfacename && sudo dhclient $interfacename
 	fi
 done
 
