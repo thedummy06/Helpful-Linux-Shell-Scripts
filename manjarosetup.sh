@@ -36,15 +36,15 @@ do
 	ping -c4 google.com 
 	if [ $? -eq 0 ]
 	then 
-	echo "Connection successful"
+		echo "Connection successful"
 	else
-	ifconfig >> ifconfig.txt
-	sudo systemctl stop NetworkManager.service
-	sudo systemctl disable NetworkManager.service
-	sudo systemctl enable NetworkManager.service
-	sudo systemctl start NetworkManager.service
-	sudo ifconfig up $interfacename #Refer to ifconfig.txt
-	sudo dhclient -r $interfacename && sudo dhclient $interfacename
+		ifconfig >> ifconfig.txt
+		sudo systemctl stop NetworkManager.service
+		sudo systemctl disable NetworkManager.service
+		sudo systemctl enable NetworkManager.service
+		sudo systemctl start NetworkManager.service
+		sudo ifconfig up $interfacename #Refer to ifconfig.txt
+		sudo dhclient -r $interfacename && sudo dhclient $interfacename
 	fi
 done 
 
@@ -58,16 +58,16 @@ do
 	sudo pacman -Syyu 
 	if [ $? -eq 0 ] 
 	then 
-	echo "Update succeeded" 
+		echo "Update succeeded" 
 	else
-	sudo rm /var/lib/pacman/db.lck 
-	sudo rm -r /etc/pacman.d/gnupg 
-	sudo pacman -Sy gnupg archlinux-keyring manjaro-keyring
-	sudo pacman-key --init 
-	sudo pacman-key --populate archlinux manjaro 
-	sudo pacman-key --refresh-keys 
-	sudo pacman -Sc
-	sudo pacman -Syyu
+		sudo rm /var/lib/pacman/db.lck 
+		sudo rm -r /etc/pacman.d/gnupg 
+		sudo pacman -Sy gnupg archlinux-keyring manjaro-keyring
+		sudo pacman-key --init 
+		sudo pacman-key --populate archlinux manjaro 
+		sudo pacman-key --refresh-keys 
+		sudo pacman -Sc
+		sudo pacman -Syyu
 	fi
 done
 
