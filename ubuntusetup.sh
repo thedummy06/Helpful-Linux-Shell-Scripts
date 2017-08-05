@@ -1,19 +1,28 @@
 #!/bin/bash
 
+#This sets your default editor in bashrc
+echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
+
+#This activates the firewall
+sudo ufw enable
+#sudo ufw deny telnet
+#sudo ufw deny ssh
+
 #This will ensure you do not have any common network issues
 for c in computer; 
-do ping -c4 google.com > /dev/null
-if [ $? -eq 0 ]
-then 
+do 
+	ping -c4 google.com > /dev/null
+	if [ $? -eq 0 ]
+	then 
 	echo "Connection successful!"
-else
-ifconfig >> ifconfig.txt
-sudo mmcli nm enable false 
-sudo nmcli nm enable true
-sudo /etc/init.d/ network-manager restart
-sudo ifconfig up $interfacename #Refer to ifconfig.txt
-sudo dhclient -r $interfacename && sudo dhclient $interfacename
-fi
+	else
+	ifconfig >> ifconfig.txt
+	sudo mmcli nm enable false 
+	sudo nmcli nm enable true
+	sudo /etc/init.d/ network-manager restart
+	sudo ifconfig up $interfacename #Refer to ifconfig.txt
+	sudo dhclient -r $interfacename && sudo dhclient $interfacename
+	fi
 done
 
 #This will update your system
@@ -67,9 +76,9 @@ echo "Would you like to install games? (Y/n)"
 read Answer
 if [[ $Answer == Y ]];
 then 
-#sudo apt-get -y install supertuxkart
-sudo apt-get -y install gnome-mahjongg aisleriot ace-of-penguins 
-sudo apt-get -y install gnome-sudoku gnome-mines chromium-bsu supertux
+	#sudo apt-get -y install supertuxkart
+	sudo apt-get -y install gnome-mahjongg aisleriot ace-of-penguins 
+	sudo apt-get -y install gnome-sudoku gnome-mines chromium-bsu supertux
 fi 
 
 #This will install themes
@@ -77,31 +86,28 @@ echo "Would you like a dark theme? (Y/n)"
 read answer 
 if [[ $answer == Y ]]; 
 then
-sudo add-apt-repository ppa:noobslab/themes 
-sudo apt-add-repository ppa:numix/ppa
-sudo add-apt-repository ppa:noobslab/icons
-sudo add-apt-repository ppa:moka/stable
-sudo add-apt-repository ppa:noobslab/themes
-sudo add-apt-repository ppa:noobslab/themes
-sudo apt-get update
-sudo apt-get install mate-themes gtk2-engines-xfce gtk3-engines-xfce
-sudo apt-get install numix-icon-theme-circle
-sudo apt-get install emerald-icon-theme
-sudo apt-get install dalisha-icons
-sudo apt-get install moka-icon-theme
-sudo apt-get install faenza-icon-theme
-sudo apt-get install windos-10-themes
+	sudo add-apt-repository ppa:noobslab/themes 
+	sudo apt-add-repository ppa:numix/ppa
+	sudo add-apt-repository ppa:noobslab/icons
+	sudo add-apt-repository ppa:moka/stable
+	sudo add-apt-repository ppa:noobslab/themes
+	sudo add-apt-repository ppa:noobslab/themes
+	sudo apt-get update
+	sudo apt-get install mate-themes gtk2-engines-xfce gtk3-engines-xfce
+	sudo apt-get install numix-icon-theme-circle
+	sudo apt-get install emerald-icon-theme
+	sudo apt-get install dalisha-icons
+	sudo apt-get install moka-icon-theme
+	sudo apt-get install faenza-icon-theme
+	sudo apt-get install windos-10-themes
 else
-echo "Guess not!"
+	echo "Guess not!"
 fi
 
 #This will optionally install pale moon browser
 #wget http://linux.palemoon.org/files/pminstaller/0.2.2/pminstaller-0.2.2.tar.bz2
 #sudo tar -xvjf pminstaller-0.2.2.tar.bz2
 #./pminstaller.sh
-
-#This sets your default editor in bashrc
-echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 
 #System tweaks
 sudo cp /etc/default/grub /etc/default/grub.bak
@@ -119,22 +125,25 @@ echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.co
 sudo sysctl -p
 
 #This should improve performance on some mechanical drives
-sudo hdparm -W 1 /drive/name
-
-#This activates the firewall
-sudo ufw enable
-sudo ufw deny telnet
-#Optional but could be more secure
-#sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
+echo "Would you like to increase HDD performance? (Y/n)"
+read answer
+echo "Enter your drive name ex. sda"
+read drive
+if [[ $answer == Y ]];
+then 
+	sudo hdparm -W 1 $drive
+else 
+	echo "Write-back caching improves hard drive performance."
+fi 
 
 #Hosts file to thwart adverts
 echo "Would  you like to use a hosts file? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-sudo ./hostsman4linux.sh
+	sudo ./hostsman4linux.sh
 else 
-echo "Maybe later!"
+	echo "Maybe later!"
 fi
 
 #Optional, but it is highly recommended that you make a quick backup

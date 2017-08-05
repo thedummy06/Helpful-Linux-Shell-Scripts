@@ -3,7 +3,7 @@
 #Sets default editor in bashrc
 echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 
-#This sets up your system time.
+#This sets up your system time. 
 echo "Would you like to set ntp to true? (Y/n)"
 read answer
 echo "Enter your preferred timezone"
@@ -18,16 +18,19 @@ done
 #This starts your firewall 
 sudo systemctl enable ufw 
 sudo ufw enable 
-#sudo ufw deny telnet 
-#sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
+#sudo ufw deny ssh 
+#sudo ufw deny telnet
 
 #This restricts coredumps to prevent attackers from getting info
 sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
 sudo sed -i -e '/#Storage=external/c\Storage=none ' /etc/systemd/coredump.conf
 sudo touch /etc/sysctl.d/50-dmesg-restrict.conf
 sudo touch /etc/sysctl.d/50-kptr-restrict.conf
+sudo touch /etc/sysctl.d/99-sysctl.conf
 echo "kernel.dmesg_restrict = 1" | sudo tee -a /etc/sysctl.d/50-dmesg-restrict.conf
 echo "kernel.kptr_restrict = 1" | sudo tee -a /etc/sysctl.d/50-kptr-restrict.conf
+echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-sysctl.conf
+sudo sysctl --system
 sudo systemctl daemon-reload
 
 #This will try to ensure you have a strong network connection
@@ -48,36 +51,40 @@ do
 	fi
 done 
 
+#If you use steam and certain other applications which are 32bit
+sudo cp /etc/pacman.conf /etc/pacman.conf.bak
+sudo sed -i -e '/#[multilib]/c\[multilib] ' /etc/pacman.conf
+sudo sed -i -e '/#Include = /etc/pacman.d/mirrorlist/c\Include = /etc/pacman.d/mirrorlist ' /etc/pacman.conf
+
 #This tries to update and rate mirrors if it fails it refreshes the keys
 for s in updates;
-do 
-	sudo pacman-mirrors -g
-	sudo pacman-optimize && sync
+do
+	sudo pacman rankmirrors /etc/pacman.d/antergos-mirrorlist
 	sudo pacman -Syy
-	sudo pacman -S manjaro-keyring archlinux-keyring
-	sudo pacman -Syyu 
+	sudo pacman -S archlinux-keyring antergos-keyring
+	sudo pacman -Syyu
 	if [ $? -eq 0 ] 
 	then 
-	echo "Update succeeded" 
-	else
+	echo "update successful"
+	else 
 	sudo rm /var/lib/pacman/db.lck 
 	sudo rm -r /etc/pacman.d/gnupg 
-	sudo pacman -Sy gnupg archlinux-keyring manjaro-keyring
-	sudo pacman-key --init 
-	sudo pacman-key --populate archlinux manjaro 
-	sudo pacman-key --refresh-keys 
-	sudo pacman -Sc
-	sudo pacman -Syyu
+	sudo pacman -Sy gnupg archlinux-keyring antergos-keyring
+	sudo pacman-key --init
+	sudo pacman-key --populate archlinux antergos 
+	sudo pacman -Sc 
+	sudo pacman -Syyu 
 	fi
 done
 
-#This runs mkinit on your kernel and ensures the updates worked
+#This rebuilds the image of your kernel to ensure it's right
 sudo mkinitcpio -P
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 #This will install a few useful apps
-sudo pacman -S bleachbit gnome-disk-utility ncdu nmap deluge 
-sudo pacman -S hardinfo lshw hdparm hddtemp xsensors wget geany
+sudo pacman -S bleachbit gnome-disk-utility ncdu nmap
+sudo pacman -S deluge hdparm hddtemp xsensors geany 
+sudo pacman -S hardinfo lshw iotop htop qupzilla clementine
 #Optional 
 #sudo pacman -S steam 
 #sudo pacman -S kodi 
@@ -92,24 +99,17 @@ sudo pacman -S hardinfo lshw hdparm hddtemp xsensors wget geany
 #sudo pacman -S rhythmbox 
 #sudo pacman -S plank
 
-#This will set up archey3
+#Here are some themes
+#sudo pacman -S arc-gtk-theme
+#sudo pacman -S arc-icon-theme
+#sudo pacman -S mint-y-theme
+#sudo pacman -S mate-icon-theme
+#sudo pacman -S mate-themes
+
+#This will set up screenfetch
 sudo pacman -S screenfetch
 sudo cp /etc/bash.bashrc /etc/bash.bashrc.bak
 echo "screenfetch" | sudo tee -a /etc/bash.bashrc
-
-#As for themes #More are coming
-sudo pacman -S moka-icon-theme faba-icon-theme 
-sudo pacman -S arc-icon-theme arc-maia-icon-theme 
-sudo pacman -S delorean-dark-themes-3.9
-sudo pacman -S elementary-xfce-icons 
-sudo pacman -S arc-themes-maia 
-sudo pacman -S menda-themes-dark 
-sudo pacman -S gtk-theme-breath
-sudo pacman -S dorian-flat
-
-#Will install and set preload to enabled if uncommented
-#sudo pacman -S preload
-#sudo systemctl enable preload 
 
 #I can prepare a simple hosts file if you like from Steven Black
 echo "Would  you like to use a hosts file to block adverts? (Y/n)"
@@ -119,6 +119,7 @@ then
 	sudo ./hostsman4linux.sh
 fi
 
+#This initiates trim on Solid state drives
 #sudo systemctl enable fstrim.timer
 #sudo systemctl start fstrim.service
 
