@@ -54,9 +54,9 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backup --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backup
+  sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backup --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backup
 else 
-echo "It is a good idea to create a backup after such changes, maybe later."
+  echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
 #This will reboot the system
