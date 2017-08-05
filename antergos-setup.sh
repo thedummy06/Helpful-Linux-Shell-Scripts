@@ -39,15 +39,15 @@ do
 	ping -c4 google.com 
 	if [ $? -eq 0 ]
 	then 
-	echo "Connection successful"
+		echo "Connection successful"
 	else
-	ifconfig >> ifconfig.txt
-	sudo systemctl stop NetworkManager.service
-	sudo systemctl disable NetworkManager.service
-	sudo systemctl enable NetworkManager.service
-	sudo systemctl start NetworkManager.service
-	sudo ifconfig up $interfacename #Refer to ifconfig.txt
-	sudo dhclient -r $interfacename && sudo dhclient $interfacename
+		ifconfig >> ifconfig.txt
+		sudo systemctl stop NetworkManager.service
+		sudo systemctl disable NetworkManager.service
+		sudo systemctl enable NetworkManager.service
+		sudo systemctl start NetworkManager.service
+		sudo ifconfig up $interfacename #Refer to ifconfig.txt
+		sudo dhclient -r $interfacename && sudo dhclient $interfacename
 	fi
 done 
 
@@ -65,15 +65,15 @@ do
 	sudo pacman -Syyu
 	if [ $? -eq 0 ] 
 	then 
-	echo "update successful"
+		echo "update successful"
 	else 
-	sudo rm /var/lib/pacman/db.lck 
-	sudo rm -r /etc/pacman.d/gnupg 
-	sudo pacman -Sy gnupg archlinux-keyring antergos-keyring
-	sudo pacman-key --init
-	sudo pacman-key --populate archlinux antergos 
-	sudo pacman -Sc 
-	sudo pacman -Syyu 
+		sudo rm /var/lib/pacman/db.lck 
+		sudo rm -r /etc/pacman.d/gnupg 
+		sudo pacman -Sy gnupg archlinux-keyring antergos-keyring
+		sudo pacman-key --init
+		sudo pacman-key --populate archlinux antergos 
+		sudo pacman -Sc 
+		sudo pacman -Syyu 
 	fi
 done
 
@@ -100,11 +100,18 @@ sudo pacman -S hardinfo lshw iotop htop qupzilla clementine
 #sudo pacman -S plank
 
 #Here are some themes
-#sudo pacman -S arc-gtk-theme
-#sudo pacman -S arc-icon-theme
-#sudo pacman -S mint-y-theme
-#sudo pacman -S mate-icon-theme
-#sudo pacman -S mate-themes
+echo "Install new themes? (Y/N)"
+read answer
+if [ $answer == Y ];
+then 
+	sudo pacman -S arc-gtk-theme
+	sudo pacman -S arc-icon-theme
+	sudo pacman -S mint-y-theme
+	sudo pacman -S mate-icon-theme
+	sudo pacman -S mate-themes
+else
+	echo "Proceeding"
+fi 
 
 #This will set up screenfetch
 sudo pacman -S screenfetch
