@@ -1,6 +1,6 @@
 To utilize these bash scripts, you must first ensure that they are executable.
 To do this in linux, you must run chmod +x NameOfScript.sh in terminal.
-This allows bash to pick up and interpret the scripts later.
+This allows bash to distinguish these from regular txt files.
 In the different case of the hosts updater scripts, this is written with a CRONJOB in mind.
 A cronjob is any task or script that you place in the crontab file to be ran at a certain time.
 To not go to deep into it, the basic syntax is this:
