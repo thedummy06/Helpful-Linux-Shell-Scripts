@@ -39,6 +39,7 @@ do
 		echo "Connection successful"
 	else
 		ifconfig >> ifconfig.txt
+		sudo dhclient -v -r && sudo dhclient
 		sudo systemctl stop NetworkManager.service
 		sudo systemctl disable NetworkManager.service
 		sudo systemctl enable NetworkManager.service
