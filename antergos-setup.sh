@@ -102,7 +102,7 @@ sudo pacman -S hardinfo lshw iotop htop qupzilla clementine
 #Here are some themes
 echo "Install new themes? (Y/N)"
 read answer
-if [ $answer == Y ];
+if [[ $answer == Y ]];
 then 
 	sudo pacman -S arc-gtk-theme
 	sudo pacman -S arc-icon-theme
