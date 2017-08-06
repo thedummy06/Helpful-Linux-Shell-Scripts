@@ -24,7 +24,7 @@ sudo rm -r ~/.local/share/Trash
 history -c
 
 #This helps get rid of old archived log entries
-sudo journalctl --vacuum-size=25M >/dev/null
+sudo journalctl --vacuum-size=25M 
 
 #This will remove orphan packages from pacman 
 sudo pacman -Rs --noconfirm $(pacman -Qqdt)
@@ -36,13 +36,13 @@ sudo pacman -Sc --noconfirm
 sudo pacman-mirrors -g
 sudo pacman -Syy --noconfirm
 sudo pacman -S --noconfirm manjaro-keyring archlinux-keyring
-sudo pacman -Syuw --noconfirm
+sudo pacman -Syyuw --noconfirm
 
 #This refreshes index cache
-sudo updatedb && sudo mandb >/dev/null
+sudo updatedb && sudo mandb 
 
 #update the grub 
-sudo grub-mkconfig -o /boot/grub/grub.cfg >/dev/null
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 #This runs a disk checkup and attempts to fix filesystem
 sudo touch /forcefsck 
