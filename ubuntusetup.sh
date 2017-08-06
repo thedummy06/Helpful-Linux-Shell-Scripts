@@ -79,6 +79,8 @@ then
 	#sudo apt-get -y install supertuxkart
 	sudo apt-get -y install gnome-mahjongg aisleriot ace-of-penguins 
 	sudo apt-get -y install gnome-sudoku gnome-mines chromium-bsu supertux
+else 
+	echo "Guess not"
 fi 
 
 #This will install themes
