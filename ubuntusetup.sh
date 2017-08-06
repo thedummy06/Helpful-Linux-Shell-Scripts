@@ -20,8 +20,9 @@ do
 		sudo mmcli nm enable false 
 		sudo nmcli nm enable true
 		sudo /etc/init.d/ network-manager restart
-		sudo ifconfig up $interfacename #Refer to ifconfig.txt
+		sudo ifconfig $interfacename up #Refer to ifconfig.txt
 		sudo dhclient -r $interfacename && sudo dhclient $interfacename
+		sudo /etc/init.d/ network-manager restart
 	fi
 done
 
