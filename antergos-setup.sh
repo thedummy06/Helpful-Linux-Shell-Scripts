@@ -83,7 +83,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 #This will install a few useful apps
 sudo pacman -S bleachbit gnome-disk-utility ncdu nmap
-sudo pacman -S deluge hdparm hddtemp xsensors geany 
+sudo pacman -S deluge hdparm hddtemp xsensors geany cronie
 sudo pacman -S hardinfo lshw iotop htop qupzilla clementine
 #Optional 
 #sudo pacman -S steam 
@@ -129,6 +129,10 @@ fi
 #This initiates trim on Solid state drives
 #sudo systemctl enable fstrim.timer
 #sudo systemctl start fstrim.service
+
+#This initiates cronie cron service for creating crontabs
+sudo systemctl enable cronie
+sudo systemctl start cronie
 
 #This should improve performance on some mechanical drives
 echo "Would you like to increase HDD performance? (Y/n)"
