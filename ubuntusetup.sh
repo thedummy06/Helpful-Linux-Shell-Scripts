@@ -17,6 +17,7 @@ do
 		echo "Connection successful!"
 	else
 		ifconfig >> ifconfig.txt
+		sudo dhclient -v -r && sudo dhclient 
 		sudo mmcli nm enable false 
 		sudo nmcli nm enable true
 		sudo /etc/init.d/ network-manager restart
