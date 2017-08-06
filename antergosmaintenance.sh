@@ -15,7 +15,7 @@ hostnamectl >> hostname.log
 sudo ps aux >> analysis.txt
 
 #This will reload the firewall to ensure it's enabled
-sudo ufw reload >/dev/null
+sudo ufw reload 
 
 #This will clean the cache
 sudo rm -r .cache/*
@@ -24,7 +24,7 @@ sudo rm -r ~/.local/share/Trash
 history -c
 
 #This helps get rid of old archived log entries
-sudo journalctl --vacuum-size=25M > /dev/null
+sudo journalctl --vacuum-size=25M
 
 #This will remove orphan packages from pacman 
 sudo pacman -Rs --noconfirm $(pacman -Qqdt)
@@ -38,10 +38,10 @@ sudo rankmirrors -n 0 /etc/pacman.d/antergos-mirrorlist > /tmp/antergos-mirrorli
 sudo pacman -Syuw --noconfirm
 
 #This refreshes index cache
-sudo updatedb && sudo mandb >/dev/null
+sudo updatedb && sudo mandb 
 
 #update the grub 
-sudo grub-mkconfig -o /boot/grub/grub.cfg >/dev/null
+sudo grub-mkconfig -o /boot/grub/grub.cfg 
 
 #This runs a disk checkup and attempts to fix filesystem
 sudo touch /forcefsck 
