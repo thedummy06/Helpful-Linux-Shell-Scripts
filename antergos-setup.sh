@@ -124,6 +124,8 @@ read answer
 if [[ $answer == Y ]];
 then 
 	sudo ./hostsman4linux.sh
+else 
+	echo "Okay!"
 fi
 
 #This initiates trim on Solid state drives
