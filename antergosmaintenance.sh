@@ -35,7 +35,7 @@ sudo pacman -Sc --noconfirm
 #This will ensure you are up to date and running fastest mirrors 
 sudo reflector -l 50 -f 20 --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d
 sudo rankmirrors -n 0 /etc/pacman.d/antergos-mirrorlist > /tmp/antergos-mirrorlist && sudo cp /tmp/antergos-mirrorlist /etc/pacman.d
-sudo pacman -Syuw --noconfirm
+sudo pacman -Syyuw --noconfirm
 
 #This refreshes index cache
 sudo updatedb && sudo mandb 
