@@ -44,8 +44,6 @@ do
 		sudo systemctl enable NetworkManager.service
 		sudo systemctl start NetworkManager.service
 		sudo ifconfig $interfacename up #Refer to ifconfig.txt
-		sudo dhclient -r $interfacename && sudo dhclient $interfacename
-		sudo systemctl restart NetworkManager.service
 	fi
 done 
 
