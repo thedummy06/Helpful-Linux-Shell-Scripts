@@ -117,6 +117,8 @@ read answer
 if [[ $answer == Y ]];
 then 
 	sudo ./hostsman4linux.sh
+else 
+	echo "Okay!"
 fi
 
 #sudo systemctl enable fstrim.timer
