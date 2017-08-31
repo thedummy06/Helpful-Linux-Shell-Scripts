@@ -1,26 +1,5 @@
 #!/bin/bash
 
-#This reconfigures packages, should you wish to, fixes some things
-#sudo dpkg-reconfigure -a 
-#sudo apt-get install --reinstall initramfs-tools
-
-#This restarts systemd daemon. This can be useful for different reasons.
-sudo systemctl daemon-reload #For systemd releases
-
-#It is recommended that your firewall is enabled
-sudo ufw reload
-
-#This section displays system information including disk usage, RAM usage
-df -h >> analysis.txt
-free -h >> analysis.txt
-ifconfig -a >> analysis.txt
-dmesg >> dmesg.txt
-journalctl -a >> journallog.txt 
-systemd-analyze >> boot-check.txt
-systemd-analyze blame >> boot-check.txt
-hostnamectl >> hostname.log
-sudo ps aux >> analysis.txt
-
 #This will try to ensure you have a strong network connection
 for c in computer;
 do 
@@ -38,6 +17,16 @@ do
 		sudo ifconfig $interfacename up #Refer to ifconfig.txt
 	fi
 done 
+
+#This reconfigures packages, should you wish to, fixes some things
+#sudo dpkg-reconfigure -a 
+#sudo apt-get install --reinstall initramfs-tools
+
+#This restarts systemd daemon. This can be useful for different reasons.
+sudo systemctl daemon-reload #For systemd releases
+
+#It is recommended that your firewall is enabled
+sudo ufw reload
 
 #This flushes apt cache
 sudo apt-get -y autoremove
@@ -66,6 +55,9 @@ sudo touch /forcefsck
 
 #check for and remove broken symlinks
 find -xtype l -delete
+
+#clean some unneccessary files leftover by applications in home directory
+find $HOME -type f -name "*~" -print -exec rm {} \;
 
 #This will make a backup of your system
 echo "Would you like to make a backup? (Y/n)"
