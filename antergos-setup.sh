@@ -90,7 +90,7 @@ sudo pacman -S --noconfirm hardinfo lshw iotop htop qupzilla clementine inxi
 #sudo pacman -S --noconfirm kodi 
 #sudo pacman -S --noconfirm shotwell 
 #sudo pacman -S --noconfirm kdenlive 
-#sudo pacman -S --noconfirm palemoon-bin 
+sudo pacman -S --noconfirm palemoon-bin 
 #sudo pacman -S --noconfirm epiphany 
 #sudo pacman -S --noconfirm chromium 
 #sudo pacman -S --noconfirm opera
