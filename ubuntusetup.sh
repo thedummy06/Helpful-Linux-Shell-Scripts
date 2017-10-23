@@ -33,9 +33,10 @@ sudo apt-get -y dist-upgrade
 #This will install your main apps for you   
 sudo apt-get -y install gparted bleachbit ncdu gufw
 sudo apt-get -y install psensor hardinfo lm-sensors
-sudo apt-get -y install traceroute epiphany-browser
+sudo apt-get -y install traceroute 
 sudo apt-get -y install inxi iotop htop nmap
 #Optional
+#sudo apt-get -y install epiphany-browser
 #sudo apt-get -y install qupzilla
 #sudo apt-get -y install midori
 #sudo apt-get -y install rhythmbox
@@ -48,7 +49,7 @@ sudo apt-get -y install inxi iotop htop nmap
 #sudo apt-get -y install simplescreenrecorder
 #sudo apt-get -y install kdenlive
 #sudo apt-get -y install pavucontrol
-#sudo apt-get -y install chromium-browser
+sudo apt-get -y install chromium-browser
 #sudo apt-get -y install zenmap
 
 #This tries to install codecs
