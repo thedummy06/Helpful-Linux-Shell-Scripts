@@ -95,7 +95,7 @@ sudo pacman -S --noconfirm chromium
 #sudo pacman -S --noconfirm rhythmbox 
 #sudo pacman -S --noconfirm plank
 
-#This will set up archey3
+#This will set up screenfetch
 sudo pacman -S --noconfirm  screenfetch
 sudo cp /etc/bash.bashrc /etc/bash.bashrc.bak
 echo "screenfetch" | sudo tee -a /etc/bash.bashrc
