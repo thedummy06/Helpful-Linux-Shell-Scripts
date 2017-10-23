@@ -88,7 +88,7 @@ sudo pacman -S --noconfirm hardinfo lshw hdparm hddtemp xsensors wget geany
 #sudo pacman -S --noconfirm kdenlive 
 #sudo pacman -S --noconfirm palemoon-bin 
 #sudo pacman -S --noconfirm epiphany 
-#sudo pacman -S --noconfirm chromium 
+sudo pacman -S --noconfirm chromium 
 #sudo pacman -S --noconfirm opera
 #sudo pacman -S --noconfirm transmission-gtk 
 #sudo pacman -S --noconfirm seamonkey 
