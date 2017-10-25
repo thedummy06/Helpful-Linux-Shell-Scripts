@@ -2,7 +2,7 @@
 #This updates the hosts file
 mv /etc/hosts.bak /etc/hosts
 cp /etc/hosts /etc/hosts.bak
-#cd $HOME #If you run as cron job.
+cd $HOME #If you run as cron job.
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 wget https://hosts-file.net/ad_servers.txt
 sed -i 's/127.0.0.1/0.0.0.0/g' ad_servers.txt
