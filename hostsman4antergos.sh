@@ -3,7 +3,7 @@
 mv /etc/hosts.bak /etc/hosts
 cp /etc/hosts /etc/hosts.bak
 cd /home/james #If you run as cron job.
-wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
+wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 wget https://hosts-file.net/ad_servers.txt
 sed -i 's/127.0.0.1/0.0.0.0/g' ad_servers.txt
 cat ad_servers.txt >> hosts
