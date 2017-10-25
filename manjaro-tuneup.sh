@@ -48,6 +48,7 @@ sudo pacman -Sc --noconfirm
 #This will ensure you are up to date and running fastest mirrors 
 sudo pacman-mirrors -g
 sudo pacman -Syyu --noconfirm
+sudo pacman-optimize && sync
 
 #This refreshes index cache
 sudo updatedb && sudo mandb 
