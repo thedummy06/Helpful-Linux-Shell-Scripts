@@ -163,7 +163,7 @@
 0.0.0.0 brightcove.com
 0.0.0.0 www.liverail.com
 0.0.0.0 liverail.com
-0.0.0.0 flattr.com
+0.0.0.0 flattr.com #Not really sure why, but adblock plus and noscript's owner have both had dealings with this as a safe advert or tracking thing.
 0.0.0.0 www.flattr.com
 0.0.0.0 www.taboola.com
 0.0.0.0 taboola.com
@@ -276,15 +276,15 @@
 0.0.0.0 www.mywot.net
 0.0.0.0 www.torrenty-org.pl
 0.0.0.0 trafficfactory.com
-0.0.0.0 www.trafficfactory.com
+0.0.0.0 www.trafficfactory.com #adverts in unsavory places.
 0.0.0.0 www.sf5667.cn
 0.0.0.0 sf5667.cn
 0.0.0.0 edatasales.com
 0.0.0.0 data.ad-score.com
 0.0.0.0 curredex.com
-0.0.0.0 expressvpn.com
+0.0.0.0 expressvpn.com #Potentially too good to be true, possible data miners just waiting for users? 
 0.0.0.0 www.expressvpn.com
-0.0.0.0 go.nordvpn.net
+0.0.0.0 go.nordvpn.net #Another scam maybe?
 0.0.0.0 angeinge.com
 0.0.0.0 anonimag.es
 0.0.0.0 chanagers.com
@@ -296,7 +296,7 @@
 0.0.0.0 smyte.com
 0.0.0.0 evideorun.com
 0.0.0.0 daily-chance.info
-0.0.0.0 pussl17.com
+0.0.0.0 pussl17.com #Was on 1337x.to until I blocked it, then they changed the name. Possibly safe to remove.
 0.0.0.0 flirt-and-sex.com
 0.0.0.0 yoursinfo.info
 0.0.0.0 charmstroy.info
@@ -308,13 +308,12 @@
 0.0.0.0 donation-tools.org
 0.0.0.0 hoholikik.club
 0.0.0.0 onscroll.com
-0.0.0.0 pussl18.com
+0.0.0.0 pussl18.com #Notoriously found on 1337x.to torrenting site, some kinda shitty advert
 0.0.0.0 s.youtube.com
 0.0.0.0 linkedin.com
 0.0.0.0 www.linkedin.com
 0.0.0.0 youbora.com
 0.0.0.0 www.foxonestop.com
-0.0.0.0 ugdturner.com
 0.0.0.0 foxonestop.com
 0.0.0.0 vwo.com
 0.0.0.0 www.maruedr.com
