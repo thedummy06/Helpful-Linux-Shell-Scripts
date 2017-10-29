@@ -15,7 +15,7 @@ To not go to deep into it, the basic syntax is this:
 What I normally do is set the hosts updater to run at 8 every night ex.
 00 20 * * * /bin/sh /home/$USER/hostsupdater.sh. 
 I set it up under the root account by typing su followed by my password in manjaro,
-sudo -i in Ubuntu systems and typing crontab -e.
+sudo -i in Ubuntu systems and then typing crontab -e.
 The maintenance scripts are ok to run manually each month. 
 It is recommended that you do not run these without being present.
 Hoever, if you wish to run them as cron jobs then you can tweak the cleaning routines as follows.
