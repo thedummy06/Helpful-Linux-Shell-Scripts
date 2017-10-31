@@ -28,6 +28,7 @@ sudo ufw reload
 sudo rm -r .cache/*
 sudo rm -r .thumbnails/* 
 sudo rm -r ~/.local/share/Trash
+sudo rm -r ~/.nv/*
 sudo rm -r ~/.local/share/recently-used.xbel
 history -c
 
