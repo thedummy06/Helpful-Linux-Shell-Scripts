@@ -54,7 +54,7 @@ done
 #This disables ipv6
 echo "Sometimes ipv6 can cause network issues. Would you like to disable it?(Y/n)"
 read answer 
-if [[answer == Y ]];
+if [[ $answer == Y ]];
 then 
 	sudo cp /etc/default/grub /etc/default/grub.bak 
 	sudo sed -i -e 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/g' /etc/default/grub
