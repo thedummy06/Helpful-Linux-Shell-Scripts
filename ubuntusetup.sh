@@ -61,7 +61,7 @@ sudo apt-get -y install inxi iotop
 #sudo apt-get -y install simplescreenrecorder
 #sudo apt-get -y install kdenlive
 #sudo apt-get -y install pavucontrol
-#sudo apt-get -y install chromium-browser
+sudo apt-get -y install chromium-browser
 #sudo apt-get -y install zenmap
 #sudo apt-get -y install epiphany-browser
 
@@ -118,8 +118,6 @@ then
 	sudo apt-add-repository -y ppa:numix/ppa
 	sudo add-apt-repository -y ppa:noobslab/icons
 	sudo add-apt-repository -y ppa:moka/stable
-	sudo add-apt-repository -y ppa:noobslab/themes
-	sudo add-apt-repository -y ppa:noobslab/themes
 	sudo apt-get update
 	sudo apt-get -y install mate-themes gtk2-engines-xfce gtk3-engines-xfce
 	sudo apt-get -y install numix-icon-theme-circle
