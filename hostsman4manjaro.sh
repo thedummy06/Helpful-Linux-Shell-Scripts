@@ -2,7 +2,7 @@
 #This updates the hosts file
 mv /etc/hosts.bak /etc/hosts
 cp /etc/hosts /etc/hosts.bak
-cd /home/james #If you run as cron job.
+cd $HOME #If you run as cron job.
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
 wget http://www.montanamenagerie.org/hostsfile/hosts.txt
 wget https://hosts-file.net/hphosts-partial.txt
