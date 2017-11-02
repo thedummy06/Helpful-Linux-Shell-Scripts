@@ -71,5 +71,8 @@ else
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
+#This checks fragmentation on HDD's (Defragmentation is not good for SSd's)
+#sudo e4defrag / -c > fragmentation.log
+
 #You should really reboot now!
 sudo systemctl reboot 
