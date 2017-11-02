@@ -43,6 +43,8 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade 
 
+read -p "Press Enter to continue..." #Fixes installation of apps not working after update
+
 #This will install your main apps for you   
 sudo apt-get -y install gparted bleachbit ncdu gufw
 sudo apt-get -y install xsensors hardinfo lm-sensors
