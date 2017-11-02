@@ -70,5 +70,8 @@ else
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
+#This checks fragmentation percentage on HDD's (Not for ssd's)
+#sudo e4defrag / -c > fragmentation.log
+
 #This will reboot the system
 sudo systemctl reboot
