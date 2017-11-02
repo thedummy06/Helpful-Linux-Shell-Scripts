@@ -29,7 +29,7 @@ sudo touch /etc/sysctl.d/50-kptr-restrict.conf
 sudo touch /etc/sysctl.d/99-sysctl.conf
 echo "kernel.dmesg_restrict = 1" | sudo tee -a /etc/sysctl.d/50-dmesg-restrict.conf
 echo "kernel.kptr_restrict = 1" | sudo tee -a /etc/sysctl.d/50-kptr-restrict.conf
-echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-sysctl.conf #lowers swap value
+echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-sysctl.conf #lowers swap value for better memory management
 sudo sysctl --system
 sudo systemctl daemon-reload
 
@@ -87,7 +87,7 @@ do
 	fi
 done
 
-read -p "Press Enter to continue."
+read -p "Press Enter to continue." #Fixes installation of apps not working after update
 
 #This will install a few useful apps
 sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap libreoffice-fresh
