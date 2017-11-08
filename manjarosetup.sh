@@ -90,10 +90,10 @@ read -p "Press Enter to continue."
 sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-gtk 
 sudo pacman -S --noconfirm hardinfo lshw hdparm hddtemp xsensors wget geany rkhunter
 #Optional 
-sudo pacman -S --noconfirm vlc
+sudo pacman -S --noconfirm vlc #Manjaro has recently had issues with their implementation of vlc-nightly, I'd just remove that and install this.
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
-sudo pacman -S --noconfirm clementine
+sudo pacman -S --noconfirm clementine #This actually installs something vlc needs to run.
 #sudo pacman -S --noconfirm qupzilla 
 #sudo pacman -S --noconfirm kodi 
 #sudo pacman -S --noconfirm shotwell 
