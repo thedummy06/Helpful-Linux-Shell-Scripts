@@ -33,6 +33,9 @@ echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-sysctl.conf #lowers swap 
 sudo sysctl --system
 sudo systemctl daemon-reload
 
+#New way to find networking information
+ip addr >> connection.log
+
 #This will try to ensure you have a strong network connection
 for c in computer;
 do 
@@ -41,13 +44,12 @@ do
 	then 
 		echo "Connection successful"
 	else
-		ifconfig >> ifconfig.txt
 		sudo dhclient -v -r && sudo dhclient
 		sudo systemctl stop NetworkManager.service
 		sudo systemctl disable NetworkManager.service
 		sudo systemctl enable NetworkManager.service
 		sudo systemctl start NetworkManager.service
-		sudo ifconfig $interfacename up #Refer to ifconfig.txt
+		sudo ip link set $interfacename up
 	fi
 done
 
