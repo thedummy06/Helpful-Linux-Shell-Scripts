@@ -34,7 +34,7 @@ sudo sysctl --system
 sudo systemctl daemon-reload
 
 #New way to check network status in arch systems
-ip addr >> connection.log
+ip addr >> networkconfig.log
 
 #This will try to ensure you have a strong network connection
 for c in computer;
@@ -44,12 +44,13 @@ do
 	then 
 		echo "Connection successful"
 	else
+		interface=$(ip -o -4 route show to default | awk '{print $5}')
 		#sudo dhclient -v -r && sudo dhclient
 		sudo systemctl stop NetworkManager.service
 		sudo systemctl disable NetworkManager.service
 		sudo systemctl enable NetworkManager.service
 		sudo systemctl start NetworkManager.service
-		sudo ip link set $interfacename up 
+		sudo ip link set $interface up 
 	fi
 done
 
@@ -94,6 +95,7 @@ read -p "Press Enter to continue."
 #This will install a few useful apps
 sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap hardinfo lshw iotop htop inxi rkhunter transmission-gtk hdparm hddtemp xsensors geany dhclient
 #Optional 
+#sudo pacman -S --noconfirm net-tools
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
 #sudo pacman -S --noconfirm clementine
