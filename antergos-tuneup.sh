@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ip addr >> connection.log
+ip addr >> networkconfig.log
 
 #This will try to ensure you have a strong network connection
 for c in computer;
@@ -10,12 +10,13 @@ do
 	then 
 		echo "Connection successful"
 	else
+		interface=$(ip -o -4 route show to default | awk '{print $5}')
 		sudo dhclient -v -r && sudo dhclient
 		sudo systemctl stop NetworkManager.service
 		sudo systemctl disable NetworkManager.service
 		sudo systemctl enable NetworkManager.service
 		sudo systemctl start NetworkManager.service
-		sudo ip link set $interfacename up
+		sudo ip link set $interface up
 	fi
 done  
 
