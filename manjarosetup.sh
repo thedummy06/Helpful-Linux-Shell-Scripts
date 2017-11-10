@@ -44,12 +44,13 @@ do
 	then 
 		echo "Connection successful"
 	else
+		interface=$(ip -o -4 route show to default | awk '{print $5}')
 		sudo dhclient -v -r && sudo dhclient
 		sudo systemctl stop NetworkManager.service
 		sudo systemctl disable NetworkManager.service
 		sudo systemctl enable NetworkManager.service
 		sudo systemctl start NetworkManager.service
-		sudo ip link set $interfacename up
+		sudo ip link set $interface up
 	fi
 done
 
@@ -89,8 +90,9 @@ done
 read -p "Press Enter to continue."
 
 #This will install a few useful apps
-sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-gtk hardinfo lshw hdparm hddtemp xsensors wget geany rkhunter
+sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-gtk hardinfo lshw hdparm hddtemp xsensors wget geany rkhunter iotop htop
 #Optional 
+#sudo pacman -S --noconfirm network-tools
 sudo pacman -S --noconfirm vlc #Found a problem in vlc-nightly on manjaro not working so the fix install this and clementine
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
