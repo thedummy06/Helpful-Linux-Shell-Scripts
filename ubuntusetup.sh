@@ -9,6 +9,8 @@ sudo ufw enable
 #sudo ufw deny telnet
 #sudo ufw deny ssh
 
+ip addr >> networkconfig.log
+
 #This will ensure you do not have any common network issues
 for c in computer; 
 do 
@@ -17,12 +19,12 @@ do
 	then 
 		echo "Connection successful!"
 	else
-		ifconfig >> ifconfig.txt
+		interface=$(ip -o -4 route show to default | awk '{print $5}')
 		sudo dhclient -v -r && sudo dhclient
 		sudo mmcli nm enable false 
 		sudo nmcli nm enable true
 		sudo /etc/init.d/ network-manager restart
-		sudo ifconfig $interfacename up #Refer to ifconfig.txt
+		sudo ifconfig $interface up #Refer to networkconfig.log
 	fi
 done
 
