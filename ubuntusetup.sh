@@ -24,7 +24,7 @@ do
 		sudo mmcli nm enable false 
 		sudo nmcli nm enable true
 		sudo /etc/init.d/ network-manager restart
-		sudo ifconfig $interface up #Refer to networkconfig.log
+		sudo ip link set $interface up #Refer to networkconfig.log
 	fi
 done
 
