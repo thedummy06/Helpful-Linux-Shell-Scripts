@@ -16,7 +16,7 @@ do
 		sudo systemctl disable NetworkManager.service
 		sudo systemctl enable NetworkManager.service
 		sudo systemctl start NetworkManager.service
-		sudo ifconfig $interface up #Refer to networkconfig.log
+		sudo ip link set $interface up #Refer to networkconfig.log
 	fi
 done 
 
