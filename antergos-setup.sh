@@ -95,6 +95,8 @@ read -p "Press Enter to continue."
 #This will install a few useful apps
 sudo pacman -S --noconfirm bleachbit reflector gnome-disk-utility ncdu nmap hardinfo lshw iotop htop inxi rkhunter transmission-gtk hdparm hddtemp xsensors geany dhclient
 #Optional 
+#sudo pacman -S --noconfirm blender
+#sudo pacman -S --noconfirm qbittorrent
 #sudo pacman -S --noconfirm net-tools
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
