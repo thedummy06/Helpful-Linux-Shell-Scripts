@@ -100,10 +100,10 @@ else
 fi 
 
 #Optional from askubuntu.com method to install google-chrome
-cd /tmp
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt-get -f install
+#cd /tmp
+#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#sudo dpkg -i google-chrome-stable_current_amd64.deb
+#sudo apt-get -f install
 
 #Optional
 echo "Would you like to install games? (Y/n)" 
