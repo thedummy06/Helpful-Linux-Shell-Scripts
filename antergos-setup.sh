@@ -107,7 +107,7 @@ sudo pacman -S --noconfirm bleachbit reflector gnome-disk-utility ncdu nmap hard
 #sudo pacman -S --noconfirm kdenlive 
 #sudo pacman -S --noconfirm palemoon-bin 
 #sudo pacman -S --noconfirm epiphany 
-sudo pacman -S --noconfirm chromium 
+#sudo pacman -S --noconfirm chromium 
 #sudo pacman -S --noconfirm opera
 #sudo pacman -S --noconfirm deluge
 #sudo pacman -S --noconfirm seamonkey 
