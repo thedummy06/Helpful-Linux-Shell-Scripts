@@ -93,7 +93,7 @@ read -p "Press Enter to continue."
 sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-gtk hardinfo lshw hdparm hddtemp xsensors wget geany htop rkhunter iotop 
 #Optional
 #sudo pacman -S --noconfirm net-tools 
-sudo pacman -S --noconfirm vlc && sudo pacman -Rs vlc-nightly #Possibly the easiest way to make this work.
+sudo pacman -S --noconfirm vlc && sudo pacman -Rs --noconfirm vlc-nightly #Possibly the easiest way to make this work.
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
 sudo pacman -S --noconfirm clementine
