@@ -22,7 +22,7 @@ do
 done 
 
 #This will reload the firewall to ensure it's enabled
-sudo ufw reload
+sudo ufw disable && sudo ufw enable
 
 #This will clean the cache
 sudo rm -r .cache/*
