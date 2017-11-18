@@ -92,6 +92,7 @@ read -p "Press Enter to continue."
 #This will install a few useful apps
 sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-gtk hardinfo lshw hdparm hddtemp xsensors wget geany htop rkhunter iotop 
 #Optional
+#sudo pacman -S --noconfirm redshift
 #sudo pacman -S --noconfirm blender
 #sudo pacman -S --noconfirm qbittorrent
 #sudo pacman -S --noconfirm net-tools 
