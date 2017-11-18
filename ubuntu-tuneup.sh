@@ -26,7 +26,7 @@ done
 #sudo apt-get install --reinstall initramfs-tools
 
 #It is recommended that your firewall is enabled
-sudo ufw reload
+sudo ufw disable && sudo ufw enable
 
 #This flushes apt cache
 sudo apt-get -y autoremove
