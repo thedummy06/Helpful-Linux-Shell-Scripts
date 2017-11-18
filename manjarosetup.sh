@@ -201,7 +201,6 @@ then
 	echo 'alias pacup="sudo pacman -Syu"' >> ~/.bashrc
 	echo "#Alias to update the mirrors and sync the repos" >> ~/.bashrc
 	echo 'alias mirrors="sudo pacman-mirrors -g && sudo pacman -Syy"' >> ~/.bashrc
-	
 fi
 
 #This will reboot your system 
