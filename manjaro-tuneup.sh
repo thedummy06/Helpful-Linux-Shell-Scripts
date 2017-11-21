@@ -82,7 +82,7 @@ else
 fi
 
 #Optional and prolly not needed
-sudo e4defrag / -c > fragmentation.log
+#sudo e4defrag / -c > fragmentation.log #Only to be used on HDD
 
 #This will reboot the system
 sudo systemctl reboot
