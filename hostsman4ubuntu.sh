@@ -1,6 +1,6 @@
 #!/bin/bash
 #This updates the hosts file
-USER=$(whoami)
+#USER=$(whoami)
 HOME=/home/$USER/
 package=("1" "2" "3" "4")
 
