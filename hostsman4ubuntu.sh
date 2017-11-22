@@ -60,6 +60,7 @@ then
 else 
 	echo "Please run again and select a valid package number."
 fi
+
 cat hosts >> /etc/hosts
 rm hosts
 sudo /etc/init.d/network-manager restart
