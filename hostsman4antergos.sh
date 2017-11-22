@@ -1,6 +1,7 @@
 #!/bin/bash
 #This updates the hosts file
-HOME=/home/james/
+USER=$(who)
+HOME=/home/$USER/
 package=("1" "2" "3" "4")
 
 echo "creating hosts file to block adverts"
