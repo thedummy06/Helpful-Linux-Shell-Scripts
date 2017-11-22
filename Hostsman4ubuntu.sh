@@ -17,7 +17,11 @@ cd /home/$USER/
 
 package=("1" "2" "3" "4")
 
-echo 'Select a package "1" "2" "3" "4"'
+echo "1"
+echo "2"
+echo "3"
+echo "4"
+echo "Select a package"
 read package
 
 if [[ $package -eq "1" ]];
