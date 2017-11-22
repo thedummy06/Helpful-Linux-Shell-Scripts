@@ -15,7 +15,7 @@ done
 
 cp /etc/hosts.bak /etc/hosts
 cd /home/$USER/
-echo "Choose which package you wish to use"
+echo "Select a package"
 read package
 
 if [[ $package -eq "1" ]];
