@@ -1,14 +1,14 @@
 #!/bin/bash
 #This updates the hosts file
 #USER=$(whoami)
-HOME=/home/$USER/
+#HOME=/home/$USER/
 package=("1" "2" "3" "4")
 
 echo "creating hosts file to block adverts"
 cp /etc/hosts /etc/hosts.bak
 #if already exists
 cp /etc/hosts.bak /etc/hosts
-cd $HOME
+cd /home/$USER/
 echo "Choose which package you wish to use"
 read package
 if [[ $package -eq "1" ]];
