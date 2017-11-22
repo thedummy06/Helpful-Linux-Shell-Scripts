@@ -10,6 +10,7 @@ find /etc/hosts.bak
 while [ $? -gt 0 ]
 do  
 	sudo cp /etc/hosts /etc/hosts.bak
+	break
 done
 
 cp /etc/hosts.bak /etc/hosts
