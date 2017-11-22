@@ -90,8 +90,10 @@ done
 read -p "Press Enter to continue."
 
 #This will install a few useful apps
-sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-gtk hardinfo lshw hdparm hddtemp xsensors wget geany htop rkhunter iotop 
+sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap hardinfo lshw hdparm hddtemp xsensors wget geany htop iotop clementine
 #Optional
+#sudo pacman -S --noconfirm rkhunter
+#sudo pacman -S --noconfirm transmission-gtk
 #sudo pacman -S --noconfirm pacaur
 #sudo pacman -S --noconfirm redshift
 #sudo pacman -S --noconfirm blender
@@ -100,7 +102,6 @@ sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap transmission-g
 sudo pacman -S --noconfirm vlc && sudo pacman -Rs --noconfirm vlc-nightly #Possibly the easiest way to make this work.
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
-sudo pacman -S --noconfirm clementine
 #sudo pacman -S --noconfirm qupzilla 
 #sudo pacman -S --noconfirm kodi 
 #sudo pacman -S --noconfirm shotwell 
