@@ -66,7 +66,7 @@ fi
 
 cat hosts >> /etc/hosts
 rm hosts
-systemctl restart NetworkManager
+sudo /etc/init.d/network-manager restart
 cat /etc/hosts >> hosts.log
 
 
