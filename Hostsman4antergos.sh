@@ -1,7 +1,7 @@
 #!/bin/bash
 #This updates the hosts file
 
-#USER=$(whoami)
+USER=$(whoami)
 #HOME=/home/$USER/
 
 echo "creating hosts file to block adverts"
