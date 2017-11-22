@@ -17,7 +17,6 @@ cp /etc/hosts.bak /etc/hosts
 cd /home/$USER/
 echo "packages range from 1 all the way to 4"
 read -p "Select a package"
-read package
 
 if [[ $package -eq "1" ]];
 then 
