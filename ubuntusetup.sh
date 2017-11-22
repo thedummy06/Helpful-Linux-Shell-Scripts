@@ -48,8 +48,9 @@ sudo apt-get -y dist-upgrade
 read -p "Press Enter to continue."
 
 #This will install your main apps for you   
-sudo apt-get -y install gparted bleachbit ncdu gufw inxi iotop rkhunter xsensors hardinfo lm-sensors traceroute nmap htop
+sudo apt-get -y install gparted bleachbit ncdu gufw inxi iotop xsensors hardinfo lm-sensors traceroute nmap htop
 #Optional
+#sudo apt-get -y install rkhunter
 #sudo apt-get -y install clamav
 #sudo apt-get -y install qupzilla
 #sudo apt-get -y install midori
