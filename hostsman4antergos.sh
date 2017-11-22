@@ -3,7 +3,6 @@
 
 #USER=$(whoami)
 #HOME=/home/$USER/
-package=("1" "2" "3" "4")
 
 echo "creating hosts file to block adverts"
 find /etc/hosts.bak 
