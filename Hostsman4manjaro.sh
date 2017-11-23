@@ -1,9 +1,6 @@
 #!/bin/bash
 #This updates the hosts file
 
-USER=$(whoami)
-#HOME=/home/$USER/
-
 echo "creating hosts file to block adverts"
 find /etc/hosts.bak 
 while [ $? -gt 0 ]
@@ -13,7 +10,7 @@ do
 done
 
 cp /etc/hosts.bak /etc/hosts
-cd /home/$USER/
+cd /home/$YourUserName/
 
 package=("1" "2" "3" "4")
 
