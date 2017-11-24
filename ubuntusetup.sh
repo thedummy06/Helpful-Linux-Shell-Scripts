@@ -163,7 +163,7 @@ echo "Would  you like to use a hosts file? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo ./hostsman4ubuntu.sh
+	sudo ./Hostsman4ubuntu.sh
 else 
 	echo "Maybe later!"
 fi
