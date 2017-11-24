@@ -18,7 +18,7 @@ cd $house
 
 package=("1" "2" "3" "4")
 
-echo 'Select a package "1" "2" "3" "4"'
+echo "Select a package 1 2 3 4"
 read package
 
 if [[ $package -eq "1" ]];
