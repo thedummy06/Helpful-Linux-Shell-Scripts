@@ -34,7 +34,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
 	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	sed -i '6,23d' hosts
+	#sed -i '6,23d' hosts
 	rm ad_servers.txt
 elif [[ $package -eq "3" ]];
 then 
@@ -60,7 +60,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
 	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	sed -i '6,23d' hosts
+	s#ed -i '6,23d' hosts
 	rm cameleonhosts hosts.txt hphosts-partial.txt
 else 
 	echo "Run again and pick a valid number."
