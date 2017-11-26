@@ -116,7 +116,8 @@ then
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
 	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
 	sed -i '76724,149206d' hosts
-	rm Canvas1 Canvas2 Audiotracking NSAlist Webrtc Commontracking 
+	rm ad_servers.txt
+	#rm pron
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package -eq 7 ]];
 then
