@@ -43,9 +43,11 @@ elif [[ $package -eq 3 ]];
 then 
 	wget http://www.montanamenagerie.org/hostsfile/hosts.txt
 	wget https://hosts-file.net/hphosts-partial.txt
+	#wget https://raw.githubusercontent.com/Clefspeare13/pornhosts/master/0.0.0.0/hosts -O pron
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	cat hphosts-partial.txt >> hosts.txt
 	cat cameleonhosts >> hosts.txt
+	#cat pron >> hosts
 	cat Jameshostslist >> hosts.txt
 	mv hosts.txt hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
@@ -54,7 +56,7 @@ then
 	rm hphosts-partial.txt cameleonhosts 
 elif [[ $package -eq 4 ]];
 then 
-	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
+	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget http://www.montanamenagerie.org/hostsfile/hosts.txt
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
@@ -75,6 +77,7 @@ then
 	wget https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts -O adservers.txt
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts
 	wget someonewhocares.org/hosts/hosts
+	wget https://raw.githubusercontent.com/Clefspeare13/pornhosts/master/0.0.0.0/hosts -O pron
 	wget http://www.malwaredomainlist.com/hostslist/hosts.txt -O Malwarehosts
 	wget https://raw.githubusercontent.com/tyzbit/hosts/master/data/tyzbit/hosts -O tyzbit
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts -O add.2o7Net
@@ -85,6 +88,7 @@ then
 	wget https://raw.githubusercontent.com/mitchellkrogza/Badd-Boyz-Hosts/master/hosts -O Badd-Boyz
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts -O unchecky	
 	cat MVPShosts >> hosts
+	cat pron >> hosts
 	cat Malwarehosts >> hosts
 	cat add.Spam >> hosts
 	cat add.Dead >> hosts
@@ -105,8 +109,10 @@ then
 	echo "This could block sites that you need, you've been warned."
 
 	wget hosts-file.net/ad_servers.txt
+	#wget https://raw.githubusercontent.com/Clefspeare13/pornhosts/master/0.0.0.0/hosts -O pron
 	wget https://raw.githubusercontent.com/joeylane/hosts/master/hosts # Does block google
 	cat ad_servers.txt >> hosts
+	#cat pron >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
 	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
