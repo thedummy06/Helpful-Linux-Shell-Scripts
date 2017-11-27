@@ -32,7 +32,7 @@ sudo rm -r ~/.nv/*
 sudo rm -r ~/.local/share/recently-used.xbel
 sudo rm -r /tmp/* 
 find ~/Downloads/* -type f -mtime +1 -exec rm {} \; #Deletes contents older than one day
-history -c && history -w
+history -cw && cat /dev/null/ > ~/.bash_history
 
 #This could clean your Video folder and Picture folder based on a set time
 TRASHCAN=~/.local/share/Trash/
