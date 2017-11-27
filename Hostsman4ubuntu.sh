@@ -136,8 +136,10 @@ echo "Are there any other sites you wish to exclude?(Y/n)"
 read answer
 while [ $answer == Y ]
 do
-	read -p "Enter any other sites you wish to exclude:" Sites
-	grep -v "$Sites" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	read -p "Enter any other sites you wish to exclude:" Site1 Site2 Site3 #Temporary fix until I find another workaround
+	grep -v "$Site1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	grep -v "$Site2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	grep -v "$Site3" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 done
 
 sudo cat hosts >> /etc/hosts
