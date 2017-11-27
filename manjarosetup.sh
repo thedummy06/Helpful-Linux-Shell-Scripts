@@ -230,6 +230,7 @@ fi
 
 #This gives some useful information for later troubleshooting 
 echo "You may want to save sysinfo.txt somewhere safe for future reference."
+sleep 2
 echo "###############################################################" >> sysinfo.txt
 echo "SYSTEM INFORMATION" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt
