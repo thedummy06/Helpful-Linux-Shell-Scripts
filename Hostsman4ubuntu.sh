@@ -27,7 +27,7 @@ if [[ $package -eq 1 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	cat Jameshostslist >> hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	#sed -i '6,22d' hosts
 elif [[ $package -eq 2 ]];
 then 
@@ -36,7 +36,7 @@ then
 	cat ad_servers.txt >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	#sed -i '6,23d' hosts
 	rm ad_servers.txt
 elif [[ $package -eq 3 ]];
@@ -51,7 +51,7 @@ then
 	cat Jameshostslist >> hosts.txt
 	mv hosts.txt hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	grep -v "1337x.to" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm hphosts-partial.txt cameleonhosts 
 elif [[ $package -eq 4 ]];
@@ -65,7 +65,7 @@ then
 	cat cameleonhosts >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	grep -v "1337x.to" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	#sed -i '6,23d' hosts
 	rm cameleonhosts hosts.txt hphosts-partial.txt
@@ -100,7 +100,7 @@ then
 	cat spotifyads >> hosts
 	cat unchecky >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm KADhosts.txt MVPShosts Malwarehosts add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt spotifyads unchecky
 elif [[ $package -eq 6 ]];
 then
@@ -114,7 +114,7 @@ then
 	#cat pron >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/127.0.0.1/0.0.0.0/g' hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
 	sed -i '76724,149206d' hosts
 	rm ad_servers.txt
 	#rm pron
@@ -126,7 +126,7 @@ then
 	wget https://github.com/mitchellkrogza/Ultimate.Hosts.Blacklist/blob/master/hosts.zip?raw=true
 	unzip 'hosts.zip?raw=true'
 	cat Jameshostslist >> hosts
-	sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts && uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 else 
 	echo "Run again and pick a valid number."
 	exit
