@@ -99,7 +99,6 @@ then
 	cat Malwarehosts >> hosts
 	cat Pron >> hosts
 	cat Pron2 >> hosts
-	cat Pron3 >> hosts
 	cat add.Spam >> hosts
 	cat add.Dead >> hosts
 	cat add.Risk >> hosts
