@@ -52,7 +52,6 @@ then
 	mv hosts.txt hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "1337x.to" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm hphosts-partial.txt cameleonhosts 
 elif [[ $package -eq 4 ]];
 then 
@@ -68,7 +67,6 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "1337x.to" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	#sed -i '6,23d' hosts
 	rm cameleonhosts hosts.txt hphosts-partial.txt spamhosts
 elif [[ $package -eq 5 ]];
