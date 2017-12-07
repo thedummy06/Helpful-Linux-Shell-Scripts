@@ -60,15 +60,17 @@ then
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/127.0.0.1  /' spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
+	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
 	cat hosts.txt >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat spamhosts >> hosts
+	cat Malwarehosts2 >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	#sed -i '6,23d' hosts
-	rm cameleonhosts hosts.txt hphosts-partial.txt spamhosts
+	rm cameleonhosts hosts.txt hphosts-partial.txt spamhosts Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -93,6 +95,7 @@ then
 	wget http://www.montanamenagerie.org/hostsfile/hosts.txt
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
+	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
 	cat MVPShosts >> hosts
 	cat Malwarehosts >> hosts
 	cat Pron >> hosts
@@ -114,9 +117,10 @@ then
 	cat hosts.txt >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
+	cat Malwarehosts2 >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm KADhosts.txt MVPShosts Malwarehosts add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hosts.txt cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Pron3 Gamblinglist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hosts.txt cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."

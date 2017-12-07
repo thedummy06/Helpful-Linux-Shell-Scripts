@@ -99,7 +99,7 @@ sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap hardinfo lshw 
 #sudo pacman -S --noconfirm blender
 #sudo pacman -S --noconfirm qbittorrent
 #sudo pacman -S --noconfirm net-tools 
-sudo pacman -S --noconfirm vlc && sudo pacman -Rs vlc-nightly
+sudo pacman -RS --noconfirm vlc-nightly && sudo pacman -S --noconfirm vlc
 #sudo pacman -S --noconfirm clamav
 #sudo pacman -S --noconfirm clamtk
 #sudo pacman -S --noconfirm qupzilla 
@@ -149,9 +149,8 @@ echo "Would you like some extra themes? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then
-	sudo pacman -S --noconfirm moka-icon-theme faba-icon-theme arc-icon-theme  evopop-icon-theme elementary-xfce-icons macos-icon-theme
-	sudo pacman -S --noconfirm arc-gtk-theme numix-frost-themes menda-themes-dark papirus-icon-theme gtk-theme-breath obsidian-icon-theme
-	sudo pacman -S --noconfirm xfce-theme-greybird numix-themes-archblue mint-y-theme mint-y-icons
+	sudo pacman -S --noconfirm moka-icon-theme faba-icon-theme arc-icon-theme  evopop-icon-theme elementary-xfce-icons xfce-theme-greybird numix-themes-archblue 
+	sudo pacman -S --noconfirm arc-gtk-theme menda-themes-dark papirus-icon-theme gtk-theme-breath obsidian-icon-theme
 else
 	echo "Your desktop is void like my soul!"
 fi 
@@ -223,14 +222,19 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backups --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backups
+	#This backs up your system
+	thedate=$(date +%Y-%M-%d)
+
+	cd /
+	sudo mkdir Backups
+	cd Backups
+	sudo tar -cvzpf /Backups/$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
 #This gives some useful information for later troubleshooting 
 echo "You may want to save sysinfo.txt somewhere safe for future reference."
-sleep 2
 echo "###############################################################" >> sysinfo.txt
 echo "SYSTEM INFORMATION" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt
