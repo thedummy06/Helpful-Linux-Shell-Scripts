@@ -118,6 +118,7 @@ then
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
+	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hosts.txt cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
