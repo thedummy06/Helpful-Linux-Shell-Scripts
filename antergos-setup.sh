@@ -96,9 +96,11 @@ read -p "Press Enter to continue."
 sudo pacman -S --noconfirm bleachbit reflector gnome-disk-utility ncdu nmap hardinfo lshw iotop htop inxi hdparm hddtemp xsensors geany dhclient
 #Optional 
 #sudo pacman -S --noconfirm rkhunter
+#sudo pacman -S --noconfirm xed
 #sudo pacman -S --noconfirm transmission-gtk
 #sudo pacman -S --noconfirm pacaur
 #sudo pacman -S --noconfirm redshift
+#sudo pacman -S --noconfirm abiword gnumeric #Lightweight office apps
 #sudo pacman -S --noconfirm blender
 #sudo pacman -S --noconfirm qbittorrent
 #sudo pacman -S --noconfirm net-tools
@@ -216,13 +218,17 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backups --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backups
+	#This backs up your system
+	thedate=$(date +%Y-%M-%d)
+
+	cd /
+	sudo mkdir Backups
+	cd Backups
+	sudo tar -cvzpf /Backups/$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
-echo "You may want to save sysinfo.txt somewhere safe for troubleshooting later."
-sleep 2
 echo "###############################################################" >> sysinfo.txt
 echo "SYSTEM INFORMATION" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt

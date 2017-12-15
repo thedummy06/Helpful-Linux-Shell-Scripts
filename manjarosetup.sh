@@ -93,9 +93,11 @@ read -p "Press Enter to continue."
 sudo pacman -S --noconfirm bleachbit gnome-disk-utility ncdu nmap hardinfo lshw hdparm hddtemp xsensors wget geany htop iotop clementine 
 #Optional
 #sudo pacman -S --noconfirm rkhunter
+#sudo pacman -S --noconfirm xed
 #sudo pacman -S --noconfirm transmission-gtk
 #sudo pacman -S --noconfirm pacaur
 #sudo pacman -S --noconfirm redshift
+#sudo pacman -S --noconfirm abiword gnumeric #lightweight office apps
 #sudo pacman -S --noconfirm blender
 #sudo pacman -S --noconfirm qbittorrent
 #sudo pacman -S --noconfirm net-tools 
