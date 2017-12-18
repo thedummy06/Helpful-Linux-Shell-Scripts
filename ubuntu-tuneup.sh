@@ -26,7 +26,7 @@ done
 #sudo apt-get install --reinstall initramfs-tools
 
 #It is recommended that your firewall is enabled
-sudo ufw disable && sudo ufw enable
+sudo ufw reload
 
 #This flushes apt cache
 sudo apt-get -y autoremove
@@ -41,7 +41,7 @@ sudo rm -r ~/.nv/*
 sudo rm -r ~/.local/share/recently-used.xbel
 sudo rm -r /tmp/*
 find ~/Downloads/* -mtime +1 -exec rm {} \; #Deletes content over 1 day old
-history -cw && cat /dev/null/? ~/.bash_history
+history -cw && cat /dev/null/ > ~/.bash_history
 
 #This could clean your Video folder and Picture folder based on a set time
 TRASHCAN=~/.local/share/Trash/
@@ -76,7 +76,13 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backups --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backups
+	#This backs up your system
+	thedate=$(date +%Y-%M-%d)
+	
+	cd /
+	sudo mkdir Backups
+	cd Backups
+	sudo tar -cvzpf /Backups/$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi

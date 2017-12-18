@@ -186,6 +186,17 @@ do
 break
 done
 
+echo "This hosts file doesn't update as often" 
+echo "Would you like to add some extra sites?"
+read answer 
+if [[ $answer == Y ]];
+then 
+	wget https://raw.githubusercontent.com/bjornstar/hosts/master/hosts -O bjornhosts
+	cat bjornhosts >> hosts 
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts 
+	rm bjornhosts
+fi
+
 sudo cat hosts >> /etc/hosts
 rm hosts
 sudo systemctl restart NetworkManager

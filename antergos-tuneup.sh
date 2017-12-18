@@ -22,7 +22,7 @@ do
 done  
 
 #This will reload the firewall to ensure it's enabled
-sudo ufw disable && sudo ufw enable
+sudo ufw reload
 
 #This will clean the cache
 sudo rm -r .cache/*
@@ -76,7 +76,13 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backups --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backups
+	#This backs up your system
+	thedate=$(date +%Y-%M-%d)
+	
+	cd /
+	sudo mkdir Backups
+	cd Backups
+	sudo tar -cvzpf /Backups/$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
