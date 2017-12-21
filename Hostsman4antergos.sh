@@ -169,7 +169,6 @@ then
 	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts
 else 
 	echo "Run again and pick a valid number."
-	exit
 fi
 
 echo "Are there any other sites that you wish to exclude?(Y/n)"
