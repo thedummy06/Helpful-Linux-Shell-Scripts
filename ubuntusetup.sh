@@ -6,8 +6,13 @@ echo "export EDITOR=nano" | sudo tee -a /etc/bash.bashrc
 #This activates the firewall
 sudo systemctl enable ufw
 sudo ufw enable
-#sudo ufw deny telnet
-#sudo ufw deny ssh
+echo "Would you like to deny ssh and telnet for security purposes?(Y/n)"
+read answer
+if [ $answer == Y ]
+then
+	sudo ufw deny telnet && sudo ufw deny ssh
+	sudo ufw reload
+fi
 
 ip addr >> networkconfig.log
 
@@ -54,6 +59,7 @@ sudo apt-get -y install gparted bleachbit ncdu gufw inxi iotop xsensors hardinfo
 #sudo apt-get -y install clamav
 #sudo apt-get -y install qupzilla
 #sudo apt-get -y install midori
+#sudo apt-get -y install abiword gnumeric #Lightweight office apps
 #sudo apt-get -y install rhythmbox
 #sudo apt-get -y install gnome-tweak-tool
 #sudo apt-get -y install pidgin
@@ -85,7 +91,7 @@ case $operation in
 		2) sudo apt-get -y install xubuntu-restricted-extras ;;
 		3) sudo apt-get -y install lubuntu-restricted-extras ;;
 		4) sudo apt-get -y install kubuntu-restricted-extras ;;
-		5) echo "Moving on!"
+		5) echo "Moving on!" ;;
 esac
 
 #Optional ligthweight web browser alternative
@@ -180,6 +186,8 @@ then
 	echo 'alias update="sudo apt-get update && sudo apt-get -y dist-upgrade"' >> ~/.bashrc
 	echo "#Alias to clean the apt cache" >> ~/.bashrc
 	echo 'alias apt clean="sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean"' >> ~/.bashrc
+	echo "#Alias to update hosts file" >> ~/.bashrc
+	echo 'alias hostman="sudo ./Hostsman4ubuntu.sh"' >> ~/.bashrc
 fi
 
 #Optional, but it is highly recommended that you make a quick backup
@@ -187,13 +195,18 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo rsync -aAXv --exclude=dev --exclude=proc --exclude=Backups --exclude=Music --exclude=sys --exclude=tmp --exclude=run --exclude=mnt --exclude=media --exclude=lost+found / /Backups
+	#This backs up your system
+	host=$(hostname)
+	thedate=$(date +%Y-%M-%d)
+	
+	cd /
+	sudo mkdir Backups
+	cd Backups
+	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
-echo "You may want to save sysinfo.txt somewhere safe for troubleshooting later."
-slee 2
 echo "###############################################################" >> sysinfo.txt
 echo "SYSTEM INFORMATION" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt

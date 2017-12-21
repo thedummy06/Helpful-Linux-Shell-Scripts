@@ -77,12 +77,13 @@ read answer
 if [[ $answer == Y ]];
 then 
 	#This backs up your system
+	host=$(hostname)
 	thedate=$(date +%Y-%M-%d)
 	
 	cd /
 	sudo mkdir Backups
 	cd Backups
-	sudo tar -cvzpf /Backups/$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
+	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi

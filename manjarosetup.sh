@@ -18,8 +18,13 @@ done
 #This starts your firewall 
 sudo systemctl enable ufw 
 sudo ufw enable 
-#sudo ufw deny telnet 
-#sudo ufw deny ssh #ssh is a secure shell protocol that allows you to log into and interact with multiple clients
+echo "Would you like to disable ssh and telnet for security?(Y/n)"
+read answer
+if [[ $answer == Y ]];
+then 
+	sudo ufw deny telnet && sudo ufw deny ssh
+	sudo ufw reload
+fi
 
 #This restricts coredumps to prevent attackers from getting info
 sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
@@ -215,6 +220,8 @@ then
 	echo 'alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"' >> ~/.bashrc
 	echo "#Alias to update the system" >> ~/.bashrc
 	echo 'alias pacup="sudo pacman -Syu"' >> ~/.bashrc
+	echo "#Alias to update hosts file" >> ~/.bashrc
+	echo 'alias hostsman="sudo ./Hostsman4manjaro.sh"' >> ~/.bashrc
 	echo "#Alias to update the mirrors and sync the repos" >> ~/.bashrc
 	echo 'alias mirrors="sudo pacman-mirrors -g && sudo pacman -Syy"' >> ~/.bashrc
 fi
@@ -225,12 +232,13 @@ read answer
 if [[ $answer == Y ]];
 then 
 	#This backs up your system
+	host=$(hostname)
 	thedate=$(date +%Y-%M-%d)
 
 	cd /
 	sudo mkdir Backups
 	cd Backups
-	sudo tar -cvzpf /Backups/$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
+	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
