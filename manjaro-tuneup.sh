@@ -1,5 +1,60 @@
 #!/bin/bash
 
+#This is for service management Prolly not a great idea, but...
+cat <<_EOF_
+This is usually better off left undone, only disable services you know 
+you will not need or miss. I can not be held responsible if you brick your system.
+Handle with caution.
+_EOF_
+
+echo "Which would you like to do?"
+echo "1 - enable service"
+echo "2 - disable service"
+echo "3 - save a copy of all the services on your system to a text file"
+echo "4 - Exit without doing anything"
+
+read operation;
+ 
+case $operation in
+	1) 
+		systemctl list-unit-files --type=service | grep disabled
+		sleep 3
+		echo "Please enter the name of a service to enable"
+		read service
+		sudo systemctl enable $service
+		echo "Would you like to restart?(Y/n)"
+		read answer
+		while [ $answer == Y ];
+		do
+			sudo systemctl reboot
+		break
+		done
+	;;
+	2)
+		systemctl list-unit-files --type=service | grep enabled
+		sleep 3
+		echo "Please enter the name of a service to disable"
+		read service 
+		sudo systemctl disable $service
+		echo "Would you like to restart?(Y/n)"
+		read answer 
+		while [ $answer == Y ];
+		do
+			sudo systemctl reboot
+		break
+		done
+	;;
+	3)
+		systemctl list-unit-files --type=service >> services.txt
+		echo "Thank you for your patience"
+		sleep 3
+	;;
+	4)
+		echo "Smart choice."
+		sleep 2
+	;;
+esac
+
 #This refreshes systemd in case of failed or changed units
 sudo systemctl daemon-reload
 
