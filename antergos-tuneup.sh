@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This is for service management, probably a bad ideal, but...
+#This is for service management, probably a bad idea, but...
 cat <<_EOF_
 This is usually better off left undone, only disable services you know 
 you will not need or miss. I can not be held responsible if you brick your system.
