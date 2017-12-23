@@ -42,7 +42,7 @@ then
 elif [[ $package -eq 3 ]];
 then 
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip
+	unzip hosts.zip && mv hosts.txt hphosts
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
@@ -52,12 +52,12 @@ then
 	mv hosts.txt hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm hphosts-partial.txt cameleonhosts 
+	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist 
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip
+	unzip hosts.zip && mv hosts.txt hphosts
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/127.0.0.1  /' spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
@@ -71,7 +71,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm cameleonhosts hosts.txt hphosts-partial.txt spamhosts Malwarehosts2
+	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -94,7 +94,7 @@ then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts -O unchecky
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/127.0.0.1  /' spamhosts
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip
+	unzip hosts.zip && mv hosts.txt hphosts
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
@@ -124,21 +124,19 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hosts.txt cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist Jameshostslist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
 
 	wget hosts-file.net/ad_servers.txt
-	#wget https://raw.githubusercontent.com/Clefspeare13/pornhosts/master/0.0.0.0/hosts -O pron
 	wget https://raw.githubusercontent.com/joeylane/hosts/master/hosts # Does block google
 	cat ad_servers.txt >> hosts
-	#cat pron >> hosts
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
-	#sed -i '76724,149206d' hosts
-	rm Canvas1 Canvas2 Audiotracking NSAlist Webrtc Commontracking 
+	rm Canvas1 Canvas2 Audiotracking NSAlist Webrtc Commontracking Jameshostslist
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package -eq 7 ]];
 then
@@ -149,6 +147,7 @@ then
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	rm Jameshostslist
 elif [[ $package -eq 8 ]];
 then
 #Umatrix style formula with something extra
@@ -171,7 +170,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts
+	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts Jameshostslist
 else 
 	echo "Run again and pick a valid number."
 fi
@@ -203,5 +202,5 @@ fi
 
 sudo cat hosts >> /etc/hosts
 rm hosts
-sudo /etc/init.d/network-manager restart
+sudo /etc/init.d/network-manager restart 
 cat /etc/hosts >> hosts.log
