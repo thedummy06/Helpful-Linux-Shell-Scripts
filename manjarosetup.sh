@@ -74,7 +74,7 @@ fi
 #This tries to update and rate mirrors if it fails it refreshes the keys
 for s in updates;
 do 
-	sudo pacman-mirrors -g
+	sudo pacman-mirrors -f
 	sudo pacman-optimize && sync
 	sudo pacman -Syyu --noconfirm 
 	if [ $? -eq 0 ] 
@@ -245,10 +245,26 @@ fi
 
 #This gives some useful information for later troubleshooting 
 echo "You may want to save sysinfo.txt somewhere safe for future reference."
+distribution=$(cat /etc/issue | awk '{print $1}')
 echo "###############################################################" >> sysinfo.txt
 echo "SYSTEM INFORMATION" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt
 echo "" >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "DISTRIBUTION" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo $distribution >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "DESKTOP_SESSION" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "$DESKTOP_SESSION" >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "SYSTEM INIT" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+ps -p1 | awk 'NR!=1{print $4}' >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt
 echo "DATE" >> sysinfo.txt
@@ -308,7 +324,7 @@ echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "Inxi" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
-inxi -Fx >> sysinfo.txt
+inxi -F >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "USB INFORMATION" >> sysinfo.txt
@@ -358,7 +374,7 @@ echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "SYSTEMD STATUS" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
-systemctl status >> sysinfo.txt
+systemctl status | less >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "SYSTEMD'S FAILED LIST" >> sysinfo.txt
