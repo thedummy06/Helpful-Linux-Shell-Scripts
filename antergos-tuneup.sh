@@ -18,6 +18,7 @@ read operation;
 case $operation in
 	1) 
 		systemctl list-unit-files --type=service | grep disabled
+		sleep 3
 		echo "Please enter the name of a service to enable"
 		read service
 		sudo systemctl enable $service
@@ -31,6 +32,7 @@ case $operation in
 	;;
 	2)
 		systemctl list-unit-files --type=service | grep enabled
+		sleep 3
 		echo "Please enter the name of a service to disable"
 		read service 
 		sudo systemctl disable $service
