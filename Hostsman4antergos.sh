@@ -26,28 +26,28 @@ read package
 if [[ $package -eq 1 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	#sed -i '6,22d' hosts
 elif [[ $package -eq 2 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget https://hosts-file.net/ad_servers.txt
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat ad_servers.txt >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	#sed -i '6,23d' hosts
 	rm ad_servers.txt
 elif [[ $package -eq 3 ]];
 then 
-	wget http://www.montanamenagerie.org/hostsfile/hosts.txt
+	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
+	unzip hosts.zip
 	wget https://hosts-file.net/hphosts-partial.txt
-	#wget https://raw.githubusercontent.com/Clefspeare13/pornhosts/master/0.0.0.0/hosts -O pron
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat hphosts-partial.txt >> hosts.txt
 	cat cameleonhosts >> hosts.txt
-	#cat pron >> hosts
 	cat Jameshostslist >> hosts.txt
 	mv hosts.txt hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
@@ -56,11 +56,13 @@ then
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
-	wget http://www.montanamenagerie.org/hostsfile/hosts.txt
+	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
+	unzip hosts.zip
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/127.0.0.1  /' spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat hosts.txt >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
@@ -69,7 +71,6 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	#sed -i '6,23d' hosts
 	rm cameleonhosts hosts.txt hphosts-partial.txt spamhosts Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
@@ -92,10 +93,12 @@ then
 	wget https://raw.githubusercontent.com/mitchellkrogza/Badd-Boyz-Hosts/master/hosts -O Badd-Boyz
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts -O unchecky
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/127.0.0.1  /' spamhosts
-	wget http://www.montanamenagerie.org/hostsfile/hosts.txt
+	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
+	unzip hosts.zip
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat MVPShosts >> hosts
 	cat Malwarehosts >> hosts
 	cat Pron >> hosts
@@ -143,6 +146,7 @@ then
 
 	wget https://github.com/mitchellkrogza/Ultimate.Hosts.Blacklist/blob/master/hosts.zip?raw=true
 	unzip 'hosts.zip?raw=true'
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 elif [[ $package -eq 8 ]];
@@ -156,6 +160,7 @@ then
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/127.0.0.1  /' Petersadslist
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malware2 && sed -i -e 's/^/127.0.0.1  /' Malware2
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/127.0.0.1  /' Spamhosts
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat MVPShosts >> hosts 
 	cat Malwarehosts >> hosts 
 	cat Petersadslist >> hosts
@@ -185,7 +190,7 @@ do
 break
 done
 
-echo "This hosts file doesn't update as often."
+echo "This hosts file doesn't update as often" 
 echo "Would you like to add some extra sites?"
 read answer 
 if [[ $answer == Y ]];
