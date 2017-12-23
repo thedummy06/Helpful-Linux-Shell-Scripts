@@ -55,10 +55,10 @@ sudo journalctl --vacuum-size=25M
 sudo pacman -Rsn --noconfirm $(pacman -Qqdt)
 
 #Optional This will remove the pamac cached applications and older versions
-sudo pacman -Sc --noconfirm
+sudo pacman -Scc --noconfirm
 
 #This will ensure you are up to date and running fastest mirrors 
-sudo pacman-mirrors -g
+sudo pacman-mirrors -f
 sudo pacman -Syyu --noconfirm
 sudo pacman-optimize && sync
 
