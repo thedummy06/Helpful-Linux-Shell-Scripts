@@ -236,7 +236,12 @@ then
 	thedate=$(date +%Y-%M-%d)
 
 	cd /
-	sudo mkdir Backups
+	find Backups
+	while [ "$?" != "0" ];
+	do
+		sudo mkdir Backups
+	break
+	done
 	cd Backups
 	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 

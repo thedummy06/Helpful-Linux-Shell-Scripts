@@ -200,17 +200,40 @@ then
 	thedate=$(date +%Y-%M-%d)
 	
 	cd /
-	sudo mkdir Backups
+	find Backups
+	while [ "$?" != "0" ];
+	do
+		sudo mkdir Backups
+	break
+	done
 	cd Backups
 	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
 else 
 	echo "It is a good idea to create a backup after such changes, maybe later."
 fi
 
+#This gives you useful information about your system
+echo "You may want to save sysinfo.txt somewhere safe for future reference."
+distribution=$(cat /etc/issue | awk '{print $1}')
 echo "###############################################################" >> sysinfo.txt
 echo "SYSTEM INFORMATION" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt
 echo "" >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "DISTRIBUTION" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo $distribution >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "DESKTOP_SESSION" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "$DESKTOP_SESSION" >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+echo "SYSTEM INIT" >> sysinfo.txt
+echo "###############################################################" >> sysinfo.txt
+ps -p1 | awk 'NR!=1{print $4}' >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "###############################################################" >> sysinfo.txt
 echo "DATE" >> sysinfo.txt
@@ -270,7 +293,7 @@ echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "Inxi" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
-inxi -Fx >> sysinfo.txt
+inxi -F >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "USB INFORMATION" >> sysinfo.txt
@@ -320,7 +343,7 @@ echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "SYSTEMD STATUS" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
-systemctl status >> sysinfo.txt
+systemctl status | less >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 echo "SYSTEMD'S FAILED LIST" >> sysinfo.txt
