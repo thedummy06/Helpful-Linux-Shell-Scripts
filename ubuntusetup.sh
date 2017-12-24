@@ -187,7 +187,7 @@ then
 	echo "#Alias to clean the apt cache" >> ~/.bashrc
 	echo 'alias apt clean="sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean"' >> ~/.bashrc
 	echo "#Alias to update hosts file" >> ~/.bashrc
-	echo 'alias hostman="sudo ./Hostsman4ubuntu.sh"' >> ~/.bashrc
+	echo 'alias hostsman="sudo ./Hostsman4ubuntu.sh"' >> ~/.bashrc
 fi
 
 #Optional, but it is highly recommended that you make a quick backup

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This is for service management, probably a bad idea, but...
+#This is for service management, probably a bad ideal, but...
 cat <<_EOF_
 This is usually better off left undone, only disable services you know 
 you will not need or miss. I can not be held responsible if you brick your system.
@@ -18,7 +18,6 @@ read operation;
 case $operation in
 	1) 
 		systemctl list-unit-files --type=service | grep disabled
-		sleep 3
 		echo "Please enter the name of a service to enable"
 		read service
 		sudo systemctl enable $service
@@ -32,7 +31,6 @@ case $operation in
 	;;
 	2)
 		systemctl list-unit-files --type=service | grep enabled
-		sleep 3
 		echo "Please enter the name of a service to disable"
 		read service 
 		sudo systemctl disable $service
@@ -110,7 +108,41 @@ sudo journalctl --vacuum-size=25M
 sudo pacman -Rsn --noconfirm $(pacman -Qqdt)
 
 #Optional This will remove the pamac cached applications and older versions
-sudo pacman -Sc --noconfirm
+cat <<_EOF_
+It's probably not a great idea to be cleaning this part of the system
+all willy nilly, but here is a way to free up some space before doing
+backups that may cause you to not be able to downgrade, so be careful. 
+It is possible and encouraged to clean all but the latest three versions of software on your
+system that you may not need, but this removes all backup versions. 
+You will be given a choice, but it is strongly recommended that you use the simpler option to 
+remove only up to the latest three versions of your software. Thanks. 
+_EOF_
+
+echo "What would you like to do?"
+echo "1 - Remove up to the latest three versions of software"
+echo "2 - Remove all cache except for the version on your system"
+echo "3 - Remove all cache from every package and every version"
+echo "4 - Skip this step"
+
+read operation;
+
+case $operation in 
+	1)
+	sudo paccache -rvk3
+	sleep 3
+	;;
+	2)
+	sudo pacman -Sc --noconfirm 
+	sleep 3
+	;;
+	3)
+	sudo pacman -Scc --noconfirm
+	sleep 3
+	;;
+	4)
+	echo "NICE!"
+	;;
+esac
 
 #This will ensure you are up to date and running fastest mirrors 
 sudo reflector -l 50 -f 20 --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d
