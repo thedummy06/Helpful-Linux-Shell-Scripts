@@ -62,15 +62,23 @@ done
 #This disables ipv6
 echo "Sometimes ipv6 can cause network issues. Would you like to disable it?(Y/n)"
 read answer 
-if [[ $answer == Y ]];
-then 
+while [[ $answer == Y ]];
+do
 	sudo cp /etc/default/grub /etc/default/grub.bak 
 	sudo sed -i -e 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/g' /etc/default/grub
+	echo "You can also change the boot timeout to something shorter, must warn you, you won't be able to change kernels if it is too low."
+	echo "Would you like to change the boot timeout?(Y/n)"
+	read answer 
+	if [ $answer == Y ];
+	then
+		sudo sed -i -e '/GRUB_TIMEOUT=5/c\GRUB_TIMEOUT=3 ' /etc/default/grub
+	else 
+		echo "I'd do the same thing in your position."
+	fi
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
-else
-	echo "OKAY!"
-fi
-
+break
+done
+	
 #This tries to update and rate mirrors if it fails it refreshes the keys
 for s in updates;
 do 

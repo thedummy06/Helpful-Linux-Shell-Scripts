@@ -62,14 +62,22 @@ done
 #This disables ipV6 
 echo "Sometimes ipV6 causes network issues. Would you like to disable it?(Y/n)"
 read answer
-if [[ $answer == Y ]];
-then 
+while [ $answer == Y ];
+do
 	sudo cp /etc/default/grub /etc/default/grub.bak
 	sudo sed -i -e 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/g' /etc/default/grub
+	echo "You can also change your boot timeout, but I would warn you, you won't be able to change to another kernel if it is too low."
+	echo "Would you like to change the boot timeout to a smaller number?(Y/n)"
+	read answer 
+	if [ $answer == Y ];
+	then 
+		sudo sed -i -e '/GRUB_TIMEOUT=5/c\GRUB_TIMEOUT=3 ' /etc/default/grub
+	else
+		echo "I'd probably do the same thing if I were in your position."
+	fi
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
-else 
-	echo "Okay!"
-fi
+break
+done
 
 #If you use steam and certain other applications which are 32bit
 sudo cp /etc/pacman.conf /etc/pacman.conf.bak
