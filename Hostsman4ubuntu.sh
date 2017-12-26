@@ -29,6 +29,7 @@ then
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	rm Jameshostslist
 elif [[ $package -eq 2 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
@@ -38,7 +39,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt
+	rm ad_servers.txt Jameshostslist
 elif [[ $package -eq 3 ]];
 then 
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
@@ -71,7 +72,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2
+	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2 Jameshostslist
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -124,7 +125,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist Jameshostslist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist Jameshostslist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
@@ -202,5 +203,5 @@ fi
 
 sudo cat hosts >> /etc/hosts
 rm hosts
-sudo /etc/init.d/network-manager restart 
+sudo /etc/init.d/network-manager restart
 cat /etc/hosts >> hosts.log
