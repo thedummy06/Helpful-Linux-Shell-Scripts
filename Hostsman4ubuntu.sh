@@ -47,13 +47,13 @@ then
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat hphosts-partial.txt >> hosts.txt
-	cat cameleonhosts >> hosts.txt
-	cat Jameshostslist >> hosts.txt
-	mv hosts.txt hosts
+	cat hphosts-partial.txt >> hphosts
+	cat cameleonhosts >> hphosts
+	cat Jameshostslist >> hphosts
+	mv  hphosts hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist 
+	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist readme.txt hosts.zip hosts.txt.asc
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
@@ -64,7 +64,7 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat hosts.txt >> hosts
+	cat hphosts >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat spamhosts >> hosts
@@ -72,7 +72,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2 Jameshostslist
+	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2 Jameshostslist hosts.zip hosts.txt.asc readme.txt
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -118,14 +118,14 @@ then
 	cat spotifyads >> hosts
 	cat unchecky >> hosts
 	cat spamhosts >> hosts
-	cat hosts.txt >> hosts
+	cat hphosts >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist Jameshostslist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts readme.txt Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist Jameshostslist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
