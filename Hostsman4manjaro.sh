@@ -47,10 +47,10 @@ then
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat hphosts-partial.txt >> hosts.txt
-	cat cameleonhosts >> hosts.txt
-	cat Jameshostslist >> hosts.txt
-	mv hosts.txt hosts
+	cat hphosts-partial.txt >> hphosts 
+	cat cameleonhosts >> hphosts
+	cat Jameshostslist >> hphosts
+	mv hphosts hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist hosts.txt.asc readme.txt hosts.zip 
