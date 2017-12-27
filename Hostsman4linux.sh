@@ -180,7 +180,7 @@ echo "Are there any other sites that you wish to exclude?(Y/n)"
 read answer
 while [ $answer == Y ]
 do
-	read -p "Enter any other sites you wish to exclude up to 3:" Site1 Site2 Site3 Site4 Site5
+	read -p "Enter any other sites you wish to exclude up to 5:" Site1 Site2 Site3 Site4 Site5
 	cd $house 
 	grep -v "$Site1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	grep -v "$Site2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
