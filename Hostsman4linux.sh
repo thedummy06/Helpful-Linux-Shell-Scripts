@@ -239,7 +239,7 @@ rm hosts
 		elif [ $distribution == Debian ]
 		then
 			sudo /etc/init.d/network-manager restart
-		elif [ $distribution == Linux ]
+		elif [ "(cat /etc/issue.net | awk '{print $1,$2}') == Linux Mint" ]
 		then 
 			sudo /etc/init.d/network-manager restart
 		elif [ $distribution == Manjaro ]
