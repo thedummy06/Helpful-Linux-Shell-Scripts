@@ -80,9 +80,9 @@ echo "These depend upon your environment."
 
 for env in $DESKTOP_SESSION;
 do
-	if [ $DESKTOP_SESSION == unity ]
+	if [[ $DESKTOP_SESSION == unity ]];
 	then
-		udo apt-get install ubuntu-restricted-extras
+		sudo apt-get install ubuntu-restricted-extras
 	elif [[ $DESKTOP_SESSION == xfce ]];
 	then
 		sudo apt-get install xubuntu-restricted-extras
@@ -93,14 +93,14 @@ do
 	elif [[ $DESKTOP_SESSION == lxde ]];
 	then 
 		sudo apt-get install lubuntu-restricted-extras
-	elif [ $DESKTOP_SESSION == mate ]
+	elif [[ $DESKTOP_SESSION == mate ]];
 	then
 		sudo apt-get install ubuntu-restricted-extras
-	elif [ $DESKTOP_SESSION == gnome ]
+	elif [[ $DESKTOP_SESSION == gnome ]];
 	then
 		sudo apt-get install ubuntu-restricted-extras
 	else
-		echo "You're running some other window manager"
+		echo "You're running some other window manager I haven't tested yet."
 	fi
 done
 
