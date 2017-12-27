@@ -78,21 +78,31 @@ sudo apt-get -y install gparted bleachbit ncdu gufw inxi iotop xsensors hardinfo
 echo "This will install codecs." 
 echo "These depend upon your environment."
 
-echo "1 - ubuntu-restricted-extras"
-echo "2 - xubuntu-restricted-extras"
-echo "3 - lubuntu-restricted-extras"
-echo "4 - kubuntu-restricted-extras"
-echo "5 - Quit"
-
-read operation;
-
-case $operation in 
-		1) sudo apt-get -y install ubuntu-restricted-extras ;;
-		2) sudo apt-get -y install xubuntu-restricted-extras ;;
-		3) sudo apt-get -y install lubuntu-restricted-extras ;;
-		4) sudo apt-get -y install kubuntu-restricted-extras ;;
-		5) echo "Moving on!" ;;
-esac
+for env in $DESKTOP_SESSION;
+do
+	if [ $DESKTOP_SESSION == unity ]
+	then
+		udo apt-get install ubuntu-restricted-extras
+	elif [[ $DESKTOP_SESSION == xfce ]];
+	then
+		sudo apt-get install xubuntu-restricted-extras
+		sudo apt-get install xfce4-goodies
+	elif [[ $DESKTOP_SESSION == kde ]];
+	then
+		sudo apt-get install kubuntu-restricted-extras
+	elif [[ $DESKTOP_SESSION == lxde ]];
+	then 
+		sudo apt-get install lubuntu-restricted-extras
+	elif [ $DESKTOP_SESSION == mate ]
+	then
+		sudo apt-get install ubuntu-restricted-extras
+	elif [ $DESKTOP_SESSION == gnome ]
+	then
+		sudo apt-get install ubuntu-restricted-extras
+	else
+		echo "You're running some other window manager"
+	fi
+done
 
 #Optional ligthweight web browser alternative
 echo "Would you like to install a good firefox alternative? (Y/n)"
