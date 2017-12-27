@@ -82,23 +82,23 @@ for env in $DESKTOP_SESSION;
 do
 	if [[ $DESKTOP_SESSION == unity ]];
 	then
-		sudo apt-get install ubuntu-restricted-extras
+		sudo apt-get -y install ubuntu-restricted-extras
 	elif [[ $DESKTOP_SESSION == xfce ]];
 	then
-		sudo apt-get install xubuntu-restricted-extras
-		sudo apt-get install xfce4-goodies
+		sudo apt-get -y install xubuntu-restricted-extras
+		sudo apt-get -y install xfce4-goodies
 	elif [[ $DESKTOP_SESSION == kde ]];
 	then
-		sudo apt-get install kubuntu-restricted-extras
+		sudo apt-get -y install kubuntu-restricted-extras
 	elif [[ $DESKTOP_SESSION == lxde ]];
 	then 
-		sudo apt-get install lubuntu-restricted-extras
+		sudo apt-get -y install lubuntu-restricted-extras
 	elif [[ $DESKTOP_SESSION == mate ]];
 	then
-		sudo apt-get install ubuntu-restricted-extras
+		sudo apt-get -y install ubuntu-restricted-extras
 	elif [[ $DESKTOP_SESSION == gnome ]];
 	then
-		sudo apt-get install ubuntu-restricted-extras
+		sudo apt-get -y install ubuntu-restricted-extras
 	else
 		echo "You're running some other window manager I haven't tested yet."
 	fi
