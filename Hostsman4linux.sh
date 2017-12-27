@@ -180,7 +180,7 @@ echo "Are there any other sites that you wish to exclude?(Y/n)"
 read answer
 while [ $answer == Y ]
 do
-	read -p "Enter any other sites you wish to exclude up to 5:" Site1 Site2 Site3 Site4 Site5
+	read -p "Enter any other sites you wish to exclude up to 3:" Site1 Site2 Site3 Site4 Site5
 	cd $house 
 	grep -v "$Site1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	grep -v "$Site2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
@@ -205,16 +205,49 @@ sudo cat hosts >> /etc/hosts
 rm hosts
 
 #Checking distribution to determine best way to restart network
-if [ "(cat /etc/issue | awk '{print $1}') == Manjaro" ]
-then
-	sudo systemctl restart NetworkManager
-elif [ "(cat /etc/issue | awk '{print $1}') == Ubuntu" ]
+find /etc/issue
+if [ $? -eq 0 ]
 then 
-	sudo /etc/init.d/network-manager restart
-elif [ "(cat /etc/issue | awk '{print $1}') == Antergos" ]
-then
-	sudo systemctl restart NetworkManager
+	distribution=$(cat /etc/issue | awk '{print $1}')
+	if [ $distribution == Manjaro ]
+	then
+		sudo systemctl restart NetworkManager
+	elif [ $distribution == Ubuntu ]
+	then
+		sudo /etc/init.d/network-manager restart
+	elif [ $distribution == Linux Mint ]
+	then
+		sudo /etc/init.d/network-manager restart
+	elif [ $distribution == Debian ]
+	then
+		sudo /etc/init.d/network-manager restart
+	elif [ $distribution == Antergos ]
+	then
+		sudo systemctl restart NetworkManager
+	else
+		echo "You are running a distribution I haven't tested yet."
+	fi
 else 
-	echo "You're using a distro I have not tested yet."
+	find /etc/issue.net
+	distribution=$(cat /etc/issue.net | awk '{print $1}')
+	if [ $distribution == Ubuntu ]
+	then
+		sudo /etc/init.d/network-manager restart
+	elif [ $distribution == Debian ]
+	then
+		sudo /etc/init.d/network-manager restart
+	elif [ $distribution  == Linux Mint ]
+	then 
+		sudo /etc/init.d/network-manager restart
+	elif [ $distribution == Manjaro ]
+	then
+		sudo systemctl restart NetworkManager
+	elif [ $distribution == Antergos ]
+	then
+		sudo systemctl restart NetworkManager
+	else
+		echo "You're using a distribution I have not tested yet"
+	fi
 fi
+
 cat /etc/hosts >> hosts.log
