@@ -215,6 +215,9 @@ then
 	elif [ $distribution == Ubuntu ]
 	then
 		sudo /etc/init.d/network-manager restart
+	elif [ $distribution == Debian ]
+	then
+		sudo /etc/init.d/network-manager restart
 	elif [ $distribution == Linux Mint ]
 	then
 		sudo /etc/init.d/network-manager restart
