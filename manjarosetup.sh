@@ -175,7 +175,7 @@ echo "Would  you like to use a hosts file to block adverts? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	sudo ./Hostsman4manjaro.sh
+	sudo ./Hostsman4linux.sh
 else 
 	echo "Okay!"
 fi
