@@ -205,52 +205,53 @@ sudo cat hosts >> /etc/hosts
 rm hosts
 
 #Checking distribution to determine best way to restart network
-find /etc/issue
-if [ $? -eq 0 ]
-then 
 	distribution=$(cat /etc/issue | awk '{print $1}')
-	if [ $distribution == Manjaro ]
-	then
-		sudo systemctl restart NetworkManager
-	elif [ $distribution == Ubuntu ]
-	then
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution == Debian ]
-	then
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution == Linux Mint ]
-	then
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution == Debian ]
-	then
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution == Antergos ]
-	then
-		sudo systemctl restart NetworkManager
-	else
-		echo "You are running a distribution I haven't tested yet."
-	fi
-else 
-	find /etc/issue.net
-	distribution=$(cat /etc/issue.net | awk '{print $1}')
-	if [ $distribution == Ubuntu ]
-	then
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution == Debian ]
-	then
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution  == Linux Mint ]
-	then 
-		sudo /etc/init.d/network-manager restart
-	elif [ $distribution == Manjaro ]
-	then
-		sudo systemctl restart NetworkManager
-	elif [ $distribution == Antergos ]
-	then
-		sudo systemctl restart NetworkManager
-	else
-		echo "You're using a distribution I have not tested yet"
-	fi
-fi
+	find /etc/issue
+	while [ $? -eq 0 ]
+	do 
+		if [ $distribution == Ubuntu ]
+		then
+			sudo /etc/init.d/network-manager restart
+		elif [ $distribution == Debian ]
+		then
+			sudo /etc/init.d/network-manager restart
+		elif [ $distribution == Linux ]
+		then 
+			sudo /etc/init.d/network-manager restart
+		elif [ $distribution == Manjaro ]
+		then
+			sudo systemctl restart NetworkManager
+		elif [ $distribution == Antergos ]
+		then
+			sudo systemctl restart NetworkManager
+		else
+			echo "You're using a distribution I have not tested yet"
+		fi
+		break
+	done
+	
+	while [ $? -gt 0 ]
+	do 
+		find /etc/issue.net
+		if [ $distribution == Ubuntu ]
+		then
+			sudo /etc/init.d/network-manager restart
+		elif [ $distribution == Debian ]
+		then
+			sudo /etc/init.d/network-manager restart
+		elif [ $distribution == Linux ]
+		then 
+			sudo /etc/init.d/network-manager restart
+		elif [ $distribution == Manjaro ]
+		then
+			sudo systemctl restart NetworkManager
+		elif [ $distribution == Antergos ]
+		then
+			sudo systemctl restart NetworkManager
+		else
+			echo "You're using a distribution I have not tested yet"
+		fi
+		break
+	done
 
 cat /etc/hosts >> hosts.log
