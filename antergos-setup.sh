@@ -62,22 +62,14 @@ done
 #This disables ipV6 
 echo "Sometimes ipV6 causes network issues. Would you like to disable it?(Y/n)"
 read answer
-while [ $answer == Y ];
-do
+if [[ $answer == Y ]];
+then 
 	sudo cp /etc/default/grub /etc/default/grub.bak
 	sudo sed -i -e 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/g' /etc/default/grub
-	echo "You can also change your boot timeout, but I would warn you, you won't be able to change to another kernel if it is too low."
-	echo "Would you like to change the boot timeout to a smaller number?(Y/n)"
-	read answer 
-	if [ $answer == Y ];
-	then 
-		sudo sed -i -e '/GRUB_TIMEOUT=5/c\GRUB_TIMEOUT=3 ' /etc/default/grub
-	else
-		echo "I'd probably do the same thing if I were in your position."
-	fi
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
-break
-done
+else 
+	echo "Okay!"
+fi
 
 #If you use steam and certain other applications which are 32bit
 sudo cp /etc/pacman.conf /etc/pacman.conf.bak
@@ -105,35 +97,242 @@ done
 
 read -p "Press Enter to continue."
 
-#This will install a few useful apps
-sudo pacman -S --noconfirm bleachbit reflector gnome-disk-utility ncdu nmap hardinfo lshw iotop htop inxi hdparm hddtemp xsensors geany dhclient
-#Optional 
-#sudo pacman -S --noconfirm rkhunter
-#sudo pacman -S --noconfirm xed
-#sudo pacman -S --noconfirm transmission-gtk
-#sudo pacman -S --noconfirm pacaur
-#sudo pacman -S --noconfirm redshift
-#sudo pacman -S --noconfirm abiword gnumeric #Lightweight office apps
-#sudo pacman -S --noconfirm blender
-#sudo pacman -S --noconfirm qbittorrent
-#sudo pacman -S --noconfirm net-tools
-#sudo pacman -S --noconfirm clamav
-#sudo pacman -S --noconfirm clamtk
-#sudo pacman -S --noconfirm clementine
-#sudo pacman -S --noconfirm steam 
-#sudo pacman -S --noconfirm kodi 
-#sudo pacman -S --noconfirm shotwell 
-#sudo pacman -S --noconfirm kdenlive 
-#sudo pacman -S --noconfirm palemoon-bin 
-#sudo pacman -S --noconfirm epiphany 
-#sudo pacman -S --noconfirm chromium 
-#sudo pacman -S --noconfirm opera
-#sudo pacman -S --noconfirm deluge
-#sudo pacman -S --noconfirm seamonkey 
-#sudo pacman -S --noconfirm rhythmbox 
-#sudo pacman -S --noconfirm plank
-#sudo pacman -S --noconfirm parole
-#sudo pacman -S --noconform xplayer
+#This installs extra software
+echo "Would you like to install software?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+echo "Here is a list of software to choose from"
+
+echo "1 - bleachbit"
+echo "2 - gnome-disk-utility"
+echo "3 - ncdu"
+echo "4 - nmap"
+echo "5 - preload"
+echo "6 - hardinfo"
+echo "7 - lshw"
+echo "8 - hdparm"
+echo "9 - hddtemp xsensors"
+echo "10 - geany"
+echo "11 - htop iotop"
+echo "12 - wget"
+echo "13 - rkhunter"
+echo "14 - abiword gnumeric"
+echo "15 - bittorrent"
+echo "16 - net-tools"
+echo "17 - plank"
+echo "18 - redshift"
+echo "19 - blender"
+echo "20 - cower"
+echo "21 - xed"
+echo "22 - web browser"
+echo "23 - media player"
+echo "24 - antivirus"
+echo "25 - video and audio editing"
+echo "26 - shotwell"
+echo "27 - to skip"
+
+read software;
+
+case $software in 
+
+	1)
+	echo "This installs cleaning software"
+	sudo pacman -S --noconfirm bleachbit
+;;
+	2)
+	echo "This installs disk health checking software"
+	sudo pacman -S --noconfirm gnome-disk-utility
+;;
+	3)
+	echo "This installs disk space checking software"
+	sudo pacman -S --noconfirm ncdu
+;;
+	4)
+	echo "This installs network scanning software"
+	sudo pacman -S --noconfirm nmap
+;;
+	5)
+	echo "This installs daemon that loads applications in memory"
+	sudo pacman  -S --noconfirm preload
+;;
+	6)
+	echo "This installs hardware informations tool"
+	sudo pacman -S --noconfirm hardinfo
+;;
+	7)
+	echo "This installs command line utility to gather certain system info"
+	sudo pacman -S --noconfirm lshw
+;;
+	8)
+	echo "This installs software to configure hard drive settings"
+	sudo pacman -S --noconfirm hdparm
+;;
+	9)
+	echo "This installs software to gather temps"
+	sudo pacman -S --noconfirm xsensors hddtemp
+;;
+	10)
+	echo "This installs a light weight IDE(text/code editor)"
+	sudo pacman -S --noconfirm geany
+;;
+	11)
+	echo "This installs command line system monitors"
+	sudo pacman -S --noconfirm htop iotop
+;;
+	12)
+	echo "This installs a download manager"
+	sudo pacman -S --noconfirm wget
+;;
+	13)
+	echo "This installs a rootkit checker"
+	sudo pacman -S --noconfirm rkhunter
+;;
+	14)
+	echo "This installs light weight office tools"
+	sudo pacman -S --noconfirm abiword gnumeric
+;;
+	15)
+	echo "This installs your choice of bittorrent client"
+	echo "1 - qbittorrent"
+	echo "2 - transmission-gtk"
+	echo "3 - deluge"
+	read client
+	
+	if [ $client == 1 ];
+	then
+		sudo pacman -S --noconfirm qbittorrent
+	elif [ $client == 2 ];
+	then
+		sudo pacman -S --noconfirm transmission-gtk
+	elif [ $client == 3 ];
+	then
+		sudo pacman -S --noconfirm deluge
+	else
+		echo "moving on"
+	fi
+;;
+	16)
+	echo "This installs the old network tools for linux"
+	sudo pacman -S --noconfirm net-tools
+;;
+	17)
+	echo "This installs a dock utility"
+	sudo pacman -S --noconfirm plank
+;;
+	18)
+	echo "This installs a program to dim the monitor at night"
+	sudo pacman -S --noconfirm redshift
+;;
+	19)
+	echo "This installs 3D editing software"
+	sudo pacman -S --noconfirm blender
+;;
+	20)
+	echo "This installs a command line utility for managing AUR software"
+	sudo pacman -S --noconfirm cower
+;;
+	21)
+	echo "This installs a Linux Mint text editor"
+	sudo pacman -S --noconfirm xed 
+;;
+	22)
+	echo "This installs your choice in browsers"
+	echo "1 - chromium"
+	echo "2 - epiphany"
+	echo "3 - qupzilla"
+	echo "4 - opera" 
+	echo "5 - Pale Moon"
+	echo "6 - seamonkey"
+	read browser
+	
+	if [ $browser == 1 ];
+	then
+		sudo pacman -S --noconfirm chromium
+	elif [ $browser == 2 ];
+	then
+		sudo pacman -S --noconfirm epiphany
+	elif [ $browser == 3 ];
+	then
+		sudo pacman -S --noconfirm qupzilla
+	elif [ $browser == 4 ];
+	then
+		sudo pacman -S --noconfirm opera
+	elif [ $browser == 5 ];
+	then
+		sudo pacman -S --noconfirm palemoon-bin
+	elif [ $browser == 6 ];
+	then
+		sudo pacman -S --noconfirm seamonkey
+	else
+		echo "Let's move on"
+	fi
+;;
+	23)
+	echo "This installs a choice in media players"
+	echo "1 - xplayer"
+	echo "2 - parole"
+	echo "3 - kodi"
+	echo "4 - Music"
+	echo "5 - rhythmbox"
+	echo "6 - mpv"
+	echo "7 - vlc"
+	read player
+	
+	if [ $player == 1 ];
+	then
+		sudo pacman -S --noconfirm xplayer
+	elif [ $player == 2 ];
+	then
+		sudo pacman -S --noconfirm parole
+	elif [ $player == 3 ];
+	then
+		sudo pacman -S --noconfirm kodi
+	elif [ $player == 4 ];
+	then
+		sudo pacman -S --noconfirm Music
+	elif [ $player == 5 ];
+	then
+		sudo pacman -S --noconfirm rhythmbox
+	elif [ $player == 6 ];
+	then
+		sudo pacman -S --noconfirm mpv 
+	elif [ $player == 7 ];
+	then
+		sudo pacman -S --noconfirm vlc
+	else
+		echo "Guess not"
+	fi
+;;
+	24)
+	echo "This installs an antivirus if you think you need it"
+	sudo pacman -S clamav clamtk 
+;;
+	25)
+	echo "This installs audio editing software and video editing software"
+	sudo pacman -S --noconfirm kdenlive audacity
+;;
+	26)
+	echo "This installs image organizing software"
+	sudo pacman -S --noconfirm shotwell
+;;
+	27)
+	echo "We will skip this"
+	break
+;;
+esac
+done
+
+echo "Would you like to install any additional software?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+	echo "Enter the name of any software you'd like to install"
+	read software
+	sleep 1
+	sudo pacman -S --noconfirm $software
+break
+done
 
 #This tries to install google-chrome on your system
 echo "Would you like to install Google-Chrome?(Y/n)"
@@ -222,7 +421,7 @@ then
 	echo "#Alias to update the system" >> ~/.bashrc
 	echo 'alias pacup="sudo pacman -Syu"' >> ~/.bashrc
 	echo "#Alias to update the hosts file" >> ~/.bashrc
-	echo 'alias hostsman="sudo ./Hostsman4antergos.sh"'
+	echo 'alias hostsup="sudo ./Hostsman4linux.sh"'
 	echo "#Alias to rank mirrors" >> ~/.bashrc
 	echo 'alias rank="sudo reflector -l 50 -f 20 --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d && sudo rankmirrors -n 0 /etc/pacman.d/antergos-mirrorlist > /tmp/antergos-mirrorlist && sudo cp /tmp/antergos-mirrorlist /etc/pacman.d && sudo pacman -Syy"' >> ~/.bashrc
 	
