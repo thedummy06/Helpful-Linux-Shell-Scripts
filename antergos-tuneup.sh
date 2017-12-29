@@ -105,7 +105,16 @@ find /Backups/* -mtime +30 -exec rm {} \;
 sudo journalctl --vacuum-size=25M 
 
 #This will remove orphan packages from pacman 
-sudo pacman -Rsn --noconfirm $(pacman -Qqdt)
+sudo pacman -Rsn $(pacman -Qqdt)
+echo "Would you like to remove any other unwanted software?(Y/n)"
+read answer 
+while [ $answer == Y ];
+do
+	echo "Enter the name of any software you wish to remove"
+	read software
+	sudo pacman -Rsn --noconfirm $software
+break
+done
 
 #Optional This will remove the pamac cached applications and older versions
 cat <<_EOF_
