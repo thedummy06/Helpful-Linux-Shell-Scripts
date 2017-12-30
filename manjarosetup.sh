@@ -363,11 +363,11 @@ echo "Would you like some extra themes? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then
-	sudo pacman -S --noconfirm moka-icon-theme faba-icon-theme arc-icon-theme  evopop-icon-theme elementary-xfce-icons xfce-theme-greybird numix-themes-archblue 
-	sudo pacman -S --noconfirm arc-gtk-theme menda-themes-dark papirus-icon-theme gtk-theme-breath obsidian-icon-theme
+	sudo pacman -S --noconfirm adapta-gtk-theme moka-icon-theme faba-icon-theme arc-icon-theme  evopop-icon-theme elementary-xfce-icons xfce-theme-greybird numix-themes-archblue arc-gtk-theme menda-themes-dark papirus-icon-theme gtk-theme-breath 
 else
 	echo "Your desktop is void like my soul!"
 fi 
+
 
 #I can prepare a simple hosts file if you like from Steven Black
 echo "Would  you like to use a hosts file to block adverts? (Y/n)"
