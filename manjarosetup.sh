@@ -45,7 +45,7 @@ ip addr >> networkconfig.log #Manjaro and Arch changed the way they display this
 for c in computer;
 do 
 	ping -c4 google.com 
-	if [ $? -eq 0 ]
+	if [[ $? -eq 0 ]];
 	then 
 		echo "Connection successful"
 	else
@@ -77,7 +77,7 @@ do
 	sudo pacman-mirrors -f
 	sudo pacman-optimize && sync
 	sudo pacman -Syyu --noconfirm 
-	if [ $? -eq 0 ] 
+	if [[ $? -eq 0 ]]; 
 	then 
 		echo "Update succeeded" 
 	else
@@ -196,13 +196,13 @@ case $software in
 	echo "3 - deluge"
 	read client
 	
-	if [ $client == 1 ];
+	if [[ $client == 1 ]];
 	then
 		sudo pacman -S --noconfirm qbittorrent
-	elif [ $client == 2 ];
+	elif [[ $client == 2 ]];
 	then
 		sudo pacman -S --noconfirm transmission-gtk
-	elif [ $client == 3 ];
+	elif [[ $client == 3 ]];
 	then
 		sudo pacman -S --noconfirm deluge
 	else
@@ -243,22 +243,22 @@ case $software in
 	echo "6 - seamonkey"
 	read browser
 	
-	if [ $browser == 1 ];
+	if [[ $browser == 1 ]];
 	then
 		sudo pacman -S --noconfirm chromium
-	elif [ $browser == 2 ];
+	elif [[ $browser == 2 ]];
 	then
 		sudo pacman -S --noconfirm epiphany
-	elif [ $browser == 3 ];
+	elif [[ $browser == 3 ]];
 	then
 		sudo pacman -S --noconfirm qupzilla
-	elif [ $browser == 4 ];
+	elif [[ $browser == 4 ]];
 	then
 		sudo pacman -S --noconfirm opera
-	elif [ $browser == 5 ];
+	elif [[ $browser == 5 ]];
 	then
 		sudo pacman -S --noconfirm palemoon-bin
-	elif [ $browser == 6 ];
+	elif [[ $browser == 6 ]];
 	then
 		sudo pacman -S --noconfirm seamonkey
 	else
@@ -276,25 +276,25 @@ case $software in
 	echo "7 - vlc"
 	read player
 	
-	if [ $player == 1 ];
+	if [[ $player == 1 ]];
 	then
 		sudo pacman -S --noconfirm xplayer
-	elif [ $player == 2 ];
+	elif [[ $player == 2 ]];
 	then
 		sudo pacman -S --noconfirm parole
-	elif [ $player == 3 ];
+	elif [[ $player == 3 ]];
 	then
 		sudo pacman -S --noconfirm kodi
-	elif [ $player == 4 ];
+	elif [[ $player == 4 ]];
 	then
 		sudo pacman -S --noconfirm Music
-	elif [ $player == 5 ];
+	elif [[ $player == 5 ]];
 	then
 		sudo pacman -S --noconfirm rhythmbox
-	elif [ $player == 6 ];
+	elif [[ $player == 6 ]];
 	then
 		sudo pacman -S --noconfirm mpv 
-	elif [ $player == 7 ];
+	elif [[ $player == 7 ]];
 	then
 		sudo pacman -S --noconfirm vlc
 	else
