@@ -156,7 +156,7 @@ case $operation in
 esac
 
 #This will ensure you are up to date and running fastest mirrors 
-sudo pacman-mirrors -f
+sudo pacman-mirrors -G
 sudo pacman -Syyu --noconfirm
 sudo pacman-optimize && sync
 
