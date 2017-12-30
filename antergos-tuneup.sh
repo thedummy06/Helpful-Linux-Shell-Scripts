@@ -60,7 +60,7 @@ sudo systemctl daemon-reload
 for c in computer;
 do 
 	ping -c4 google.com 
-	if [ $? -eq 0 ]
+	if [[ $? -eq 0 ]];
 	then 
 		echo "Connection successful"
 	else
@@ -105,16 +105,7 @@ find /Backups/* -mtime +30 -exec rm {} \;
 sudo journalctl --vacuum-size=25M 
 
 #This will remove orphan packages from pacman 
-sudo pacman -Rsn $(pacman -Qqdt)
-echo "Would you like to remove any other unwanted software?(Y/n)"
-read answer 
-while [ $answer == Y ];
-do
-	echo "Enter the name of any software you wish to remove"
-	read software
-	sudo pacman -Rsn --noconfirm $software
-break
-done
+sudo pacman -Rsn --noconfirm $(pacman -Qqdt)
 
 #Optional This will remove the pamac cached applications and older versions
 cat <<_EOF_

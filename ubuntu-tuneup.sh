@@ -7,7 +7,7 @@ sudo systemctl daemon-reload #For systemd releases
 for c in computer;
 do 
 	ping -c4 google.com 
-	if [ $? -eq 0 ]
+	if [[ $? -eq 0 ]];
 	then 
 		echo "Connection successful"
 	else

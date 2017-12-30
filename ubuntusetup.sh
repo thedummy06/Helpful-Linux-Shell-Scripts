@@ -8,7 +8,7 @@ sudo systemctl enable ufw
 sudo ufw enable
 echo "Would you like to deny ssh and telnet for security purposes?(Y/n)"
 read answer
-if [ $answer == Y ]
+if [[ $answer == Y ]];
 then
 	sudo ufw deny telnet && sudo ufw deny ssh
 	sudo ufw reload
@@ -20,7 +20,7 @@ ip addr >> networkconfig.log
 for c in computer; 
 do 
 	ping -c4 google.com > /dev/null
-	if [ $? -eq 0 ]
+	if [[ $? -eq 0 ]];
 	then 
 		echo "Connection successful!"
 	else
@@ -55,6 +55,7 @@ read -p "Press Enter to continue."
 #This will install your main apps for you   
 sudo apt-get -y install gparted bleachbit ncdu gufw inxi iotop xsensors hardinfo lm-sensors traceroute nmap htop
 #Optional
+#sudo apt-get -y install guake
 #sudo apt-get -y install rkhunter
 #sudo apt-get -y install clamav
 #sudo apt-get -y install qupzilla
@@ -195,9 +196,9 @@ then
 	echo "#Alias to update the system" >> ~/.bashrc
 	echo 'alias update="sudo apt-get update && sudo apt-get -y dist-upgrade"' >> ~/.bashrc
 	echo "#Alias to clean the apt cache" >> ~/.bashrc
-	echo 'alias apt clean="sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean"' >> ~/.bashrc
+	echo 'alias clean="sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean"' >> ~/.bashrc
 	echo "#Alias to update hosts file" >> ~/.bashrc
-	echo 'alias hostsman="sudo ./Hostsman4ubuntu.sh"' >> ~/.bashrc
+	echo 'alias hostsup="sudo ./Hostsman4linux.sh"' >> ~/.bashrc
 fi
 
 #Optional, but it is highly recommended that you make a quick backup
