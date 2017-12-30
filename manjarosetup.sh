@@ -74,7 +74,7 @@ fi
 #This tries to update and rate mirrors if it fails it refreshes the keys
 for s in updates;
 do 
-	sudo pacman-mirrors -f
+	sudo pacman-mirrors -G
 	sudo pacman-optimize && sync
 	sudo pacman -Syyu --noconfirm 
 	if [ $? -eq 0 ] 
@@ -430,7 +430,7 @@ then
 	echo "#Alias to update hosts file" >> ~/.bashrc
 	echo 'alias hostsup="sudo ./Hostsman4linux.sh"' >> ~/.bashrc
 	echo "#Alias to update the mirrors and sync the repos" >> ~/.bashrc
-	echo 'alias mirrors="sudo pacman-mirrors -g && sudo pacman -Syy"' >> ~/.bashrc
+	echo 'alias mirrors="sudo pacman-mirrors -G && sudo pacman -Syy"' >> ~/.bashrc
 fi
 
 #Optional, but it is highly recommended that you make a quick backup
