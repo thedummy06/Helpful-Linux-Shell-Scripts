@@ -320,6 +320,7 @@ case $software in
 esac
 done
 
+#This allows you to install any software you might know of that is not on the list
 echo "Would you like to install any additional software?(Y/n)"
 read answer
 while [ $answer == Y ];
@@ -329,6 +330,15 @@ do
 	sleep 1
 	sudo pacman -S --noconfirm $software
 break
+done
+
+#This installs xfce4-goodies package on xfce versions of Manjaro
+for env in $DESKTOP_SESSION
+do
+if [ $DESKTOP_SESSION == xfce ];
+then
+	sudo pacman -S --noconfirm xfce4-goodies
+fi
 done
 
 #This tries to install google-chrome on your system
