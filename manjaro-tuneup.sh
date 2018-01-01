@@ -76,6 +76,46 @@ do
 	fi
 done 
 
+#This gives a list of available kernels and offers to both install and uninstall them
+echo "What would you like to do today?"
+echo "1 - Install new kernel(s)"
+echo "2 - Uninstall kernel(s)"
+echo "3 - skip"
+
+read operation;
+
+case $operation in
+	1)
+	sudo mhwd-kernel -l
+	sleep 3
+	echo "Are you sure you want to install a kernel?(Y/n)"
+	read answer
+	while [ $answer == Y ];
+	do
+		echo "Enter the name of the kernel you wish to install"
+		read kernel
+		sudo mhwd-kernel -i $kernel
+	break
+	done
+;;
+	2)
+	sudo mhwd-kernel -li 
+	sleep 3
+	echo "Are you sure you want to remove a kernel?(Y/n)"
+	read answer
+	while [ $answer == Y ];
+	do
+		echo "Enter the name of the kernel you wish to remove"
+		ead kernel
+		sudo mhwd-kernel -r $kernel
+	break
+	done
+;;
+	3)
+	echo "Skipping"
+;;
+esac
+
 #This will reload the firewall to ensure it's enabled
 sudo ufw reload
 
