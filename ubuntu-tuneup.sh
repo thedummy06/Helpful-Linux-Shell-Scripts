@@ -1,5 +1,82 @@
 #!/bin/bash
 
+init=$(ps -p1 | awk 'NR!=1{print $4}')
+
+for init in $init;
+do
+if [[ $init == upstart ]];
+then
+	echo "What would you like to do?"
+	echo "1 - Enable services"
+	echo "2 - Disable services"
+	echo "3 - create a list of all services running on your system"
+	echo "4 - Nothing just get me out of this menu"
+
+	read operation;
+
+	case $operation in
+		1)
+		service --status-all 
+		echo "Enter the name of the service you wish to enable"
+		read service
+		sudo /etc/init.d/$service start
+	;;
+		2)
+		service --status-all 
+		echo "Enter the name of the service you wish to disable"
+		read service
+		sudo /etc/init.d/$service stop 
+		echo "Optionally we can create an override which will keep this setting"
+		echo "Would you like to retain this setting after reboot?(Y/n)"
+		read answer
+		while [ $answer == Y ];
+		do
+			echo manual | sudo tee /etc/init/$service.override
+		break
+		done
+	;;
+		3)
+		service --status-all >> services.txt
+	;;
+		4)
+		echo "Great choice"
+	;;
+	esac
+elif [[ $init == systemd ]];
+then
+	echo "What would you like to do?"
+	echo "1 - Enable services"
+	echo "2 - Disable services"
+	echo "3 - create a list of all services running on your system"
+	echo "4 - Nothing just get me out of this menu"
+
+	read operation;
+
+	case $operation in
+		1)
+		systemctl list-unit-files --type=service | grep disabled
+		echo "Enter the name of the service you wish to enable"
+		read service
+		sudo systemctl enable $service
+		sudo systemctl start $service
+	;;
+		2)
+		systemctl list-unit-files --type=service | grep enabled
+		echo "Enter the name of the service you wish to disable"
+		read service
+		sudo systemctl stop $service
+		sudo systemctl disable $service
+	;;
+		3)
+		systemctl list-unit-files --type=service >> services.txt
+	;;
+		4)
+		echo "Nice!!!!!"
+	;;
+	esac
+fi
+done
+		
 #This restarts systemd daemon. This can be useful for different reasons.
 sudo systemctl daemon-reload #For systemd releases
 
