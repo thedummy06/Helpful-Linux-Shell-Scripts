@@ -74,6 +74,8 @@ then
 		echo "Nice!!!!!"
 	;;
 	esac
+else 
+	echo "It is possible that you are using an Init system I have not tested yet, such as Sysvinit"
 fi
 done
 		
