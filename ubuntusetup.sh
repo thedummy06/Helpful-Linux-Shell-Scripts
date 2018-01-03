@@ -52,28 +52,212 @@ sudo apt-get -y dist-upgrade
 
 read -p "Press Enter to continue."
 
-#This will install your main apps for you   
-sudo apt-get -y install gparted bleachbit ncdu gufw inxi iotop xsensors hardinfo lm-sensors traceroute nmap htop
-#Optional
-#sudo apt-get -y install guake
-#sudo apt-get -y install rkhunter
-#sudo apt-get -y install clamav
-#sudo apt-get -y install qupzilla
-#sudo apt-get -y install midori
-#sudo apt-get -y install abiword gnumeric #Lightweight office apps
-#sudo apt-get -y install rhythmbox
-#sudo apt-get -y install gnome-tweak-tool
-#sudo apt-get -y install pidgin
-#sudo apt-get -y install parole
-#sudo apt-get -y install banshee
-#sudo apt-get -y install deluge
-#sudo apt-get -y install qbittorrent
-#sudo apt-get -y install simplescreenrecorder
-#sudo apt-get -y install kdenlive
-#sudo apt-get -y install pavucontrol
-#sudo apt-get -y install chromium-browser
-#sudo apt-get -y install zenmap
-#sudo apt-get -y install epiphany-browser
+echo "Would you like to install some extra packages that I've deemed useful?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+	echo "Here is a list of software, just enter a number to install the corresponding packages"
+
+	echo "1 - light weight IDE or code editor"
+	echo "2 - rootkit checker"
+	echo "3 - guake drop down terminal"
+	echo "4 - gnome-tweak-tool"
+	echo "5 - browser"
+	echo "6 - Media/Music player"
+	echo "7 - Bittorrent client"
+	echo "8 - zenmap"
+	echo "9 - video editing, audio editing"
+	echo "10 - pidgin"
+	echo "11 - light office applications"
+	echo "12 - clamav"
+	echo "13 - gparted partitioning tool"
+	echo "14 - bleachbit cleaning software"
+	echo "15 - ncdu"
+	echo "16 - iotop, htop"
+	echo "17 - hdparm disk configuring software"
+	echo "18 - xsensors hddtemp lm-sensors temperature checking software"
+	echo "19 - traceroute"
+	echo "20 - hardinfo"
+	echo "21 - gufw"
+	echo "22 - get out of this menu"
+
+	read software;
+	
+	case $software in
+		1)
+		sudo apt-get -y install geany 
+	;;
+		2)
+		sudo apt-get -y install rkhunter
+	;;
+		3)
+		sudo apt-get -y install guake
+	;;
+		4) 
+		sudo apt-get -y install gnome-tweak-tool
+	;;
+		5)
+		echo "This installs your choice of browser"
+		echo "1 - Chromium"
+		echo "2 - epiphany"
+		echo "3 - qupzilla"
+		echo "4 - midori"
+		echo "5 - Google-Chrome"
+		echo "6 - Pale Moon"
+		echo "7 - Vivaldi"
+		read browser
+		if [[ $browser == 1 ]];
+		then
+			sudo apt-get -y install chromium
+		elif [[ $browser == 2 ]];
+		then
+			sudo apt-get -y install epiphany
+		elif [[ $browser == 3 ]];
+		then
+			sudo apt-get -y install qupzilla
+		elif [[ $browser == 4 ]];
+		then
+			sudo apt-get -y install midori
+		elif [[ $browser == 5 ]];
+		then
+			cd /tmp
+			wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+			sudo dpkg -i google-chrome-stable_current_amd64.deb
+			sudo apt-get -f install
+		elif [[ $browser == 6 ]];
+		then
+			wget https://linux.palemoon.org/datastore/release/pminstaller-0.2.3.tar.bz2
+			tar -xvjf pminstaller-0.2.3.tar.bz2
+			./pminstaller.sh
+		elif [[ $browser == 7 ]];
+		then
+			wget https://downloads.vivaldi.com/stable/vivaldi-stable_1.13.1008.40-1_amd64.deb
+			sudo dpkg -i vivaldi-stable_1.13.1008.40-1_amd64.deb
+			sudo apt-get -f install 
+		fi
+	;;
+		6)
+		echo "This installs your choice of media players/music players"
+		echo "1 - VLC"
+		echo "2 - rhythmbox"
+		echo "3 - banshee"
+		echo "4 - parole"
+		echo "5 - clementine"
+		echo "6 - mplayer"
+		echo "7 - kodi"
+		read player
+		if [[ $player == 1 ]];
+		then
+			sudo apt-get -y install vlc
+		elif [[ $player == 2 ]];
+		then
+			sudo apt-get -y install rhythmbox
+		elif [[ $player == 3 ]];
+		then
+			sudo apt-get -y install banshee
+		elif [[ $player == 4 ]];
+		then
+			sudo apt-get -y install parole
+		elif [[ $player == 5 ]];
+		then
+			sudo apt-get -y install clementine
+		elif [[ $player == 6 ]];
+		then
+			sudo apt-get -y install mplayer
+		elif [[ $player == 7 ]];
+		then
+			sudo apt-get -y install kodi
+		fi
+	;;
+		7)
+		echo "This installs your choice of bittorrent client"
+		echo "1 - transmission-gtk"
+		echo "2 - deluge"
+		echo "3 - qbittorrent"
+		read client
+		if [[ $client == 1 ]];
+		then
+			sudo apt-get -y install transmission-gtk
+		elif [[ $client == 2 ]];
+		then
+			sudo apt-get -y install deluge
+		elif [[ $client == 3 ]];
+		then
+			sudo apt-get -y install qbittorrent
+		fi
+	;;
+		8)
+		echo "This installs zenmap and nmap to scan networks with"
+		sudo apt-get -y install zenmap nmap
+	;;
+		9)
+		echo "This installs video and audio editing software"
+		sudo apt-get -y install kdenlive audacity
+	;;
+		10)
+		echo "Most installations come with this, but certain distros do not install this by default"
+		sudo apt-get -y install pidgin
+	;;
+		11)
+		echo "This installs lightweight office applications"
+		sudo apt-get -y install abiword gnumeric
+	;;
+		12)
+		echo "This installs clam antivirus if you think you need it"
+		sudo apt-get -y install clamav
+	;;
+		13)
+		echo "This installs a partitioning tool"
+		sudo apt-get -y install gparted
+	;;
+		14)
+		echo "This installs cleaning software"
+		sudo apt-get -y install bleachbit
+	;;
+		15)
+		echo "This will install a command line disk space utility"
+		sudo apt-get -y install ncdu
+	;;
+		16)
+		echo "This installs iotop and htop to allow you to monitor in nearly realtime what your system is doing"
+		sudo apt-get -y install htop iotop
+	;;
+		17)
+		echo "This installs software to allow you to control write-back-caching"
+		sudo apt-get -y install hdparm
+	;;
+		18)
+		echo "This installs temperature monitoring software"
+		sudo apt-get -y install lm-sensors xsensors hddtemp
+	;;
+		19)
+		echo "This installs extra networking tools"
+		sudo apt-get -y install traceroute
+	;;
+		20)
+		echo "This installs hardinfo a graphical way to find hardware information"
+		sudo apt-get -y install hardinfo
+	;;
+		21)
+		echo "This installs a graphical front end to the firewall we enabled earlier"
+		sudo apt-get -y install gufw
+	;;
+		22)
+		echo "Aight den!"
+		break
+	;;
+	esac
+done
+
+echo "Is there any other software you'd like to install?(Y/n)"
+read answer 
+while [ $answer == Y ];
+do 
+	echo "Enter the name of the software you wish to install"
+	read software
+	sudo apt-get -y install $software
+break
+done
 
 #This tries to install codecs
 echo "This will install codecs." 
@@ -104,24 +288,6 @@ do
 		echo "You're running some other window manager I haven't tested yet."
 	fi
 done
-
-#Optional ligthweight web browser alternative
-echo "Would you like to install a good firefox alternative? (Y/n)"
-read answer
-if [[ answer == Y ]];
-then
-	wget https://linux.palemoon.org/datastore/release/pminstaller-0.2.3.tar.bz2
-	tar -xvjf pminstaller-0.2.3.tar.bz2
-	./pminstaller.sh
-else 
-	echo "Pale Moon is private and secure."
-fi 
-
-#Optional from askubuntu.com method to install google-chrome
-cd /tmp
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt-get -f install
 
 #Optional
 echo "Would you like to install games? (Y/n)" 
