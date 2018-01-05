@@ -78,7 +78,8 @@ done
 echo "What would you like to do today?"
 echo "1 - Install new kernel(s)"
 echo "2 - Uninstall kernel(s)"
-echo "3 - skip"
+echo "3 - save a list of available and installed kernels to a text file"
+echo "4 - skip"
 
 read operation;
 
@@ -110,6 +111,12 @@ case $operation in
 	done
 ;;
 	3)
+	sudo mhwd-kernel -l >> kernels.txt
+	echo "######################################################" >> kernels.txt
+	echo "" >> kernels.txt
+	sudo mhwd-kernel -li >> kernels.txt
+;;
+	4)
 	echo "Skipping"
 ;;
 esac 
