@@ -43,7 +43,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Jameshostslist
+	rm ad_servers.txt Jameshostslist nocoin
 elif [[ $package -eq 3 ]];
 then 
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
