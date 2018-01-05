@@ -156,6 +156,17 @@ sudo journalctl --vacuum-size=25M
 #This will remove orphan packages from pacman 
 sudo pacman -Rsn --noconfirm $(pacman -Qqdt)
 
+#This allows you to remove any other unwanted shite
+echo "Are there any other applications you'd like to remove(Y/n)"
+read answer 
+while [ $answer == Y ];
+do
+	echo "Please enter the name of the software you wish to remove"
+	read software
+	sudo pacman -Rs --noconfirm $software
+	break
+done
+
 #Optional This will remove the pamac cached applications and older versions
 cat <<_EOF_
 It's probably not a great idea to be cleaning this part of the system

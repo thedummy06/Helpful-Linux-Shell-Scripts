@@ -110,7 +110,17 @@ sudo ufw reload
 #This flushes apt cache
 sudo apt-get -y autoremove
 sudo apt-get -y autoclean 
-sudo apt-get clean 
+sudo apt-get clean
+
+#This allows you to remove unwanted shite
+echo "Are there any other applications you wish to remove(Y/n)"
+read answer 
+while [ $answer ==  Y ];
+do
+	echo "Please enter the name of the software you wish to remove"
+	sudo apt-get -y remove --purge $software
+	break
+done
 
 #This clears the cache and thumbnails and other junk
 sudo rm -r .cache/*
