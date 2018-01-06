@@ -52,6 +52,7 @@ sudo apt-get -y dist-upgrade
 
 read -p "Press Enter to continue."
 
+#This installs other software that may be useful
 echo "Would you like to install some extra packages that I've deemed useful?(Y/n)"
 read answer
 while [ $answer == Y ];
@@ -79,7 +80,8 @@ do
 	echo "19 - traceroute"
 	echo "20 - hardinfo"
 	echo "21 - gufw"
-	echo "22 - get out of this menu"
+	echo "22 - preload"
+	echo "23 - get out of this menu"
 
 	read software;
 	
@@ -243,6 +245,10 @@ do
 		sudo apt-get -y install gufw
 	;;
 		22)
+		echo "This installs a preloader to store applications in memory for faster loading"
+		sudo apt-get -y install preload
+	;;
+		23)
 		echo "Aight den!"
 		break
 	;;
