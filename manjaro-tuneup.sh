@@ -80,7 +80,7 @@ done
 echo "What would you like to do today?"
 echo "1 - Install new kernel(s)"
 echo "2 - Uninstall kernel(s)"
-echo "3 - save the list of available kernels and installed kernels to a text file"
+echo "3 - save a list of available and installed kernels to a text file"
 echo "4 - skip"
 
 read operation;
@@ -107,7 +107,7 @@ case $operation in
 	while [ $answer == Y ];
 	do
 		echo "Enter the name of the kernel you wish to remove"
-		ead kernel
+		read kernel
 		sudo mhwd-kernel -r $kernel
 	break
 	done
@@ -115,7 +115,6 @@ case $operation in
 	3)
 	sudo mhwd-kernel -l >> kernels.txt
 	echo "######################################################" >> kernels.txt
-	echo "" >> kernels.txt
 	sudo mhwd-kernel -li >> kernels.txt
 ;;
 	4)
@@ -156,12 +155,12 @@ sudo journalctl --vacuum-size=25M
 #This will remove orphan packages from pacman 
 sudo pacman -Rsn --noconfirm $(pacman -Qqdt)
 
-#This allows you to remove any other unwanted shite
-echo "Are there any other applications you'd like to remove(Y/n)"
+#This allows the user to remove unwanted shite
+echo "Would you like to remove any other unwanted shite?(Y/n)"
 read answer 
 while [ $answer == Y ];
 do
-	echo "Please enter the name of the software you wish to remove"
+	echo "Please enter the name of any software you wish to remove"
 	read software
 	sudo pacman -Rs --noconfirm $software
 	break
@@ -205,7 +204,7 @@ case $operation in
 esac
 
 #This will ensure you are up to date and running fastest mirrors 
-sudo pacman-mirrors -G
+sudo pacman-mirrors -G 
 sudo pacman -Syyu --noconfirm
 sudo pacman-optimize && sync
 
@@ -223,21 +222,10 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
-	#This backs up your system
-	host=$(hostname)
-	thedate=$(date +%Y-%M-%d)
-	
-	cd /
-	find Backups
-	while [ "$?" != "0" ];
-	do
-		sudo mkdir Backups
-	break
-	done
-	cd Backups
-	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
-else 
-	echo "It is a good idea to create a backup after such changes, maybe later."
+	sudo mount /dev/sdb1 /mnt
+	sudo rsync -aAXv --delete --exclude=Music --exclude=Wallpapers --exclude=dev --exclude=proc --exclude=mnt --exclude=run --exclude=media --exclude=sys --exclude=lost+found / /mnt/Backups/
+else
+	echo "It would be a great idea to backup."
 fi
 
 #Optional and prolly not needed
