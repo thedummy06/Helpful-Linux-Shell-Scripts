@@ -71,7 +71,8 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat hosts.txt >> hosts
+	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
+	cat hphosts >> hosts
 	cat nocoin >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
@@ -80,7 +81,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm cameleonhosts hphosts hphosts-partial.txt spamhosts nocoin Malwarehosts2 Jameshostslist
+	rm cameleonhosts hphosts hphosts-partial.txt hosts.zip hosts.txt hosts.txt.asc readme.txt spamhosts nocoin Malwarehosts2 Jameshostslist
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
