@@ -424,5 +424,6 @@
 127.0.0.1 www.exelate.com
 127.0.0.1 www.adthink.com
 127.0.0.1 adthink.com
-127.0.0.1 lp.nodepositbonus.cc
+127.0.0.1 lp.nodepositbonus.cc #May need to be blocked on the dns level
 127.0.0.1 cdn.tellwrite.com
+127.0.0.1 www.expressvpn.land/private-vpn-lp1
