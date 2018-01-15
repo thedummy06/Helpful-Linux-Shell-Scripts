@@ -21,26 +21,12 @@ case $operation in
 		echo "Please enter the name of a service to enable"
 		read service
 		sudo systemctl enable $service
-		echo "Would you like to restart?(Y/n)"
-		read answer
-		while [ $answer == Y ];
-		do
-			sudo systemctl reboot
-		break
-		done
 	;;
 	2)
 		systemctl list-unit-files --type=service | grep enabled
 		echo "Please enter the name of a service to disable"
 		read service 
 		sudo systemctl disable $service
-		echo "Would you like to restart?(Y/n)"
-		read answer 
-		while [ $answer == Y ];
-		do
-			sudo systemctl reboot
-		break
-		done
 	;;
 	3)
 		systemctl list-unit-files --type=service >> services.txt

@@ -22,13 +22,6 @@ case $operation in
 		echo "Please enter the name of a service to enable"
 		read service
 		sudo systemctl enable $service
-		echo "Would you like to restart?(Y/n)"
-		read answer
-		while [ $answer == Y ];
-		do
-			sudo systemctl reboot
-		break
-		done
 	;;
 	2)
 		systemctl list-unit-files --type=service | grep enabled
@@ -36,13 +29,6 @@ case $operation in
 		echo "Please enter the name of a service to disable"
 		read service 
 		sudo systemctl disable $service
-		echo "Would you like to restart?(Y/n)"
-		read answer 
-		while [ $answer == Y ];
-		do
-			sudo systemctl reboot
-		break
-		done
 	;;
 	3)
 		systemctl list-unit-files --type=service >> services.txt
@@ -204,9 +190,8 @@ case $operation in
 esac
 
 #This will ensure you are up to date and running fastest mirrors 
-sudo pacman-mirrors -G 
+sudo pacman-mirrors -b unstable
 sudo pacman -Syyu --noconfirm
-sudo pacman-optimize && sync
 
 #This refreshes index cache
 sudo updatedb && sudo mandb 
@@ -222,6 +207,7 @@ echo "Would you like to make a backup? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
+	read -p "Please make sure the backup drive is plugged in and hit enter..."
 	sudo mount /dev/sdb1 /mnt
 	sudo rsync -aAXv --delete --exclude=Music --exclude=Wallpapers --exclude=dev --exclude=proc --exclude=mnt --exclude=run --exclude=media --exclude=sys --exclude=lost+found / /mnt/Backups/
 else
