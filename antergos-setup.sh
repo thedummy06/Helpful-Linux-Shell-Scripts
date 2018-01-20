@@ -130,7 +130,8 @@ echo "23 - media player"
 echo "24 - antivirus"
 echo "25 - video and audio editing"
 echo "26 - shotwell"
-echo "27 - to skip"
+echo "27 - downgrade"
+echo "28 - to skip"
 
 read software;
 
@@ -258,6 +259,7 @@ case $software in
 	elif [[ $browser == 4 ]];
 	then
 		sudo pacman -S --noconfirm opera
+		sudo pacman -S --noconfirm opera-ffmpeg-codecs
 	elif [[ $browser == 5 ]];
 	then
 		sudo pacman -S --noconfirm palemoon-bin
@@ -317,6 +319,9 @@ case $software in
 	sudo pacman -S --noconfirm shotwell
 ;;
 	27)
+	sudo pacman -S --noconfirm downgrade
+;;
+	28)
 	echo "We will skip this"
 	break
 ;;
@@ -383,8 +388,14 @@ else
 fi
 
 #This initiates trim on Solid state drives
-#sudo systemctl enable fstrim.timer
-#sudo systemctl start fstrim.service
+echo "Please ensure that an SSD is installed then hit enter."
+echo "Would you like to enable fstrim?(Y/n)"
+read answer
+if [[ $answer == Y ]];
+then
+	sudo systemctl enable fstrim.timer
+	sudo systemctl start fstrim.service
+fi
 
 #This should improve performance on some mechanical drives
 echo "Would you like to increase HDD performance? (Y/n)"
