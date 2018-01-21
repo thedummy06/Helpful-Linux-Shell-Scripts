@@ -359,6 +359,21 @@ then
 	makepkg -si
 fi
 
+#This tries to install etc-update for configuration file management
+echo "etc-update can help you manage pacnew files and other configuration files after system updates. \
+would you like to install etc-update?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+	cd /tmp
+	sudo pacman -S --needed base-devel 
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/etc-update.tar.gz
+	gunzip etc-update.tar.gz && tar -xvf etc-update.tar
+	cd etc-update
+	makepkg -si 
+	break
+done
+
 #This will install hunspell and other language dependencies for popular software
 echo "This will allow Libre-Office to utilize spell and grammar checking."
 echo "Would you like to install extra language packs?(Y/n)"

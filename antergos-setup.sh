@@ -362,6 +362,21 @@ then
 	makepkg -si
 fi
 
+#This tries to install etc-update for configuration file management
+echo "etc-update can help you manage pacnew files and other configuration files after system updates. \
+would you like to install etc-update?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+	cd /tmp
+	sudo pacman -S --needed base-devel 
+	wget https://aur.archlinux.org/cgit/aur.git/snapshot/etc-update.tar.gz
+	gunzip etc-update.tar.gz && tar -xvf etc-update.tar
+	cd etc-update
+	makepkg -si 
+	break
+done
+
 #Here are some themes
 echo "Would you like to install some extra themes? (Y/n)"
 read answer
