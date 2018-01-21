@@ -74,7 +74,7 @@ fi
 #This tries to update and rate mirrors if it fails it refreshes the keys
 for s in updates;
 do 
-	sudo pacman-mirrors -f
+	sudo pacman-mirrors -G
 	sudo pacman-optimize && sync
 	sudo pacman -Syyu --noconfirm 
 	if [[ $? -eq 0 ]]; 
