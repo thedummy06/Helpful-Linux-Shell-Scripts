@@ -190,7 +190,7 @@ else
 	echo "Run again and pick a valid number."
 fi
 
-echo "Are there any other sites that you wish to exclude?(Y/n)"
+echo "Are there any other domains that you wish to exclude?(Y/n)"
 read answer
 while [ $answer == Y ]
 do
@@ -205,7 +205,7 @@ break
 done
 
 echo "This hosts file doesn't update as often" 
-echo "Would you like to add some extra sites?(Y/n)"
+echo "Would you like to add some extra domains?(Y/n)"
 read answer 
 if [[ $answer == Y ]];
 then 
