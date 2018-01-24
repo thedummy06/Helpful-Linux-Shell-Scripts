@@ -37,6 +37,7 @@ then
 	;;
 		3)
 		service --status-all >> services.txt
+		systemctl list-unit-files --type=service >> services.txt
 	;;
 		4)
 		echo "Great choice"
@@ -75,7 +76,7 @@ then
 	;;
 	esac
 else
-	echo "It is possible that you are using an init system I haven't tested yet, such as Sysvinit"
+	echo "You might be running an init system I haven't tested yet"
 fi
 done
 		
@@ -163,24 +164,47 @@ sudo touch /forcefsck
 #This will make a backup of your system
 echo "Would you like to make a backup? (Y/n)"
 read answer
-if [[ $answer == Y ]];
-then 
-	#This backs up your system
-	host=$(hostname)
-	thedate=$(date +%Y-%M-%d)
+while [ $answer == Y ];
+do 
+	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
+	if [[ $Mountpoint != /mnt ]];
+	then
+		sudo mount /dev/sdb1 /mnt
+		sudo rsync -aAXv --delete --exclude={/dev/*,/home/*/Music/*,/home/*/Wallpapers,/media/*,/mnt/*,/proc/*,/run/*,/sys/*,/tmp/*,/lost+found} / /mnt/JamesBackup/
+	fi
+
+	sudo sync
+	sudo umount /dev/sdb1
+
+break
+done
+
+#This tries to restore the home folder
+echo "Would you like to restore the home folder?(Y/n)"
+read answer 
+while [ $answer == Y ];
+do
+cat <<_EOF_
+This tries to restore the home folder and nothing else, if you want to 
+restore the entire system,  you will have to do that in a live environment.
+This can, however, help in circumstances where you have family photos and
+school work stored in the home directory. This also assumes that your home
+directory is on the drive in question. 
+_EOF_
+
+	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
+	if [[ $Mountpoint != /mnt ]];
+	then
+		read -p "Please insert the backup drive and hit enter..."
+		sleep 1 
+		sudo mount /dev/sdb1 /mnt 
+		sudo rsync -aAXv
+	fi 
 	
-	cd /
-	find Backups
-	while [ "$?" != "0" ];
-	do
-		sudo mkdir Backups
-	break
-	done
-	cd Backups
-	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
-else 
-	echo "It is a good idea to create a backup after such changes, maybe later."
-fi
+	sudo sync && sudo umount /dev/sdb1
+
+break
+done
 
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #Only to be used on HDD
