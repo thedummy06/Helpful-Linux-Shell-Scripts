@@ -172,26 +172,6 @@ do
 break
 done
 
-#This tries to restore the home folder
-cat <<_EOF_
-This tries to restore the home folder and nothing else, if you want to 
-restore the entire system,  you will have to do that in a live environment.
-This can, however, help in circumstances where you have family photos and
-school work stored in the home directory. This also assumes that your home
-directory is on the drive in question. 
-_EOF_
-
-Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
-if [[ $Mountpoint != /mnt ]];
-then
-	read -p "Please insert the backup drive and hit enter..."
-	sleep 1 
-	sudo mount /dev/sdb1 /mnt 
-	sudo rsync -aAXv
-fi 
-	
-sudo sync && sudo umount /dev/sdb1
-
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #Only to be used on HDD
 
