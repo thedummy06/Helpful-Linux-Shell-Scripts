@@ -402,27 +402,33 @@ else
 	echo "Okay!"
 fi
 
-#This initiates trim on Solid state drives
-echo "Please ensure that an SSD is installed then hit enter."
-echo "Would you like to enable fstrim?(Y/n)"
-read answer
-if [[ $answer == Y ]];
-then
-	sudo systemctl enable fstrim.timer
-	sudo systemctl start fstrim.service
-fi
-
-#This should improve performance on some mechanical drives
-echo "Would you like to increase HDD performance? (Y/n)"
-read answer
-if [[ $answer == Y ]];
-then 
-    echo "Please enter your drive name"
-    read drive
-    sudo hdparm -W 1 $drive
-else 
-    echo "Write-back caching improves hard drive performance."
-fi
+#This determines what type of drive you have, then offers to enable trim or write-back caching
+drive=$(cat /sys/block/sda/queue/rotational)
+for rota in $drive;
+do
+	if [[ $drive == 1 ]];
+	then
+		echo "Would you like to enable write back caching?(Y/n)"
+		read answer 
+		while [ $answer == Y ];
+		do 
+			echo "Enter the drive name you'd like to enable this on."
+			read drive
+			sudo hdparm -W 1 $drive
+		break
+		done
+	elif [[ $drive == 0 ]];
+	then
+		echo "Would you like to enable Trim?(Y/n)"
+		read answer 
+		while [ $answer == Y ];
+		do 
+			sudo systemctl enable fstrim.timer
+			sudo systemctl start fstrim.service
+		break
+		done
+	fi
+done
 
 #This tweaks the journal file for efficiency
 sudo cp /etc/systemd/journald.conf /etc/systemd/journald.conf.bak

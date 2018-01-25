@@ -335,17 +335,34 @@ echo "#tcp flaw workaround" | sudo tee -a /etc/sysctl.conf
 echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
-#This should improve performance on some mechanical drives
-echo "Would you like to increase HDD performance? (Y/n)"
-read answer
-if [[ $answer == Y ]];
-then 
-    echo "Please enter your drive name"
-    read drive
-    sudo hdparm -W 1 $drive
-else 
-    echo "Write-back caching improves hard drive performance."
-fi
+#This determines what type of drive you have, then offers to enable trim or write-back caching
+drive=$(cat /sys/block/sda/queue/rotational)
+for rota in $drive;
+do
+	if [[ $drive == 1 ]];
+	then
+		echo "Would you like to enable write back caching?(Y/n)"
+		read answer 
+		while [ $answer == Y ];
+		do 
+			echo "Enter the drive name you'd like to enable this on."
+			read drive
+			sudo hdparm -W 1 $drive
+		break
+		done
+	elif [[ $drive == 0 ]];
+	then
+		echo "Trim is already enabled on Ubuntu-based systems\
+		however, you can still run it manually if you'd like."
+		echo "Would you like to run Trim?(Y/n)"
+		read answer 
+		while [ $answer == Y ];
+		do 
+			sudo fstrim -v /
+		break
+		done
+	fi
+done
 
 #Hosts file to block adverts
 echo "Would  you like to use a hosts file? (Y/n)"
