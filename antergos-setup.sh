@@ -469,28 +469,23 @@ then
 	
 fi
 
-#Optional, but it is highly recommended that you make a quick backup
+#This will create a backup of your system
 echo "Would you like to make a backup? (Y/n)"
 read answer
-if [[ $answer == Y ]];
-then 
-	#This backs up your system
-	host=$(hostname)
-	thedate=$(date +%Y-%M-%d)
+while [ $answer == Y ];
+do
+	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
+	if [[ $Mountpoint != /mnt ]];
+	then
+		sudo mount /dev/sdb1 /mnt
+		sudo rsync -aAXv --delete --exclude={/dev/*,/home/*/Music/*,/home/*/Wallpapers,/media/*,/mnt/*,/proc/*,/run/*,/sys/*,/tmp/*,/lost+found} / /mnt/JamesBackup/
+	fi
 
-	cd /
-	find Backups
-	while [ "$?" != "0" ];
-	do
-		sudo mkdir Backups
-	break
-	done
-	cd Backups
-	sudo tar -cvzpf /Backups/$host-$thedate.tar.gz --directory=/ --exclude=Backups --exclude=mnt --exclude=run --exclude=media --exclude=proc --exclude=tmp --exclude=dev --exclude=sys --exclude=lost+found /
+	sudo sync
+	sudo umount /dev/sdb1
 
-else 
-	echo "It is a good idea to create a backup after such changes, maybe later."
-fi
+break
+done
 
 #This will give you useful information about your system 
 echo "You may want to save sysinfo.txt somewhere safe for future reference."
