@@ -185,7 +185,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts Jameshostslist
+	rm ad_servers.txt Petersadslist Malwarehosts nocoin Malware2 Spamhosts MVPShosts cameleonhosts Jameshostslist
 else 
 	echo "Run again and pick a valid number."
 fi
