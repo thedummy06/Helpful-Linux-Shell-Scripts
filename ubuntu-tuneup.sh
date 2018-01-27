@@ -83,21 +83,20 @@ done
 #This restarts systemd daemon. This can be useful for different reasons.
 sudo systemctl daemon-reload #For systemd releases
 
-#This will try to ensure you have a strong network connection
-for c in computer;
+#This will ensure you do not have any common network issues
+for c in computer; 
 do 
-	ping -c4 google.com 
+	ping -c4 google.com > /dev/null
 	if [[ $? -eq 0 ]];
 	then 
-		echo "Connection successful"
+		echo "Connection successful!"
 	else
 		interface=$(ip -o -4 route show to default | awk '{print $5}')
 		sudo dhclient -v -r && sudo dhclient
-		sudo systemctl stop NetworkManager.service
-		sudo systemctl disable NetworkManager.service
-		sudo systemctl enable NetworkManager.service
-		sudo systemctl start NetworkManager.service
-		sudo iplink set $interface up #Refer to networkconfig.log
+		sudo mmcli nm enable false 
+		sudo nmcli nm enable true
+		sudo /etc/init.d/ network-manager restart
+		sudo ip link set $interface up #Refer to networkconfig.log
 	fi
 done 
 
@@ -179,8 +178,36 @@ do
 break
 done
 
+#This tries to restore the home folder
+echo "Would you like to restore the home folder?(Y/n)"
+read answer 
+while [ $answer == Y ];
+do
+cat <<_EOF_
+This tries to restore the home folder and nothing else, if you want to 
+restore the entire system,  you will have to do that in a live environment.
+This can, however, help in circumstances where you have family photos and
+school work stored in the home directory. This also assumes that your home
+directory is on the drive in question. 
+_EOF_
+
+	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
+	if [[ $Mountpoint != /mnt ]];
+	then
+		read -p "Please insert the backup drive and hit enter..."
+		sleep 1 
+		sudo mount /dev/sdb1 /mnt 
+		sudo rsync -aAXv \ /media/$user/XBT_Drive/XBT_Backups/$host/Home_Backup/ \
+        /home/
+	fi 
+	
+	sudo sync && sudo umount /dev/sdb1
+
+break
+done
+
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #Only to be used on HDD
 
 #You should really reboot now!
-sudo systemctl reboot 
+sudo sync && systemctl reboot 
