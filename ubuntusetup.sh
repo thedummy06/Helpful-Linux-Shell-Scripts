@@ -344,6 +344,10 @@ echo "#tcp flaw workaround" | sudo tee -a /etc/sysctl.conf
 echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
+#This locks down ssh for security
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak 
+sudo sed -i -e '/#PermitRootLogin/c\PermitRootLogin no ' /etc/ssh/sshd_config
+
 #This determines what type of drive you have, then offers to enable trim or write-back caching
 drive=$(cat /sys/block/sda/queue/rotational)
 for rota in $drive;
@@ -397,6 +401,19 @@ then
 	echo 'alias clean="sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get clean"' >> ~/.bashrc
 	echo "#Alias to update hosts file" >> ~/.bashrc
 	echo 'alias hostsup="sudo ./Hostsman4linux.sh"' >> ~/.bashrc
+fi
+
+#This removes that retarded gnome-keyring unlock error you get with chrome
+echo "Killing this might make your passwords less secure on chrome."
+sleep 1
+echo "Do you wish to kill gnome-keyring? (Y/n)"
+read answer 
+if [[ $answer == Y ]];
+then
+	sudo mv /usr/bin/gnome-keyring-daemon /usr/bin/gnome-keyring-daemon-old
+	sudo killall gnome-keyring-daemon
+else
+	echo "Proceeding"
 fi
 
 #This will create a backup of your system
