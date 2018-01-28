@@ -380,7 +380,7 @@ echo "Would you like to install extra language packs?(Y/n)"
 read answer 
 if [[ $answer == Y ]];
 then 
-	sudo pacman -S --noconfirm firefox-i18n-en-us thunderbird-i18n-en-us aspell-en gimp-help-en hunspell-en_US hunspell-en hyphen-en
+	sudo pacman -S --noconfirm firefox-i18n-en-us thunderbird-i18n-en-us aspell-en gimp-help-en hunspell-en_US hunspell-en hyphen-en ttf-ms-fonts
 fi
 
 #This will set up screenfetch

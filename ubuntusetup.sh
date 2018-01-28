@@ -305,6 +305,15 @@ else
 	echo "Moving on!"
 fi 
 
+#More optional software
+echo "Would you like to install microsoft fonts?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+	sudo apt-get install ttf-mscorefonts-installer
+break
+done
+
 #This will install themes
 echo "Would you like a dark theme? (Y/n)"
 read answer 
