@@ -29,6 +29,8 @@ fi
 #This restricts coredumps to prevent attackers from getting info
 sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
 sudo sed -i -e '/#Storage=external/c\Storage=none ' /etc/systemd/coredump.conf
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak 
+sudo sed -i -e '/#PermitRootLogin/c\PermitRootLogin no ' /etc/ssh/sshd_config
 sudo touch /etc/sysctl.d/50-dmesg-restrict.conf
 sudo touch /etc/sysctl.d/50-kptr-restrict.conf
 sudo touch /etc/sysctl.d/99-sysctl.conf
