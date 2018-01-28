@@ -123,8 +123,8 @@ history -cw && cat /dev/null/ > ~/.bash_history
 
 #This could clean your Video folder and Picture folder based on a set time
 TRASHCAN=~/.local/share/Trash/
-find ~/Video/* -mtime +30 -exec mv {} $TRASHCAN \; #throws away month old content
-find ~/Pictures/* -mtime +30 -exec mv {} $TRASHCAN \;#The times can be changed
+find ~/Videos/* -mtime +30 -exec mv {} $TRASHCAN \; #throws away month old content
+find ~/Pictures/* -mtime +30 -exec mv {} $TRASHCAN \; #The times can be changed
 
 #Sometimes it's good to check for and remove broken symlinks
 find -xtype l -delete

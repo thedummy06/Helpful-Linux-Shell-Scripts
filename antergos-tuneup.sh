@@ -75,7 +75,7 @@ history -cw && cat /dev/null/ > ~/.bash_history
 
 #This could clean your Video folder and Picture folder based on a set time
 TRASHCAN=~/.local/share/Trash/
-find ~/Video/* -mtime +30 -exec mv {} $TRASHCAN \; #Throws away content one month old
+find ~/Videos/* -mtime +30 -exec mv {} $TRASHCAN \; #Throws away content one month old
 find ~/Pictures/* -mtime +30 -exec mv {} $TRASHCAN \;
 
 #Sometimes it's good to check for and remove broken symlinks
