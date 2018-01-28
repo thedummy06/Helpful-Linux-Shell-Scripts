@@ -573,6 +573,11 @@ echo "##############################################################" >> sysinfo
 inxi -F >> sysinfo.txt
 echo "" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
+echo "DRIVER INFO" >> sysinfo.txt
+echo "##############################################################" >> sysinfo.txt
+sudo lsmod >> sysinfo.txt
+echo "" >> sysinfo.txt
+echo "##############################################################" >> sysinfo.txt
 echo "USB INFORMATION" >> sysinfo.txt
 echo "##############################################################" >> sysinfo.txt
 lsusb >> sysinfo.txt
