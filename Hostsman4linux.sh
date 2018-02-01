@@ -148,7 +148,7 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm Canvas1 Canvas2 Audiotracking NSAlist Webrtc Commontracking Jameshostslist nocoin
+	rm ad_servers.txt Jameshostslist nocoin
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package -eq 7 ]];
 then
