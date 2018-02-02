@@ -49,19 +49,18 @@ then
 elif [[ $package -eq 3 ]];
 then 
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip && mv hosts.txt hphosts
+	unzip hosts.zip && mv hosts.txt hosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat hphosts-partial.txt >> hosts.txt
-	cat nocoin >> hosts.txt
-	cat cameleonhosts >> hosts.txt
-	cat Jameshostslist >> hosts.txt
-	mv hosts.txt hosts
+	cat hphosts-partial.txt >> hosts
+	cat nocoin >> hosts
+	cat cameleonhosts >> hosts
+	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist  nocoin
+	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist  nocoin hosts.txt.asc hosts.zip readme.txt
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
@@ -165,7 +164,7 @@ then
 	rm Jameshostslist nocoin 
 elif [[ $package -eq 8 ]];
 then
-#Umatrix style formula with something extra
+#Umatrix style formula with some extra
 	wget hosts-file.net/ad_servers.txt
 	wget someonewhocares.org/hosts/hosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
