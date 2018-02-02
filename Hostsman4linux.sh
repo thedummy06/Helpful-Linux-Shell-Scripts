@@ -36,9 +36,11 @@ elif [[ $package -eq 2 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget https://hosts-file.net/ad_servers.txt
+	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat ad_servers.txt >> hosts
+	cat cameleonhosts >> hosts
 	cat nocoin >> hosts
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
@@ -185,12 +187,12 @@ then
 	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Petersadslist Malwarehosts nocoin Malware2 Spamhosts MVPShosts cameleonhosts Jameshostslist
+	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts Jameshostslist nocoin
 else 
 	echo "Run again and pick a valid number."
 fi
 
-echo "Are there any other domains that you wish to exclude?(Y/n)"
+echo "Are there any other sites that you wish to exclude?(Y/n)"
 read answer
 while [ $answer == Y ]
 do
@@ -205,7 +207,7 @@ break
 done
 
 echo "This hosts file doesn't update as often" 
-echo "Would you like to add some extra domains?(Y/n)"
+echo "Would you like to add some extra sites?(Y/n)"
 read answer 
 if [[ $answer == Y ]];
 then 
