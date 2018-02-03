@@ -161,7 +161,7 @@ then
 	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm Jameshostslist nocoin 
+	rm Jameshostslist nocoin 'hosts.zip?raw=true'
 elif [[ $package -eq 8 ]];
 then
 #Umatrix style formula with some extra
