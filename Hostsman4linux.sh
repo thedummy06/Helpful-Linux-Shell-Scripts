@@ -27,25 +27,21 @@ if [[ $package -eq 1 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat nocoin >> hosts
-	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm Jameshostslist nocoin
+	rm nocoin
 elif [[ $package -eq 2 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget https://hosts-file.net/ad_servers.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat ad_servers.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat nocoin >> hosts
-	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Jameshostslist nocoin cameleonhosts
+	rm ad_servers.txt nocoin cameleonhosts
 elif [[ $package -eq 3 ]];
 then 
 	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
@@ -53,14 +49,12 @@ then
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat hphosts-partial.txt >> hosts
 	cat nocoin >> hosts
 	cat cameleonhosts >> hosts
-	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm hphosts-partial.txt cameleonhosts hphosts Jameshostslist  nocoin hosts.txt.asc hosts.zip readme.txt
+	rm hphosts-partial.txt cameleonhosts hphosts nocoin hosts.txt.asc hosts.zip readme.txt
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
@@ -78,10 +72,9 @@ then
 	cat cameleonhosts >> hosts
 	cat spamhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm cameleonhosts hphosts hphosts-partial.txt hosts.zip hosts.txt.asc readme.txt spamhosts nocoin Malwarehosts2 Jameshostslist
+	rm cameleonhosts hphosts hphosts-partial.txt hosts.zip hosts.txt.asc readme.txt spamhosts nocoin Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -109,7 +102,6 @@ then
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/127.0.0.1  /' Malwarehosts2
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat MVPShosts >> hosts
 	cat Malwarehosts >> hosts
 	cat Pron >> hosts
@@ -133,10 +125,9 @@ then
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm KADhosts.txt MVPShosts Malwarehosts readme.txt Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist Jameshostslist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts readme.txt Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
@@ -145,11 +136,9 @@ then
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://raw.githubusercontent.com/joeylane/hosts/master/hosts # Does block google
 	cat ad_servers.txt >> hosts
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Jameshostslist nocoin
+	rm ad_servers.txt nocoin
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package -eq 7 ]];
 then
@@ -158,10 +147,8 @@ then
 	wget https://github.com/mitchellkrogza/Ultimate.Hosts.Blacklist/blob/master/hosts.zip?raw=true
 	unzip 'hosts.zip?raw=true'
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat Jameshostslist >> hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm Jameshostslist nocoin 'hosts.zip?raw=true'
+	rm nocoin 'hosts.zip?raw=true'
 elif [[ $package -eq 8 ]];
 then
 #Umatrix style formula with some extra
@@ -174,7 +161,6 @@ then
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/127.0.0.1  /' Petersadslist
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malware2 && sed -i -e 's/^/127.0.0.1  /' Malware2
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/127.0.0.1  /' Spamhosts
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat MVPShosts >> hosts 
 	cat nocoin >> hosts
 	cat Malwarehosts >> hosts 
@@ -183,10 +169,9 @@ then
 	cat cameleonhosts >> hosts
 	cat ad_servers.txt >> hosts
 	cat Spamhosts >> hosts
-	cat Jameshostslist >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts Jameshostslist nocoin
+	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts nocoin
 else 
 	echo "Run again and pick a valid number."
 fi
@@ -205,6 +190,7 @@ do
 break
 done
 
+#These can add extra lists for deeper blocking of ads
 echo "This hosts file doesn't update as often" 
 echo "Would you like to add some extra sites?(Y/n)"
 read answer 
@@ -214,6 +200,17 @@ then
 	cat bjornhosts >> hosts 
 	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts 
 	rm bjornhosts
+fi
+
+echo "This hosts file also doesn't update everyday, however, it does block some third-parties that others do not."
+echo "Would you like to add My own hosts list?(Y/n)"
+read answer
+if [[ $answer == Y ]];
+then
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
+	cat Jameshostslist >> hosts
+	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	rm Jameshostslist
 fi
 
 sudo cat hosts >> /etc/hosts
