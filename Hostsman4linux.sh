@@ -28,7 +28,6 @@ then
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	cat nocoin >> hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm nocoin
 elif [[ $package -eq 2 ]];
 then 
@@ -40,7 +39,6 @@ then
 	cat cameleonhosts >> hosts
 	cat nocoin >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm ad_servers.txt nocoin cameleonhosts
 elif [[ $package -eq 3 ]];
 then 
@@ -53,7 +51,6 @@ then
 	cat nocoin >> hosts
 	cat cameleonhosts >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm hphosts-partial.txt cameleonhosts hphosts nocoin hosts.txt.asc hosts.zip readme.txt
 elif [[ $package -eq 4 ]];
 then 
@@ -73,7 +70,6 @@ then
 	cat spamhosts >> hosts
 	cat Malwarehosts2 >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm cameleonhosts hphosts hphosts-partial.txt hosts.zip hosts.txt.asc readme.txt spamhosts nocoin Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
@@ -126,7 +122,6 @@ then
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm KADhosts.txt MVPShosts Malwarehosts readme.txt Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
@@ -137,7 +132,6 @@ then
 	wget https://raw.githubusercontent.com/joeylane/hosts/master/hosts # Does block google
 	cat ad_servers.txt >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
-	uniq -u hosts >/tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm ad_servers.txt nocoin
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package -eq 7 ]];
@@ -147,7 +141,6 @@ then
 	wget https://github.com/mitchellkrogza/Ultimate.Hosts.Blacklist/blob/master/hosts.zip?raw=true
 	unzip 'hosts.zip?raw=true'
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm nocoin 'hosts.zip?raw=true'
 elif [[ $package -eq 8 ]];
 then
@@ -170,10 +163,30 @@ then
 	cat ad_servers.txt >> hosts
 	cat Spamhosts >> hosts
 	sed -i 's/0.0.0.0/127.0.0.1/g' hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts nocoin
 else 
 	echo "Run again and pick a valid number."
+fi
+
+#These can add extra lists for deeper blocking of ads
+echo "This hosts file doesn't update as often" 
+echo "Would you like to add some extra sites?(Y/n)"
+read answer 
+if [[ $answer == Y ]];
+then 
+	wget https://raw.githubusercontent.com/bjornstar/hosts/master/hosts -O bjornhosts
+	cat bjornhosts >> hosts  
+	rm bjornhosts
+fi
+
+echo "This hosts file also doesn't update everyday, however, it does block some third-parties that others do not."
+echo "Would you like to add My own hosts list?(Y/n)"
+read answer
+if [[ $answer == Y ]];
+then
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
+	cat Jameshostslist >> hosts
+	rm Jameshostslist
 fi
 
 echo "Are there any other sites that you wish to exclude?(Y/n)"
@@ -190,28 +203,8 @@ do
 break
 done
 
-#These can add extra lists for deeper blocking of ads
-echo "This hosts file doesn't update as often" 
-echo "Would you like to add some extra sites?(Y/n)"
-read answer 
-if [[ $answer == Y ]];
-then 
-	wget https://raw.githubusercontent.com/bjornstar/hosts/master/hosts -O bjornhosts
-	cat bjornhosts >> hosts 
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts 
-	rm bjornhosts
-fi
-
-echo "This hosts file also doesn't update everyday, however, it does block some third-parties that others do not."
-echo "Would you like to add My own hosts list?(Y/n)"
-read answer
-if [[ $answer == Y ]];
-then
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat Jameshostslist >> hosts
-	uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	rm Jameshostslist
-fi
+#This attempts to dedupe the file as much as possible
+uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 
 sudo cat hosts >> /etc/hosts
 rm hosts
