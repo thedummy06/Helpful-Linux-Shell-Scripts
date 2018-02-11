@@ -153,6 +153,16 @@ do
 done
 
 #Optional This will remove the pamac cached applications and older versions
+cat <<_EOF_
+It's probably not a great idea to be cleaning this part of the system
+all willy nilly, but here is a way to free up some space before doing
+backups that may cause you to not be able to downgrade, so be careful. 
+It is possible and encouraged to clean all but the latest three versions of software on your
+system that you may not need, but this removes all backup versions. 
+You will be given a choice, but it is strongly recommended that you use the simpler option to 
+remove only up to the latest three versions of your software. Thanks. 
+_EOF_
+
 echo "What would you like to do?"
 echo "1 - Remove up to the latest three versions of software"
 echo "2 - Remove all cache except for the version on your system"
@@ -179,9 +189,18 @@ case $operation in
 	;;
 esac
 
-#This will ensure you are up to date and running fastest mirrors 
-sudo pacman-mirrors -b unstable
-sudo pacman -Syyu --noconfirm
+#This attempts to rank mirrors and update your system
+distribution=$(cat /etc/issue | awk '{print $1}')
+if [[ $distribution == Manjaro ]];
+then
+	sudo pacman-mirrors -G 
+	sudo pacman-optimize && sync
+	sudo pacman -Syyu --noconfirm
+else
+	sudo reflector -l 50 -f 20 --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d
+	sudo rankmirrors -n 0 /etc/pacman.d/antergos-mirrorlist > /tmp/antergos-mirrorlist && sudo cp /tmp/antergos-mirrorlist /etc/pacman.d
+	sudo pacman -Syyu --noconfirm
+fi
 
 #This refreshes index cache
 sudo updatedb && sudo mandb 
@@ -192,23 +211,22 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 #This runs a disk checkup and attempts to fix filesystem
 sudo touch /forcefsck 
 
-#This will create a backup of your system
-echo "Would you like to make a backup? (Y/n)"
-read answer
-while [ $answer == Y ];
-do
-	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
-	if [[ $Mountpoint != /mnt ]];
-	then
-		sudo mount /dev/sdb1 /mnt
-		sudo rsync -aAXv --delete --exclude={/dev/*,/home/*/Music/*,/home/*/Wallpapers,/media/*,/mnt/*,/proc/*,/run/*,/sys/*,/tmp/*,/lost+found} / /mnt/JamesBackup/
-	fi
-
-	sudo sync
-	sudo umount /dev/sdb1
-
-break
-done
+#This tries to backup your system
+host=$(hostname)
+Mountpoint=$(lsblk |awk '{print $7}' | grep /run/media/$USER/*)
+if [[ $Mountpoint != /run/media/$USER/* ]];
+then
+	read -p "Please enter a drive and hit enter"
+	echo $(lsblk | awk '{print $1}')
+	sleep 1 
+	echo "Please select the device you wish to use"
+	read device
+	sudo mount $device /mnt
+	sudo rsync -aAXv --delete --exclude=.cache --exclude=.thumbnails --exclude=Music --exclude=Wallpapers /home/$USER /mnt/$host-backups
+else
+	echo "Found a block device at designated coordinates, if this is the preferred
+	device, try umounting it and then running this again."
+fi
 
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #only to be used on HDD

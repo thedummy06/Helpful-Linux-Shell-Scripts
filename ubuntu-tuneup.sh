@@ -160,23 +160,22 @@ sudo updatedb && sudo mandb
 #Checks disk for errors
 sudo touch /forcefsck
 
-#This will make a backup of your system
-echo "Would you like to make a backup? (Y/n)"
-read answer
-while [ $answer == Y ];
-do 
-	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
-	if [[ $Mountpoint != /mnt ]];
-	then
-		sudo mount /dev/sdb1 /mnt
-		sudo rsync -aAXv --delete --exclude={/dev/*,/home/*/Music/*,/home/*/Wallpapers,/media/*,/mnt/*,/proc/*,/run/*,/sys/*,/tmp/*,/lost+found} / /mnt/JamesBackup/
-	fi
-
-	sudo sync
-	sudo umount /dev/sdb1
-
-break
-done
+#This tries to backup your system
+host=$(hostname)
+Mountpoint=$(lsblk |awk '{print $7}' | grep /run/media/$USER/*)
+if [[ $Mountpoint != /run/media/$USER/* ]];
+then
+	read -p "Please enter a drive and hit enter"
+	echo $(lsblk | awk '{print $1}')
+	sleep 1 
+	echo "Please select the device you wish to use"
+	read device
+	sudo mount $device /mnt
+	sudo rsync -aAXv --delete --exclude=.cache --exclude=.thumbnails --exclude=Music --exclude=Wallpapers /home/$USER /mnt/$host-backups
+else
+	echo "Found a block device at designated coordinates, if this is the preferred
+	device, try umounting it and then running this again."
+fi
 
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #Only to be used on HDD
