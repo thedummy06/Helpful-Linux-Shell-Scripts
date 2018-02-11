@@ -153,16 +153,6 @@ do
 done
 
 #Optional This will remove the pamac cached applications and older versions
-cat <<_EOF_
-It's probably not a great idea to be cleaning this part of the system
-all willy nilly, but here is a way to free up some space before doing
-backups that may cause you to not be able to downgrade, so be careful. 
-It is possible and encouraged to clean all but the latest three versions of software on your
-system that you may not need, but this removes all backup versions. 
-You will be given a choice, but it is strongly recommended that you use the simpler option to 
-remove only up to the latest three versions of your software. Thanks. 
-_EOF_
-
 echo "What would you like to do?"
 echo "1 - Remove up to the latest three versions of software"
 echo "2 - Remove all cache except for the version on your system"
@@ -216,34 +206,6 @@ do
 
 	sudo sync
 	sudo umount /dev/sdb1
-
-break
-done
-
-#This tries to restore the home folder
-echo "Would you like to restore the home folder?(Y/n)"
-read answer
-while [ $answer == Y ];
-do 
-cat <<_EOF_
-This tries to restore the home folder and nothing else, if you want to 
-restore the entire system,  you will have to do that in a live environment.
-This can, however, help in circumstances where you have family photos and
-school work stored in the home directory. This also assumes that your home
-directory is on the drive in question. 
-_EOF_
-
-	Mountpoint=$(lsblk | grep  sdb1 | awk '{print $7}')
-	if [[ $Mountpoint != /mnt ]];
-	then
-		read -p "Please insert the backup drive and hit enter..."
-		sleep 1 
-		sudo mount /dev/sdb1 /mnt 
-		sudo rsync -aAXv \ /media/$user/XBT_Drive/XBT_Backups/$host/Home_Backup/ \
-        /home/
-	fi 
-	
-	sudo sync && sudo umount /dev/sdb1
 
 break
 done
