@@ -48,7 +48,7 @@ then
 	cat hphosts-partial.txt >> hosts
 	cat nocoin >> hosts
 	cat cameleonhosts >> hosts
-	rm hphosts-partial.txt cameleonhosts hphosts nocoin hosts.txt.asc hosts.zip readme.txt
+	rm hphosts-partial.txt cameleonhost nocoin
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
@@ -184,7 +184,6 @@ read answer
 while [ $answer == Y ]
 do
 	read -p "Enter any other sites you wish to exclude up to 5:" Site1 Site2 Site3 Site4 Site5
-	cd $house 
 	grep -v "$Site1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	grep -v "$Site2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	grep -v "$Site3" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
