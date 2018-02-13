@@ -40,9 +40,8 @@ then
 	cat nocoin >> hosts
 	rm ad_servers.txt nocoin cameleonhosts
 elif [[ $package -eq 3 ]];
-then 
-	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip && mv hosts.txt hosts
+then
+	wget http://hosts-file.malwareteks.com/hosts.txt -O hosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
@@ -53,21 +52,19 @@ then
 elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
-	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip && mv hosts.txt hphosts
+	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
 	cat hphosts >> hosts
 	cat nocoin >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat spamhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm cameleonhosts hphosts hphosts-partial.txt hosts.zip hosts.txt.asc readme.txt spamhosts nocoin Malwarehosts2
+	rm cameleonhosts hphosts hphosts-partial.txt spamhosts nocoin Malwarehosts2 Jameshostslist
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -90,8 +87,7 @@ then
 	wget https://raw.githubusercontent.com/mitchellkrogza/Badd-Boyz-Hosts/master/hosts -O Badd-Boyz
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts -O unchecky
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
-	wget http://www.montanamenagerie.org/hostsfile/hosts.zip
-	unzip hosts.zip && mv hosts.txt hphosts
+	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
