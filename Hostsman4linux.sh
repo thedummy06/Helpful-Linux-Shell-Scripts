@@ -64,7 +64,7 @@ then
 	cat cameleonhosts >> hosts
 	cat spamhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm cameleonhosts hphosts hphosts-partial.txt spamhosts nocoin Malwarehosts2 Jameshostslist
+	rm cameleonhosts hphosts hphosts-partial.txt spamhosts nocoin Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
@@ -114,7 +114,7 @@ then
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm KADhosts.txt MVPShosts Malwarehosts readme.txt Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts hosts.zip hosts.txt.asc cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
