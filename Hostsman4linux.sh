@@ -251,4 +251,4 @@ rm hosts
 		break
 	done
 
-cat /etc/hosts >> hosts.log
+cat /etc/hosts > hosts.log
