@@ -156,6 +156,7 @@ then
 	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts nocoin
 else 
 	echo "Run again and pick a valid number."
+	exit
 fi
 
 #These can add extra lists for deeper blocking of ads
@@ -251,4 +252,4 @@ rm hosts
 		break
 	done
 
-cat /etc/hosts > hosts.log
+cat /etc/hosts > /home/james/logs/hosts.log
