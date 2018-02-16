@@ -177,6 +177,32 @@ else
 	device, try umounting it and then running this again."
 fi
 
+#This tries to restore the home folder from backup
+cat <<_EOF_
+This tries to restore the home folder and nothing else, if you want to 
+restore the entire system,  you will have to do that in a live environment.
+This can, however, help in circumstances where you have family photos and
+school work stored in the home directory. This also assumes that your home
+directory is on the drive in question. 
+_EOF_
+
+Mountpoint=$(lsblk | awk '{print $7}' | grep /run/media/$USER/*)
+if [[ $Mountpoint != /run/media/$USER/* ]];
+then
+	read -p "Please insert the backup drive and hit enter..."
+	echo $(lsblk | awk '{print $1}')
+	sleep 1
+	echo "Please select the device from the list"
+	read device
+	sudo mount $device /mnt 
+	sudo rsync -aAXv --delete /mnt/$host-backups /home/$USER
+	sudo sync 
+	Restart
+else
+	echo "Found a block device at designated coordinates, if this is the preferred
+	drive, try unmounting the device and running this again."
+fi 
+
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #Only to be used on HDD
 
