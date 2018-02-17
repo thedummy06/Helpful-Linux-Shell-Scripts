@@ -161,7 +161,7 @@ fi
 
 #These can add extra lists for deeper blocking of ads
 echo "This hosts file doesn't update as often" 
-echo "Would you like to add some extra sites?(Y/n)"
+echo "Would you like to add some extra domains?(Y/n)"
 read answer 
 if [[ $answer == Y ]];
 then 
@@ -180,16 +180,16 @@ then
 	rm Jameshostslist
 fi
 
-echo "Are there any other sites that you wish to exclude?(Y/n)"
+echo "Are there any other domains that you wish to exclude?(Y/n)"
 read answer
 while [ $answer == Y ]
 do
-	read -p "Enter any other sites you wish to exclude up to 5:" Site1 Site2 Site3 Site4 Site5
-	grep -v "$Site1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Site2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Site3" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Site4" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Site5" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	read -p "Enter any other domains you wish to exclude up to 5:" Domain1 Domain2 Domain3 Domain4 Domain5
+	grep -v "$Domain1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	grep -v "$Domain2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	grep -v "$Domain3" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	grep -v "$Domain4" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+	grep -v "$Domain5" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 break
 done
 
@@ -252,4 +252,4 @@ rm hosts
 		break
 	done
 
-cat /etc/hosts > $house/hosts.log
+cat /etc/hosts > /home/james/logs/hosts.log
