@@ -252,4 +252,4 @@ rm hosts
 		break
 	done
 
-cat /etc/hosts > $house/logs/hosts.log
+cat /etc/hosts > $house/hosts.log
