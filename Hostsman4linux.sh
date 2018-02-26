@@ -26,19 +26,14 @@ read package
 if [[ $package -eq 1 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
-	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
-	cat nocoin >> hosts
-	rm nocoin
 elif [[ $package -eq 2 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget https://hosts-file.net/ad_servers.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
-	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	cat ad_servers.txt >> hosts
 	cat cameleonhosts >> hosts
-	cat nocoin >> hosts
-	rm ad_servers.txt nocoin cameleonhosts
+	rm ad_servers.txt cameleonhosts
 elif [[ $package -eq 3 ]];
 then
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hosts
@@ -53,21 +48,18 @@ elif [[ $package -eq 4 ]];
 then 
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts
-	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
 	cat hphosts >> hosts
-	cat nocoin >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat spamhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm cameleonhosts hphosts hphosts-partial.txt spamhosts nocoin Malwarehosts2
+	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2
 elif [[ $package -eq 5 ]];
 then
-	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/SpotifyAds/hosts -O spotifyads	
 	wget https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts -O adservers.txt
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts
 	wget someonewhocares.org/hosts/hosts
@@ -107,14 +99,13 @@ then
 	cat tyzbit >> hosts
 	cat nocoin >> hosts
 	cat adservers.txt >> hosts
-	cat spotifyads >> hosts
 	cat unchecky >> hosts
 	cat spamhosts >> hosts
 	cat hphosts >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts spotifyads unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
+	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
