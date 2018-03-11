@@ -41,8 +41,8 @@ then
 	wget https://hosts-file.net/hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	cat hphosts-partial.txt >> hosts
-	cat nocoin >> hosts
 	cat cameleonhosts >> hosts
+	cat nocoin >> hosts
 	rm hphosts-partial.txt cameleonhost nocoin
 elif [[ $package -eq 4 ]];
 then 
@@ -84,6 +84,7 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
 	cat MVPShosts >> hosts
+	cat nocoin >> hosts
 	cat Malwarehosts >> hosts
 	cat Pron >> hosts
 	cat Pron2 >> hosts
@@ -97,7 +98,6 @@ then
 	cat Badd-Boyz >> hosts
 	cat fakenews >> hosts
 	cat tyzbit >> hosts
-	cat nocoin >> hosts
 	cat adservers.txt >> hosts
 	cat unchecky >> hosts
 	cat spamhosts >> hosts
@@ -105,59 +105,60 @@ then
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm KADhosts.txt MVPShosts Malwarehosts Malwarehosts2 nocoin add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
+	rm KADhosts.txt MVPShosts nocoin Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
-
+	sleep 1
 	wget hosts-file.net/ad_servers.txt
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget https://raw.githubusercontent.com/joeylane/hosts/master/hosts # Does block google
 	cat ad_servers.txt >> hosts
+	cat nocoin >> hosts
 	rm ad_servers.txt nocoin
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package -eq 7 ]];
 then
 #Really large hosts file
-
 	wget https://github.com/mitchellkrogza/Ultimate.Hosts.Blacklist/blob/master/hosts.zip?raw=true
 	unzip 'hosts.zip?raw=true'
+	mv hosts.txt hosts
 	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
-	rm nocoin 'hosts.zip?raw=true'
+	cat nocoin >> hosts
+	rm'hosts.zip?raw=true' nocoin
 elif [[ $package -eq 8 ]];
 then
 #Umatrix style formula with some extra
 	wget hosts-file.net/ad_servers.txt
+	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget someonewhocares.org/hosts/hosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts
-	wget https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt -O nocoin
 	wget http://www.malwaredomainlist.com/hostslist/hosts.txt -O Malwarehosts
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/0.0.0.0  /' Petersadslist
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malware2 && sed -i -e 's/^/0.0.0.0  /' Malware2
 	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/0.0.0.0  /' Spamhosts
 	cat MVPShosts >> hosts 
-	cat nocoin >> hosts
 	cat Malwarehosts >> hosts 
 	cat Petersadslist >> hosts
 	cat Malware2 >> hosts
 	cat cameleonhosts >> hosts
 	cat ad_servers.txt >> hosts
 	cat Spamhosts >> hosts
-	rm ad_servers.txt Petersadslist Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts nocoin
+	cat nocoin >> hosts
+	rm ad_servers.txt Petersadslist nocoin Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts
 else 
 	echo "Run again and pick a valid number."
 	exit
 fi
 
 #These can add extra lists for deeper blocking of ads
-echo "This hosts file doesn't update as often" 
 echo "Would you like to add some extra domains?(Y/n)"
 read answer 
 if [[ $answer == Y ]];
 then 
 	wget https://raw.githubusercontent.com/bjornstar/hosts/master/hosts -O bjornhosts
-	cat bjornhosts >> hosts  
+	cat bjornhosts >> hosts 
 	rm bjornhosts
 fi
 
@@ -243,4 +244,4 @@ rm hosts
 		break
 	done
 
-cat /etc/hosts > $house/hosts.log
+cat /etc/hosts > $house/logs/hosts.log
