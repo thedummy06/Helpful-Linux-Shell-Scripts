@@ -158,8 +158,6 @@
 127.0.0.1 brightcove.com
 127.0.0.1 www.liverail.com
 127.0.0.1 liverail.com
-127.0.0.1 flattr.com
-127.0.0.1 www.flattr.com
 127.0.0.1 www.taboola.com
 127.0.0.1 taboola.com
 127.0.0.1 sharethrough.com
@@ -369,7 +367,7 @@
 127.0.0.1 adbuff.com
 127.0.0.1 www.adbuff.com
 127.0.0.1 1-cl0ud.com
-127.0.0.1 www.doublepimpssl.com
+127.0.0.1 www.doublepimpssl.com #Probably more efficient if placed in a dns filter
 127.0.0.1 zyxtecsff.bid
 127.0.0.1 zzevmjynoljz.bid
 127.0.0.1 zzvjaqnkq.bid
@@ -427,11 +425,7 @@
 127.0.0.1 cdn.tellwrite.com
 127.0.0.1 www.expressvpn.land/private-vpn-lp1
 127.0.0.1 www.nodepositbonus.cc
-127.0.0.1 revolt.tv
 127.0.0.1 blessthemac.com
 127.0.0.1 www.blessthemac.com
-127.0.0.1 www.thegogomix.com
-127.0.0.1 thegogomix.com
-127.0.0.1 myfood.ltd
-127.0.0.1 celebitr.com
-127.0.0.1 c87a33c9c4f848d16df8.date
+127.0.0.1 www.businessinsider.com
+127.0.0.1 businessinsider.com #Pain in the @$$ for people using adblockers
