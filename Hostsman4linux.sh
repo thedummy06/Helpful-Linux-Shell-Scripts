@@ -167,9 +167,9 @@ echo "Would you like to add My own hosts list?(Y/n)"
 read answer
 if [[ $answer == Y ]];
 then
-	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Jameshostslist
-	cat Jameshostslist >> hosts
-	rm Jameshostslist
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/extrahosts
+	cat extrahosts >> hosts
+	rm extrahosts
 fi
 
 echo "Are there any other domains that you wish to exclude?(Y/n)"
