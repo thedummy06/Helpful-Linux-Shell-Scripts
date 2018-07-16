@@ -63,6 +63,7 @@ then
 	wget https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts -O adservers.txt
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts
 	wget someonewhocares.org/hosts/hosts
+	wget https://raw.githubusercontent.com/lightswitch05/hosts/master/ads-and-tracking-extended.txt -O lightswitch05list
 	wget raw.githubusercontent.com/ZeroDot1/CoinBlockerLists/master/hosts -O coinblocker
 	wget https://raw.githubusercontent.com/Sinfonietta/hostfiles/master/snuff-hosts -O Pron2
 	wget https://raw.githubusercontent.com/marktron/fakenews/master/fakenews
@@ -86,6 +87,7 @@ then
 	cat MVPShosts >> hosts
 	cat coinblocker >> hosts
 	cat Malwarehosts >> hosts
+	cat lightswitch05list >> hosts
 	cat Pron >> hosts
 	cat Pron2 >> hosts
 	cat add.Spam >> hosts
@@ -105,7 +107,7 @@ then
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Malwarehosts2 >> hosts
-	rm KADhosts.txt MVPShosts coinblocker Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
+	rm KADhosts.txt MVPShosts lightswitch05list coinblocker Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package -eq 6 ]];
 then
 	echo "This could block sites that you need, you've been warned."
