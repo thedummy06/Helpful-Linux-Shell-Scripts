@@ -79,7 +79,7 @@ then
 	wget https://raw.githubusercontent.com/azet12/KADhosts/master/KADhosts.txt
 	wget https://raw.githubusercontent.com/mitchellkrogza/Badd-Boyz-Hosts/master/hosts -O Badd-Boyz
 	wget https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts -O unchecky
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
@@ -137,18 +137,20 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts
 	wget http://www.malwaredomainlist.com/hostslist/hosts.txt -O Malwarehosts
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/0.0.0.0  /' Petersadslist
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-immortaldomains/list.txt -O Malware2 && sed -i -e 's/^/0.0.0.0  /' Malware2
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/0.0.0.0  /' Spamhosts
 	cat MVPShosts >> hosts 
-	cat Malwarehosts >> hosts 
+	cat Malwarehosts >> hosts
+	cat Adguardlist >> hosts 
 	cat Petersadslist >> hosts
 	cat Malware2 >> hosts
 	cat cameleonhosts >> hosts
 	cat ad_servers.txt >> hosts
 	cat Spamhosts >> hosts
 	cat coinblocker >> hosts
-	rm ad_servers.txt Petersadslist coinblocker Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts
+	rm ad_servers.txt Petersadslist coinblocker Malwarehosts Adguardlist Malware2 Spamhosts MVPShosts cameleonhosts
 else 
 	echo "Run again and pick a valid number."
 	exit
