@@ -49,9 +49,9 @@ then
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts
 	wget https://hosts-file.net/hphosts-partial.txt
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
 	cat hphosts >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
@@ -137,9 +137,9 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts
 	wget http://www.malwaredomainlist.com/hostslist/hosts.txt -O Malwarehosts
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/0.0.0.0  /' Petersadslist
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malware2 && sed -i -e 's/^/0.0.0.0  /' Malware2
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/0.0.0.0  /' Spamhosts
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/0.0.0.0  /' Petersadslist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-immortaldomains/list.txt -O Malware2 && sed -i -e 's/^/0.0.0.0  /' Malware2
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/0.0.0.0  /' Spamhosts
 	cat MVPShosts >> hosts 
 	cat Malwarehosts >> hosts 
 	cat Petersadslist >> hosts
