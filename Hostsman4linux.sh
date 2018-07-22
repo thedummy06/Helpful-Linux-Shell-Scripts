@@ -83,7 +83,7 @@ then
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts
 	wget https://hosts-file.net/hphosts-partial.txt	
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts
-	wget https://raw.githubusercontent.com/zant95/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2
 	cat MVPShosts >> hosts
 	cat coinblocker >> hosts
 	cat Malwarehosts >> hosts
