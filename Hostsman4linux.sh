@@ -270,7 +270,7 @@ done
 sed -i 's/127.0.0.1/0.0.0.0/g' hosts
 
 #This attempts to dedupe the file as much as possible
-uniq -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
+sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 
 sudo cat hosts >> /etc/hosts
 rm hosts
