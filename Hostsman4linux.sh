@@ -8,7 +8,7 @@ find /etc/hosts.bak
 while [ $? -gt 0 ]
 do  
 	sudo cp /etc/hosts /etc/hosts.bak
-	break
+break
 done
 
 sudo cp /etc/hosts.bak /etc/hosts
@@ -248,22 +248,19 @@ then
 	rm extrahosts
 fi
 
-echo "Are there any other domains that you wish to exclude?(Y/n)"
-read answer
-while [ $answer == Y ]
+while [ $? -lt 1 ];
 do
-	read -p "Enter any other domains you wish to exclude up to 10:" Domain1 Domain2 Domain3 Domain4 Domain5 Domain6 Domain7 Domain8 Domain9 Domain10
-	grep -v "$Domain1" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain2" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain3" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain4" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain5" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain6" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain7" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain8" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain9" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-	grep -v "$Domain10" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
-break
+	echo "Would you like to exclude a domain?(Y/n)"
+	read answer
+	if [[ $answer == Y ]];
+	then
+		echo "Enter the domain you wish to exclude"
+		read domain
+		grep -v "$domain" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts 
+	else
+		break
+	fi
+
 done
 
 #This ensures that we are using All 0's for pointing back to home
