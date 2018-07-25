@@ -431,3 +431,4 @@
 0.0.0.0 sex-and-flirt.com
 0.0.0.0 cdn.polyfill.io #This has caused excessively heavy script usage on weather.com
 0.0.0.0 xxxcity.com
+0.0.0.0 www.xxxcity.com
