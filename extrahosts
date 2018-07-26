@@ -8,8 +8,8 @@
 0.0.0.0 www.nielsen.com
 0.0.0.0 traffichaus.com
 0.0.0.0 trafficjunky.com
-0.0.0.0 newrelic.com 
-0.0.0.0 www.newrelic.com
+#0.0.0.0 newrelic.com #Messes with twit.tv
+#0.0.0.0 www.newrelic.com
 0.0.0.0 voodoo.com
 0.0.0.0 www.voodoo.com
 0.0.0.0 doubleclick.net 
