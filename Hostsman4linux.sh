@@ -33,7 +33,7 @@ then
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts && sort -u hosts > /tmp/host.new && mv /tmp/hosts.new hosts
 	wget https://hosts-file.net/ad_servers.txt && sort -u ad_servers.txt > /tmp/ad_servers.new && mv /tmp/ad_servers.new ad_servers.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat ad_servers.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat Adguardlist >> hosts
@@ -45,7 +45,7 @@ then
 	wget raw.githubusercontent.com/ZeroDot1/CoinBlockerLists/master/hosts -O coinblocker && sort -u coinblocker > /tmp/coinblocker.new && mv /tmp/coinblocker.new coinblocker
 	wget https://hosts-file.net/hphosts-partial.txt && sort -u hphosts-partial.txt > /tmp/hphosts-partial.new && mv /tmp/hphosts-partial.new hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
 	cat coinblocker >> hosts
@@ -60,7 +60,7 @@ then
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt -O spamhosts && sed -i -e 's/^/0.0.0.0  /' spamhosts && sort -u spamhosts > /tmp/spamhosts.new && mv /tmp/spamhosts.new spamhosts
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2 && sort -u Malwarehosts2 > /tmp/Malwarehosts2.new && mv /tmp/Malwarehosts2.new Malwarehosts2
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat hphosts >> hosts
 	cat hphosts-partial.txt >> hosts
 	cat cameleonhosts >> hosts
@@ -95,7 +95,7 @@ then
 	wget https://hosts-file.net/hphosts-partial.txt	&& sort -u hphosts-partial.txt > /tmp/hphosts-partial.new && mv /tmp/hphosts-partial.new hphosts-partial.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0 /' Malwarehosts2 && sort -u Malwarehosts2 > /tmp/Malwarehosts2.new && mv /tmp/Malwarehosts2.new Malwarehosts2
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat MVPShosts >> hosts
 	cat coinblocker >> hosts
 	cat Malwarehosts >> hosts
@@ -129,7 +129,7 @@ then
 	wget hosts-file.net/ad_servers.txt && sort -u ad_servers.txt > /tmp/ad_servers.new && mv /tmp/ad_servers.new ad_servers.txt
 	wget raw.githubusercontent.com/ZeroDot1/CoinBlockerLists/master/hosts -O coinblocker && sort -u coinblocker > /tmp/coinblocker.new && mv /tmp/coinblocker.new coinblocker
 	wget https://raw.githubusercontent.com/joeylane/hosts/master/hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts # Does block google
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat ad_servers.txt >> hosts
 	cat coinblocker >> hosts
 	cat Adguardlist >> hosts
@@ -142,7 +142,7 @@ then
 	unzip 'hosts.zip?raw=true'
 	mv hosts.txt hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	wget raw.githubusercontent.com/ZeroDot1/CoinBlockerLists/master/hosts -O coinblocker && sort -u coinblocker > /tmp/coinblocker.new && mv /tmp/coinblocker.new coinblocker
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat coinblocker >> hosts
 	cat Adguardlist >> hosts
 	rm'hosts.zip?raw=true' coinblocker Adguardlist
@@ -155,7 +155,7 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts && sort -u MVPShosts > /tmp/MVPShosts.new && mv /tmp/MVPShosts.new MVPShosts
 	wget http://www.malwaredomainlist.com/hostslist/hosts.txt -O Malwarehosts && sort -u Malwarehosts > /tmp/Malwarehosts.new && mv /tmp/Malwarehosts.new Malwarehosts
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/pgl.yoyo.org/list.txt -O Petersadslist && sed -i -e 's/^/0.0.0.0  /' Petersadslist && sort -u Petersadslist > /tmp/Petersadslist.new && mv /tmp/Petersadslist.new Petersadslist
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-immortaldomains/list.txt -O Malware2 && sed -i -e 's/^/0.0.0.0  /' Malware2 && sort -u Malware2 > /tmp/Malware2.new && mv /tmp/Malware2.new Malware2
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt -O Spamhosts && sed -i -e 's/^/0.0.0.0  /' Spamhosts && sort -u Spamhosts > /tmp/Spamhosts.new && mv /tmp/Spamhosts.new Spamhosts
@@ -218,7 +218,7 @@ then
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
 	wget https://hosts-file.net/ad_servers.txt && sort -u ad_servers.txt > /tmp/ad_servers.new && mv /tmp/ad_servers.new ad_servers.txt
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt -O Malwarehosts2 && sed -i 's/^/0.0.0.0  /' Malwarehosts2 && sort -u Malwarehosts2 > /tmp/Malwarehosts2.new && mv /tmp/Malwarehosts2.new Malwarehosts2
-	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sed -i '1,4d' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
+	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt -O Adguardlist && sed -i -e 's/^/0.0.0.0 /' Adguardlist && sort -u Adguardlist > /tmp/Adguardlist.new && mv /tmp/Adguardlist.new Adguardlist
 	cat MVPShosts >> hosts
 	cat coinblocker >> hosts
 	cat Malwarehosts >> hosts
