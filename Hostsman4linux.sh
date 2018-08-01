@@ -341,4 +341,5 @@ rm hosts
 		break
 	done
 
+mkdir $house/logs
 cat /etc/hosts > $house/logs/hosts.log
