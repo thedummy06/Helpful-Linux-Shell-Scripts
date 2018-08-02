@@ -341,5 +341,10 @@ rm hosts
 		break
 	done
 
-mkdir $house/logs
+find $house/logs/
+while [ $? -eq 0 ];
+do
+	mkdir $house/logs/
+break
+done
 cat /etc/hosts > $house/logs/hosts.log
