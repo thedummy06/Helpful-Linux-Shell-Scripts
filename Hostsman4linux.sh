@@ -342,7 +342,7 @@ rm hosts
 	done
 
 find $house/logs/
-while [ $? -eq 0 ];
+while [ $? -gt 0 ];
 do
 	mkdir $house/logs/
 break
