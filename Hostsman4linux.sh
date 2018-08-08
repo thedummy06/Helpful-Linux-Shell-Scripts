@@ -4,7 +4,7 @@
 echo "WARNING! USE OF THESE HOSTS COULD CAUSE MANY OF YOUR FAVORITE SITES TO CEASE FUNCTIONING. PROCEED WITH CAUTION."
 
 echo "searching for /etc/hosts.bak and then creating hosts file to block tracking"
-find /etc/hosts.bak 
+find /etc/hosts.bak > /dev/null 2&1
 while [ $? -gt 0 ]
 do  
 	sudo cp /etc/hosts /etc/hosts.bak
@@ -25,11 +25,11 @@ read package
 
 if [[ $package == 1 ]];
 then 
-#Steven Black's hosts without any other sources
+	#Steven Black's hosts without any other sources
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 elif [[ $package == 2 ]];
 then 
-#Steven Black's hosts and hphosts ad servers list also cameleon
+	#Steven Black's hosts and hphosts ad servers list also cameleon
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts && sort -u hosts > /tmp/host.new && mv /tmp/hosts.new hosts
 	wget https://hosts-file.net/ad_servers.txt && sort -u ad_servers.txt > /tmp/ad_servers.new && mv /tmp/ad_servers.new ad_servers.txt
 	wget http://sysctl.org/cameleon/hosts -O cameleonhosts && sort -u cameleonhosts > /tmp/cameleonhosts.new && mv /tmp/cameleonhosts.new cameleonhosts
@@ -38,7 +38,7 @@ then
 	rm ad_servers.txt cameleonhosts
 elif [[ $package == 3 ]];
 then
-#hphosts cameleon and coinblocker
+	#hphosts cameleon and coinblocker
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	wget raw.githubusercontent.com/ZeroDot1/CoinBlockerLists/master/hosts -O coinblocker && sort -u coinblocker > /tmp/coinblocker.new && mv /tmp/coinblocker.new coinblocker
 	wget https://hosts-file.net/hphosts-partial.txt && sort -u hphosts-partial.txt > /tmp/hphosts-partial.new && mv /tmp/hphosts-partial.new hphosts-partial.txt
@@ -49,7 +49,7 @@ then
 	rm hphosts-partial.txt cameleonhosts coinblocker
 elif [[ $package == 4 ]];
 then 
-#Sources include Steven Black's Hosts with hphosts and cameleon
+	#Sources include Steven Black's Hosts with hphosts and cameleon
 	wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	wget http://hosts-file.malwareteks.com/hosts.txt -O hphosts && sort -u hphosts > /tmp/hphosts.new && mv /tmp/hphosts.new hphosts
 	wget https://hosts-file.net/hphosts-partial.txt && sort -u hphosts-partial.txt > /tmp/hphosts-partial.new && mv /tmp/hphosts-partial.new hphosts-partial.txt
@@ -64,7 +64,7 @@ then
 	rm cameleonhosts hphosts hphosts-partial.txt spamhosts Malwarehosts2
 elif [[ $package == 5 ]];
 then
-#Same sources that Steven Black uses in his own hosts with other sources from hphosts and cameleon also spam404
+	#Same sources that Steven Black uses in his own hosts with other sources from hphosts and cameleon also spam404
 	wget https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts -O adservers.txt && sort -u adservers.txt > /tmp/adservers.new && mv /tmp/adservers.new adservers.txt
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts && sort -u MVPShosts > /tmp/MVPShosts.new && mv /tmp/MVPShosts.new MVPShosts
 	wget someonewhocares.org/hosts/hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
@@ -115,7 +115,7 @@ then
 	rm KADhosts.txt MVPShosts lightswitch05list coinblocker Malwarehosts Malwarehosts2 add.Spam add.Dead add.Risk add.2o7Net Badd-Boyz tyzbit adservers.txt hphosts-partial.txt hphosts cameleonhosts unchecky spamhosts Stevenhosts Pron Pron2 Gamblinglist fakenews
 elif [[ $package == 6 ]];
 then
-#Introducing Joey Lane's hosts
+	#Introducing Joey Lane's hosts
 	echo "This could block sites that you need, you've been warned."
 	sleep 1
 	wget hosts-file.net/ad_servers.txt && sort -u ad_servers.txt > /tmp/ad_servers.new && mv /tmp/ad_servers.new ad_servers.txt
@@ -127,7 +127,7 @@ then
 	#grep -v "Google.com" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts #This unblocks google.com outright
 elif [[ $package == 7 ]];
 then
-#Really large hosts file
+	#Really large hosts file
 	wget https://github.com/mitchellkrogza/Ultimate.Hosts.Blacklist/blob/master/hosts.zip?raw=true
 	unzip 'hosts.zip?raw=true'
 	mv hosts.txt hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
@@ -136,7 +136,7 @@ then
 	rm'hosts.zip?raw=true' coinblocker
 elif [[ $package == 8 ]];
 then
-#Umatrix style formula with some extras
+	#Umatrix style formula with some extras
 	wget hosts-file.net/ad_servers.txt && sort -u ad_servers.txt > /tmp/ad_servers.new && mv /tmp/ad_servers.new ad_servers.txt
 	wget someonewhocares.org/hosts/hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
 	wget raw.githubusercontent.com/ZeroDot1/CoinBlockerLists/master/hosts -O coinblocker && sort -u coinblocker > /tmp/coinblocker.new && mv /tmp/coinblocker.new coinblocker
@@ -157,7 +157,7 @@ then
 	rm ad_servers.txt Petersadslist coinblocker Malwarehosts Malware2 Spamhosts MVPShosts cameleonhosts
 elif [[ $package == 9 ]];
 then
-#Borrowed from Hblock on github, hphosts and a number of other sources
+	#Borrowed from Hblock on github, hphosts and a number of other sources
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-ad/list.txt -O Adslist && sed -i -e 's/^/0.0.0.0 /' Adslist && sed -i '1,4d' Adslist && sort -u Adslist > /tmp/Adslist.new && mv /tmp/Adslist.new Adslist
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-malvertising/list.txt -O Malvertisinglist && sed -i -e 's/^/0.0.0.0 /' Malvertisinglist && sed -i '1,4d' Malvertisinglist && sort -u Malvertisinglist > /tmp/Malvertisinglist.new && mv /tmp/Malvertisinglist.new Malvertisinglist
 	wget https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-malware/list.txt -O Malwarelist && sed -i -e 's/^/0.0.0.0 /' Malwarelist && sed -i '1,4d' Malwarelist && sort -u Malwarelist > /tmp/Malwarelist.new && mv /tmp/Malwarelist.new Malwarelist
@@ -178,7 +178,7 @@ then
 	rm Trackinglist Adslist Malvertisinglist Malwarehosts Malwarelist emd.txt fsa.txt psh.txt ad_servers.txt
 elif [[ $package == 10 ]];
 then
-#Steven Black's hosts with fully updated sources and with hosts-file.net ads servers added.
+	#Steven Black's hosts with fully updated sources and with hosts-file.net ads servers added.
 	wget https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts -O adservers.txt && sort -u adservers.txt > /tmp/adservers.new && mv /tmp/adservers.new adservers.txt
 	wget http://winhelp2002.mvps.org/hosts.txt -O MVPShosts && sort -u MVPShosts > /tmp/MVPShosts.new && mv /tmp/MVPShosts.new MVPShosts
 	wget someonewhocares.org/hosts/hosts && sort -u hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts
@@ -264,7 +264,7 @@ break
 done
 
 #Excludes domains to give you access to your favorite sites
-while [ $? -lt 1 ];
+while [ $? -eq 0 ];
 do
 	echo "Would you like to exclude a domain?(Y/n)"
 	read answer
@@ -286,58 +286,34 @@ sed -i 's/127.0.0.1/0.0.0.0/g' hosts
 sudo cat hosts >> /etc/hosts
 rm hosts
 
-#Checking distribution to determine best way to restart network
-	distribution=$(cat /etc/issue | awk '{print $1}')
-	find /etc/issue
-	while [ $? -eq 0 ];
-	do 
-		if [[ $distribution == Ubuntu ]];
-		then
-			sudo /etc/init.d/network-manager restart
-		elif [[ $distribution == Debian ]];
-		then
-			sudo /etc/init.d/network-manager restart
-		elif [[ $distribution == Linux ]];
-		then 
-			sudo /etc/init.d/network-manager restart
-		elif [[ $distribution == Manjaro ]];
-		then
-			sudo systemctl restart NetworkManager
-		elif [[ $distribution == Antergos ]];
-		then
-			sudo systemctl restart NetworkManager
-		else
-			echo "You're using a distribution I have not tested yet"
-		fi
-		break
-	done
-	
-	while [ $? -gt 0 ];
-	do 
-		find /etc/issue.net
-		if [[ $distribution == Ubuntu ]];
-		then
-			sudo /etc/init.d/network-manager restart
-		elif [[ $distribution == Debian ]];
-		then
-			sudo /etc/init.d/network-manager restart
-		elif [[ $distribution  == Linux ]];
-		then 
-			sudo /etc/init.d/network-manager restart
-		elif [[ $distribution == Manjaro ]];
-		then
-			sudo systemctl restart NetworkManager
-		elif [[ $distribution == Antergos ]];
-		then
-			sudo systemctl restart NetworkManager
-		else
-			echo "You're using a distribution I have not tested yet"
-		fi
-		break
-	done
+#Go to /etc/ directory and check for distribution specific directories
+find /etc/pacman.d > /dev/null 2&1
+if [ $? -eq 0 ];
+then
+	Networkmanager=$(find /usr/bin/wicd)
+	if [ $? -eq 0 ];
+	then
+		sudo systemctl restart wicd
+	else
+		sudo systemctl restart NetworkManager
+	fi
+fi
 
-find $house/logs/
-while [ $? -gt 0 ];
+find /etc/apt > /dev/null 2&1
+if [ $? -eq 0 ];
+then
+	Networkmanager=$(find /usr/bin/wicd)
+	if [ $? -eq 0 ];
+	then
+		sudo /etc/init.d/wicd restart
+	else
+		sudo /etc/init.d/network-manager restart
+	fi
+fi
+
+#Searches for logs fold to determine if we need to create it
+find $house/logs/ > /dev/null 2&1
+while [ $? -eq 1 ];
 do
 	mkdir $house/logs/
 break
