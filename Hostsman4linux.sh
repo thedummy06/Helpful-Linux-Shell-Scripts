@@ -4,7 +4,7 @@
 echo "WARNING! USE OF THESE HOSTS COULD CAUSE MANY OF YOUR FAVORITE SITES TO CEASE FUNCTIONING. PROCEED WITH CAUTION."
 
 echo "searching for /etc/hosts.bak and then creating hosts file to block tracking"
-find /etc/hosts.bak > /dev/null 2&1
+find /etc/hosts.bak
 while [ $? -gt 0 ]
 do  
 	sudo cp /etc/hosts /etc/hosts.bak
@@ -17,8 +17,6 @@ echo "Please enter your username."
 read username
 house=/home/$username
 cd $house
-
-package=$(1 2 3 4 5 6 7 8 9 10)
 
 echo "Select your package 1 2 3 4 5 6 7 8 9 10"
 read package
@@ -287,7 +285,7 @@ sudo cat hosts >> /etc/hosts
 rm hosts
 
 #Go to /etc/ directory and check for distribution specific directories
-find /etc/pacman.d > /dev/null 2&1
+find /etc/pacman.d > /dev/null
 if [ $? -eq 0 ];
 then
 	Networkmanager=$(find /usr/bin/wicd)
@@ -299,7 +297,7 @@ then
 	fi
 fi
 
-find /etc/apt > /dev/null 2&1
+find /etc/apt > /dev/null
 if [ $? -eq 0 ];
 then
 	Networkmanager=$(find /usr/bin/wicd)
@@ -312,7 +310,7 @@ then
 fi
 
 #Searches for logs fold to determine if we need to create it
-find $house/logs/ > /dev/null 2&1
+find $house/logs/ 
 while [ $? -eq 1 ];
 do
 	mkdir $house/logs/
