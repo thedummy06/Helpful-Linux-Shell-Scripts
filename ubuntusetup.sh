@@ -361,9 +361,9 @@ sudo update-grub2
 #Tweaks the sysctl config file
 sudo cp /etc/sysctl.conf /etc/sysctl.conf.bak
 echo "# Reduces the swap" | sudo tee -a /etc/sysctl.conf
-echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
+echo "vm.swappiness = 5" | sudo tee -a /etc/sysctl.conf
 echo "# Improve cache management" | sudo tee -a /etc/sysctl.conf
-echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
+echo "vm.vfs_cache_pressure = 50" | sudo tee -a /etc/sysctl.conf
 echo "#tcp flaw workaround" | sudo tee -a /etc/sysctl.conf
 echo "net.ipv4.tcp_challenge_ack_limit = 999999999" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
@@ -395,21 +395,20 @@ do
 		read answer 
 		while [ $answer == Y ];
 		do 
-			sudo fstrim -v /
+			sudo fstrim -v --all
 		break
 		done
 	fi
 done
 
-#Hosts file to block adverts
-echo "Would  you like to use a hosts file? (Y/n)"
-read answer
-if [[ $answer == Y ]];
-then 
-	sudo ./Hostsman4linux.sh
-else 
-	echo "Maybe later!"
-fi
+find Hostsman4linux.sh
+while [ $? -eq 1 ];
+do
+	wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Hostsman4linux.sh
+	chmod +x Hostsman4linux.sh
+break
+done
+sudo ./Hostsman4linux.sh
 
 #This adds a few aliases to bashrc
 echo "Aliases are shortcuts to commonly used commands."
@@ -445,16 +444,17 @@ host=$(hostname)
 Mountpoint=$(lsblk |awk '{print $7}' | grep /run/media/$USER/*)
 if [[ $Mountpoint != /run/media/$USER/* ]];
 then
-	read -p "Please enter a drive and hit enter"
+	read -p "Please insert a drive and hit enter"
 	echo $(lsblk | awk '{print $1}')
 	sleep 1 
 	echo "Please select the device you wish to use"
 	read device
 	sudo mount $device /mnt
-	sudo rsync -aAXv --delete --exclude=.cache --exclude=.thumbnails --exclude=Music --exclude=Wallpapers /home/$USER /mnt/$host-backups
-else
-	echo "Found a block device at designated coordinates, if this is the preferred
-	device, try umounting it and then running this again."
+	sudo rsync -aAXv --delete --exclude={"*.cache/*","*.thumbnails/*"."*/.local/share/Trash/*"} /home/$USER /mnt/$host-backups
+elif [[ $Mountpoint == /run/media/$USER/* ]];
+then
+	echo "Found a block device at designated coordinates... If this is the preferred
+	device, try umounting it, leave it plugged in, and then running this again. Press enter to continue..."
 fi
 
 #This gives some useful information for later troubleshooting 
@@ -464,6 +464,10 @@ echo "##############################################################" >> $host-s
 echo "SYSTEM INFORMATION" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "USER" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo $USER >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "DISTRIBUTION" >> $host-sysinfo.txt
@@ -476,7 +480,7 @@ echo "##############################################################" >> $host-s
 echo $DESKTOP_SESSION >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
-echo "SYSTEM INIT" >> $host-sysinfo.txt
+echo "SYSTEM INITIALIZATION" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 ps -p1 | awk 'NR!=1{print $4}' >> $host-sysinfo.txt	
 echo "" >> $host-sysinfo.txt
@@ -503,7 +507,12 @@ echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "UPTIME" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
-uptime >> $host-sysinfo.txt
+uptime -p >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "LOAD AVERAGE" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+cat /proc/loadavg >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "DISK SPACE" >> $host-sysinfo.txt
@@ -536,29 +545,34 @@ echo "##############################################################" >> $host-s
 ss -tulpn >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
+echo "FIREWALL STATUS" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+sudo ufw status verbose >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
 echo "PROCESS LIST" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
-ps -aux >> $host-sysinfo.txt
+ps -aux >> $host-sysinfo.txt	
 echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "LAST LOGIN ATTEMPTS" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+lastlog >> $host-sysinfo.txt
+echo "" >> host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "INSTALLED PACKAGES" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
-sudo pacman -Q >> $host-sysinfo.txt
+sudo apt list --installed >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "APPARMOR" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+sudo apparmor_status >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "Inxi" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 inxi -F >> $host-sysinfo.txt
-echo "" >> $host-sysinfo.txt
-echo "##############################################################" >> $host-sysinfo.txt
-echo "CPU TEMP" >> $host-sysinfo.txt
-echo "##############################################################" >> $host-sysinfo.txt
-sensors >> $host-sysinfo.txt
-echo "" >> $host-sysinfo.txt
-echo "##############################################################" >> $host-sysinfo.txt
-echo "HD TEMP" >> $host-sysinfo.txt
-echo "##############################################################" >> $host-sysinfo.txt
-sudo hddtemp /dev/sda >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo " DRIVER INFO" >> $host-sysinfo.txt
@@ -591,6 +605,11 @@ echo "##############################################################" >> $host-s
 lscpu >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
+echo "TLP STATS" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+sudo tlp-stat >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
 echo "LOGS" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 sudo dmesg >> $host-sysinfo.txt
@@ -619,7 +638,6 @@ echo "##############################################################" >> $host-s
 echo "SYSTEMD'S FAILED LIST" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 systemctl --failed >> $host-sysinfo.txt
-echo "" >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "END OF FILE" >> $host-sysinfo.txt

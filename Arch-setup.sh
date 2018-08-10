@@ -29,14 +29,14 @@ fi
 #This restricts coredumps to prevent attackers from getting info
 sudo cp /etc/systemd/coredump.conf /etc/systemd/coredump.conf.bak
 sudo sed -i -e '/#Storage=external/c\Storage=none ' /etc/systemd/coredump.conf
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak 
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 sudo sed -i -e '/#PermitRootLogin/c\PermitRootLogin no ' /etc/ssh/sshd_config
 sudo touch /etc/sysctl.d/50-dmesg-restrict.conf
 sudo touch /etc/sysctl.d/50-kptr-restrict.conf
 sudo touch /etc/sysctl.d/99-sysctl.conf
 echo "kernel.dmesg_restrict = 1" | sudo tee -a /etc/sysctl.d/50-dmesg-restrict.conf
 echo "kernel.kptr_restrict = 1" | sudo tee -a /etc/sysctl.d/50-kptr-restrict.conf
-echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-sysctl.conf #lowers swap value
+echo "vm.swappiness = 5" | sudo tee -a /etc/sysctl.d/99-sysctl.conf #lowers swap value
 sudo sysctl --system
 sudo systemctl daemon-reload
 
@@ -79,13 +79,12 @@ for n in $distribution;
 do
 	if [[ $distribution == Manjaro ]];
 	then
-		sudo pacman-mirrors -G
-		sudo pacman-optimize && sync
-		sudo pacman -Syyu --noconfirm 
+		sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu --noconfirm
 		if [[ $? -eq 0 ]]; 
 		then 
 			echo "Update succeeded" 
 		else
+			sudo rm -f /var/lib/pacman/sync/*
 			sudo rm /var/lib/pacman/db.lck 
 			sudo rm -r /etc/pacman.d/gnupg 
 			sudo pacman -Sy gnupg archlinux-keyring manjaro-keyring
@@ -93,16 +92,17 @@ do
 			sudo pacman-key --populate archlinux manjaro 
 			sudo pacman-key --refresh-keys 
 			sudo pacman -Sc
-			sudo pacman -Syyu
-	fi
+			sudo pacman -Syyu --noconfirm
+		fi
 	elif [[ $distribution == Antergos ]];
 	then
-			sudo pacman rankmirrors /etc/pacman.d/antergos-mirrorlist
-			sudo pacman -Syyu --noconfirm
+		sudo pacman rankmirrors /etc/pacman.d/antergos-mirrorlist
+		sudo pacman -Syyu --noconfirm
 		if [[ $? -eq 0 ]]; 
 		then 
 			echo "update successful"
 		else 
+			sudo rm -f /var/lib/pacman/sync/*
 			sudo rm /var/lib/pacman/db.lck 
 			sudo rm -r /etc/pacman.d/gnupg 
 			sudo pacman -Sy --noconfirm gnupg archlinux-keyring antergos-keyring
@@ -498,9 +498,13 @@ echo "Would  you like to use a hosts file to block adverts? (Y/n)"
 read answer
 if [[ $answer == Y ]];
 then 
+	while [ $? -eq 0];
+	do
+		wget https://raw.githubusercontent.com/thedummy06/Helpful-Linux-Shell-Scripts/master/Hostsman4linux.sh
+		chmod +x Hostsman4linux.sh
+	break
+	done
 	sudo ./Hostsman4linux.sh
-else 
-	echo "Okay!"
 fi
 
 #This determines what type of drive you have, then offers to enable trim or write-back caching
@@ -525,6 +529,8 @@ do
 		while [ $answer == Y ];
 		do 
 			sudo systemctl enable fstrim.timer
+			sudo systemctl start fstrim.timer
+			sudo systemctl enable fstrim.service
 			sudo systemctl start fstrim.service
 		break
 		done
@@ -563,27 +569,26 @@ then
 	echo 'alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"' >> ~/.bashrc
 	echo "#Alias to update the system" >> ~/.bashrc
 	echo 'alias pacup="sudo pacman -Syu"' >> ~/.bashrc
-	echo "#Alias to update hosts file" >> ~/.bashrc
-	echo 'alias hostsup="sudo ./Hostsman4linux.sh"' >> ~/.bashrc
 	echo "#Alias to update the mirrors and sync the repos" >> ~/.bashrc
 	echo 'alias mirrors="sudo pacman-mirrors -G && sudo pacman -Syy"' >> ~/.bashrc
 fi
 
-#This tries to backup your system
+#This backsups the system assuming you have your external drive mounted to /mnt
 host=$(hostname)
-Mountpoint=$(lsblk |awk '{print $7}' | grep /run/media/$USER/*)
+Mountpoint=$(lsblk | awk '{print $7}' | grep /run/media/$USER/*)
 if [[ $Mountpoint != /run/media/$USER/* ]];
 then
-	read -p "Please enter a drive and hit enter"
+	read -p "Please insert a drive and hit enter"
 	echo $(lsblk | awk '{print $1}')
 	sleep 1 
 	echo "Please select the device you wish to use"
 	read device
 	sudo mount $device /mnt
-	sudo rsync -aAXv --delete --exclude=.cache --exclude=.thumbnails --exclude=Music --exclude=Wallpapers /home/$USER /mnt/$host-backups
-else
-	echo "Found a block device at designated coordinates, if this is the preferred
-	device, try umounting it and then running this again."
+	sudo rsync -aAXv --delete --exclude={"*.cache/*","*.thumbnails/*"."*/.local/share/Trash/*"} /home/$USER /mnt/$host-backups
+elif [[ $Mountpoint == /run/media/$USER/* ]];
+then
+	read -p "Found a block device at designated coordinates...
+	If this is the preferred drive, unmount it, leave it plugged in, and run this again. Press enter to continue..."
 fi
 
 #This gives some useful information for later troubleshooting 
@@ -593,6 +598,10 @@ echo "##############################################################" >> $host-s
 echo "SYSTEM INFORMATION" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "USER" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo $USER >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "DISTRIBUTION" >> $host-sysinfo.txt
@@ -605,7 +614,7 @@ echo "##############################################################" >> $host-s
 echo $DESKTOP_SESSION >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
-echo "SYSTEM INIT" >> $host-sysinfo.txt
+echo "SYSTEM INITIALIZATION" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 ps -p1 | awk 'NR!=1{print $4}' >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
@@ -613,6 +622,11 @@ echo "##############################################################" >> $host-s
 echo "DATE" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 date >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "UPDATE CHANNEL" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+cat /etc/pacman-mirrors.conf | grep "Branch" >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "KERNEL AND OPERATING SYSTEM INFORMATION" >> $host-sysinfo.txt
@@ -632,7 +646,12 @@ echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "UPTIME" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
-uptime >> $host-sysinfo.txt
+uptime -p >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "LOAD AVERAGE" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+cat /proc/loadavg >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "DISK SPACE" >> $host-sysinfo.txt
@@ -647,7 +666,7 @@ echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "LISTS ALL BLOCK DEVICES WITH SIZE" >> $host-sysinfo.txt 
 echo "##############################################################" >> $host-sysinfo.txt
-lsblk -o NAME,SIZE >> $host-sysinfo.txt
+lsblk -o NAME,SIZE >> $host-sysinfo.tx
 echo"" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "BLOCK DEVICE ID " >> $host-sysinfo.txt
@@ -665,10 +684,20 @@ echo "##############################################################" >> $host-s
 ss -tulpn >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
+echo "FIREWALL STATUS" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+sudo ufw status verbose >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
 echo "PROCESS LIST" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 ps -aux >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+echo "LAST LOGIN ATTEMPTS" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+lastlog >> $host-sysinfo.txt
+echo "" >> host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "INSTALLED PACKAGES" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
@@ -720,6 +749,11 @@ echo "##############################################################" >> $host-s
 lscpu >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
+echo "TLP STATS" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
+sudo tlp-stat >> $host-sysinfo.txt
+echo "" >> $host-sysinfo.txt
+echo "##############################################################" >> $host-sysinfo.txt
 echo "LOGS" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 sudo dmesg >> $host-sysinfo.txt
@@ -748,7 +782,6 @@ echo "##############################################################" >> $host-s
 echo "SYSTEMD'S FAILED LIST" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 systemctl --failed >> $host-sysinfo.txt
-echo "" >> $host-sysinfo.txt
 echo "" >> $host-sysinfo.txt
 echo "##############################################################" >> $host-sysinfo.txt
 echo "END OF FILE" >> $host-sysinfo.txt

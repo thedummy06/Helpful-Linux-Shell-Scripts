@@ -41,6 +41,115 @@ case $operation in
 	;;
 esac
 
+#This can repair your browsers
+cat << _EOF_
+This can fix a lot of the usual issues with a few of the bigger browsers. 
+These can include performance hitting issues. If your browser needs a tuneup,
+it is probably best to do it in the browser itself, but when you just want something
+fast, this can do it for you. More browsers and options are coming.
+_EOF_
+echo "Would you like to repair your browser?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+ #Look for the following browsers
+ browser1="$(find /usr/bin/firefox)"
+ browser2="$(find /usr/bin/vivaldi*)"
+ browser3="$(find /usr/bin/palemoon)"
+ browser4="$(find /usr/bin/google-chrome*)"
+ browser5="$(find /usr/bin/chromium)"
+ browser6="$(find /usr/bin/opera)"
+ browser7="$(find /usr/bin/waterfox)"
+
+ echo $browser1
+ echo $browser2
+ echo $browser3
+ echo $browser4
+ echo $browser5
+ echo $browser6
+ echo $browser7
+
+ sleep 1
+
+ echo "choose the browser you wish to reset"
+ echo "1 - Firefox"
+ echo "2 - Vivaldi" 
+ echo "3 - Pale Moon"
+ echo "4 - Chrome"
+ echo "5 - Chromium"
+ echo "6 - Opera"
+ echo "7 - Vivaldi-snapshot"
+ echo "8 - Waterfox"
+
+ read operation;
+
+ case $operation in
+  	 1)
+	 sudo cp -r ~/.mozilla/firefox ~/.mozilla/firefox-old
+	 sudo rm -r ~/.mozilla/firefox/profile.ini 
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+	 2)
+	 sudo cp -r ~/.config/vivaldi/ ~/.config/vivaldi-old
+	 sudo rm -r ~/.config/vivaldi/* 
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+	 3)
+	 sudo cp -r ~/'.moonchild productions'/'pale moon' ~/'.moonchild productions'/'pale moon'-old
+	 sudo rm -r ~/'.moonchild productions'/'pale moon'/profile.ini 
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+	 4)
+	 sudo cp -r ~/.config/google-chrome ~/.config/google-chrome-old
+	 sudo rm -r ~/.config/google-chrome/*
+	 echo "Your browser has now been reset"
+	 sleep 1 
+ ;;
+	 5)
+	 sudo cp -r ~/.config/chromium ~/.config/chromium-old
+	 sudo rm -r ~/.config/chromium/*
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+ 	 6)
+	 sudo cp -r ~/.config/opera ~/.config/opera-old
+	 sudo rm -r ~/.config/opera/* 
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+	 7)
+	 sudo cp -r ~/.config/vivaldi-snapshot ~/.config/vivaldi-snapshot-old
+	 sudo rm -r ~/.config/vivaldi-snapshot/*
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+	 8)
+	 sudo cp -r ~/.waterfox ~/.waterfox-old
+	 sudo rm -r ~/.waterfox/*
+	 echo "Your browser has now been reset"
+	 sleep 1
+ ;;
+	 *)
+	 echo "No browser for that entry exists, please try again!"
+	 sleep 1 
+ esac
+	
+ #Change the default browser
+ echo "Would you like to change your default browser also?(Y/n)"
+ read answer
+ while [ $answer == Y ];
+ do
+	 echo "Enter the name of the browser you wish to use"
+	 read browser
+	 xdg-settings set default-web-browser $browser.desktop
+ break
+ done
+break
+done
+
 #This refreshes systemd in case of failed or changed units
 sudo systemctl daemon-reload
 
@@ -61,6 +170,17 @@ do
 		sudo ip link set $interface up #Refer to networkconfig.log
 	fi
 done 
+
+#This attempts to rank mirrors and update your system
+distribution=$(cat /etc/issue | awk '{print $1}')
+if [[ $distribution == Manjaro ]];
+then
+	sudo pacman-mirrors --fasttrack 5 && sudo pacman -Syyu --noconfirm
+else
+	sudo reflector -l 50 -f 20 --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d
+	sudo rankmirrors -n 0 /etc/pacman.d/antergos-mirrorlist > /tmp/antergos-mirrorlist && sudo cp /tmp/antergos-mirrorlist /etc/pacman.d
+	sudo pacman -Syyu --noconfirm
+fi
 
 #This gives a list of available kernels and offers to both install and uninstall them
 echo "What would you like to do today?"
@@ -116,10 +236,16 @@ sudo rm -r .cache/*
 sudo rm -r .thumbnails/*
 sudo rm -r ~/.local/share/Trash
 sudo rm -r ~/.nv/*
+sudo rm -r ~/.npm/*
+sudo rm -r ~/.w3m/*
+sudo rm -r ~/.esd_auth #Best I can tell cookie for pulse audio
 sudo rm -r ~/.local/share/recently-used.xbel
 sudo rm -r /tmp/* 
 find ~/Downloads/* -type f -mtime +1 -exec rm {} \; #Deletes contents older than one day
 history -cw && cat /dev/null/ > ~/.bash_history
+
+#This clears the cached RAM 
+sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
 
 #This could clean your Video folder and Picture folder based on a set time
 TRASHCAN=~/.local/share/Trash/
@@ -189,21 +315,11 @@ case $operation in
 	;;
 esac
 
-#This attempts to rank mirrors and update your system
-distribution=$(cat /etc/issue | awk '{print $1}')
-if [[ $distribution == Manjaro ]];
-then
-	sudo pacman-mirrors -G 
-	sudo pacman-optimize && sync
-	sudo pacman -Syyu --noconfirm
-else
-	sudo reflector -l 50 -f 20 --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d
-	sudo rankmirrors -n 0 /etc/pacman.d/antergos-mirrorlist > /tmp/antergos-mirrorlist && sudo cp /tmp/antergos-mirrorlist /etc/pacman.d
-	sudo pacman -Syyu --noconfirm
-fi
-
 #This refreshes index cache
 sudo updatedb && sudo mandb 
+
+#This will reload the firewall to ensure it's enabled
+sudo ufw reload
 
 #update the grub 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -211,24 +327,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 #This runs a disk checkup and attempts to fix filesystem
 sudo touch /forcefsck 
 
-#This tries to backup your system
-host=$(hostname)
-Mountpoint=$(lsblk |awk '{print $7}' | grep /run/media/$USER/*)
-if [[ $Mountpoint != /run/media/$USER/* ]];
-then
-	read -p "Please enter a drive and hit enter"
-	echo $(lsblk | awk '{print $1}')
-	sleep 1 
-	echo "Please select the device you wish to use"
-	read device
-	sudo mount $device /mnt
-	sudo rsync -aAXv --delete --exclude=.cache --exclude=.thumbnails --exclude=Music --exclude=Wallpapers /home/$USER /mnt/$host-backups
-else
-	echo "Found a block device at designated coordinates, if this is the preferred
-	device, try umounting it and then running this again."
-fi
-
-#This tries to restor the home folder from backup
+#This tries to restore the home folder from backup
 cat <<_EOF_
 This tries to restore the home folder and nothing else, if you want to 
 restore the entire system,  you will have to do that in a live environment.
@@ -246,13 +345,14 @@ then
 	echo "Please select the device from the list"
 	read device
 	sudo mount $device /mnt 
-	sudo rsync -aAXv --delete /mnt/$host-backups /home/$USER
+	sudo rsync -aAXv --delete --exclude={"*.cache/*","*.thumbnails/*"."*/.local/share/Trash/*"}  /mnt/$host-backups/* /home
 	sudo sync 
 	Restart
-else
-	echo "Found a block device at designated coordinates, if this is the preferred
-	drive, try unmounting the device and running this again."
-fi 
+elif [[ $Mountpoint == /run/media/$USER/* ]];
+then
+	read -p "Found a block device at designated coordinates... If this is the preferred
+	drive, try unmounting the device, leaving it plugged in, and running this again. Press enter to continue..."
+fi
 
 #Optional and prolly not needed
 #sudo e4defrag / -c > fragmentation.log #only to be used on HDD

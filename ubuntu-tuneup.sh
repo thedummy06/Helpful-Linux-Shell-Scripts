@@ -79,6 +79,119 @@ else
 	echo "You might be running an init system I haven't tested yet"
 fi
 done
+
+#This can repair your browser
+cat << _EOF_
+This can fix a lot of the usual issues with a few of the bigger browsers. 
+These can include performance hitting issues. If your browser needs a tuneup,
+it is probably best to do it in the browser itself, but when you just want something
+fast, this can do it for you. More browsers and options are coming.
+_EOF_
+
+echo "Would you like to repair your browser?(Y/n)"
+read answer
+while [ $answer == Y ];
+do
+
+	#Look for the following browsers
+	browser1="$(find /usr/bin/firefox)"
+	browser2="$(find /usr/bin/vivaldi*)"
+	browser3="$(find /usr/bin/palemoon)"
+	browser4="$(find /usr/bin/google-chrome*)"
+	browser5="$(find /usr/bin/chromium)"
+	browser6="$(find /usr/bin/opera)"
+	browser7="$(find /usr/bin/waterfox)"
+
+	echo $browser1
+	echo $browser2
+	echo $browser3
+	echo $browser4
+	echo $browser5
+	echo $browser6
+	echo $browser7
+
+	sleep 1
+
+	echo "choose the browser you wish to reset"
+	echo "1 - Firefox"
+	echo "2 - Vivaldi" 
+	echo "3 - Pale Moon"
+	echo "4 - Chrome"
+	echo "5 - Chromium"
+	echo "6 - Opera"
+	echo "7 - Vivaldi-snapshot"
+	echo "8 - Waterfox"
+
+	read operation;
+
+	case $operation in
+		1)
+		sudo cp -r ~/.mozilla/firefox ~/.mozilla/firefox-old
+		sudo rm -r ~/.mozilla/firefox/profile.ini 
+		echo "Your browser has now been reset"
+		sleep 1
+	;;
+		2)
+		sudo cp -r ~/.config/vivaldi/ ~/.config/vivaldi-old
+		sudo rm -r ~/.config/vivaldi/* 
+		echo "Your browser has now been reset"
+		sleep 1
+	;;
+		3)
+		sudo cp -r ~/'.moonchild productions'/'pale moon' ~/'.moonchild productions'/'pale moon'-old
+		sudo rm -r ~/'.moonchild productions'/'pale moon'/profile.ini 
+		echo "Your browser has now been reset"
+		sleep 1
+	;;	
+		4)
+		sudo cp -r ~/.config/google-chrome ~/.config/google-chrome-old
+		sudo rm -r ~/.config/google-chrome/*
+		echo "Your browser has now been reset"
+		sleep 1 
+	;;
+		5)
+		sudo cp -r ~/.config/chromium ~/.config/chromium-old
+		sudo rm -r ~/.config/chromium/*
+		echo "Your browser has now been reset"
+		sleep 1
+	;;
+		6)
+		sudo cp -r ~/.config/opera ~/.config/opera-old
+		sudo rm -r ~/.config/opera/* 
+		echo "Your browser has now been reset"
+		sleep 1
+	;;	
+		7)
+		sudo cp -r ~/.config/vivaldi-snapshot ~/.config/vivaldi-snapshot-old
+		sudo rm -r ~/.config/vivaldi-snapshot/*
+		echo "Your browser has now been reset"
+		sleep 1
+	;;
+		8)
+		sudo cp -r ~/.waterfox ~/.waterfox-old
+		sudo rm -r ~/.waterfox/*
+		echo "Your browser has now been reset"
+		sleep 1
+	;;
+		*)
+		echo "No browser for that entry exists, please try again"
+		sleep 1
+		clear
+		Greeting
+	esac
+	
+	#Change the default browser
+	echo "Would you like to change your default browser also?(Y/n)"
+	read answer
+	while [ $answer == Y ];
+	do
+		echo "Enter the name of the browser you wish to use"
+		read browser
+		sudo update-alternatives --set x-www-browser /usr/bin/$browser
+	break
+	done
+break
+done
 		
 #This restarts systemd daemon. This can be useful for different reasons.
 sudo systemctl daemon-reload #For systemd releases
