@@ -270,7 +270,7 @@ do
 	then
 		echo "Enter the domain you wish to exclude"
 		read domain
-		grep -v "$domain" hosts > /tmp/hosts.new && mv /tmp/hosts.new hosts 
+		sed -i "/$domain/d" hosts
 	else
 		break
 	fi
